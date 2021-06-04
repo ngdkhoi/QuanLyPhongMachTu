@@ -25,6 +25,7 @@
                          Margin="15" Width="200"
                          Text="{Binding Account}"/>
                 <component:BindablePassword Grid.Row="1" 
+                         
                          materialDesign:HintAssist.Hint="Mật khẩu" 
                          Margin="15" Width="200"
                          Password ="{Binding Password}"/>
