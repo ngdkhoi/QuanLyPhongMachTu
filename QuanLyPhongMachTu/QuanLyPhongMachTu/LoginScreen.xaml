@@ -24,8 +24,7 @@
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                          Margin="15" Width="200"
                          Text="{Binding Account}"/>
-                <component:BindablePassword Grid.Row="1" 
-                         
+                <component:BindablePassword Grid.Row="1"
                          materialDesign:HintAssist.Hint="Mật khẩu" 
                          Margin="15" Width="200"
                          Password ="{Binding Password}"/>
@@ -37,14 +36,14 @@
                     <Button Grid.Column="0" HorizontalAlignment="Center"
                             Style="{StaticResource MaterialDesignRaisedButton}"
                             Width="110"
-                            ToolTip="Resource name: MaterialDesignRaisedButton"
+                            ToolTip="Đăng nhập"
                             Margin="15" 
                             Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=Login}"
                             Content="Đăng nhập"/>
                     <Button Grid.Column="1" HorizontalAlignment="Center"
                             Style="{StaticResource MaterialDesignRaisedButton}"
                             Width="110"
-                            ToolTip="Resource name: MaterialDesignRaisedButton"
+                            ToolTip="Thoát"
                             Margin="15" Background="Red"
                             Command="{Binding CloseCommand}" CommandParameter="{Binding ElementName=Login}"
                             Content="Thoát"/>

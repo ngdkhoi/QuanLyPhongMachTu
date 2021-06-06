@@ -8,6 +8,74 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="55"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+
+        </StackPanel>
+        <Grid Grid.Row="2" x:Name="GridPriciple">
+
+        </Grid>
+        <StackPanel Grid.Row="1" Background="LightGray" >
+            <ListView x:Name="ListViewMenu" SelectionChanged="ListViewMenu_SelectionChanged" SelectedIndex="0">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Orientation="Horizontal" Background="DarkGray"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListViewItem Width="80" Height="55" Margin="10 0 0 0"
+                              ToolTip="Lập danh sách bệnh nhân" Background="LightGray"
+                              HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid Width="50">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <materialDesign:PackIcon Grid.Row="1" Kind="FileAccount" Width="20" Height="20" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Row="0" Text="Danh sách" FontSize="10" Margin="0 0 0 5" HorizontalAlignment="Center"/>
+                    </Grid>
+                </ListViewItem>
+                <ListViewItem Width="80" Height="55" Margin="10 0 0 0" 
+                              ToolTip="Lập phiếu khám" Background="LightGray"
+                              HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid Width="50">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <materialDesign:PackIcon Grid.Row="1" Kind="Stethoscope" Width="20" Height="20" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Row="0" Text="Phiếu khám" FontSize="10" Margin="0 0 0 5" HorizontalAlignment="Center"/>
+                    </Grid>
+                </ListViewItem>
+                <ListViewItem Width="80" Height="55" Margin="10 0 0 0" 
+                              ToolTip="Tra cứu bệnh nhân" Background="LightGray"
+                              HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid Width="50">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <materialDesign:PackIcon Grid.Row="1" Kind="FileFind" Width="20" Height="20" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Row="0" Text="Tra cứu" FontSize="10" Margin="0 0 0 5" HorizontalAlignment="Center"/>
+                    </Grid>
+                </ListViewItem>
+                <ListViewItem Width="80" Height="55" Margin="10 0 0 0" 
+                              ToolTip="Lập Hóa đơn bệnh nhân" Background="LightGray"
+                              HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid Width="50">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <materialDesign:PackIcon Grid.Row="1" Kind="Invoice" Width="20" Height="20" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Row="0" Text="Hóa đơn" FontSize="10" Margin="0 0 0 5" HorizontalAlignment="Center"/>
+                    </Grid>
+                </ListViewItem>
+            </ListView>
+        </StackPanel>
+
     </Grid>
 </Window>

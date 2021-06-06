@@ -66,13 +66,30 @@
     <Compile Include="Component\BindablePassword.xaml.cs">
       <DependentUpon>BindablePassword.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DiagnosisScreen.xaml.cs">
+      <DependentUpon>DiagnosisScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Notification.xaml.cs">
       <DependentUpon>Notification.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PatientListScreen.xaml.cs">
+      <DependentUpon>PatientListScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PayScreen.xaml.cs">
+      <DependentUpon>PayScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SearchScreen.xaml.cs">
+      <DependentUpon>SearchScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\NotificationViewModel.cs" />
     <Page Include="Component\BindablePassword.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DiagnosisScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -99,7 +116,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="PatientListScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PayScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ResourceXAML\MainResource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SearchScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

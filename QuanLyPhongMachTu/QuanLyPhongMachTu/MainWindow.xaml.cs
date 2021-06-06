@@ -24,5 +24,32 @@ namespace QuanLyPhongMachTu
         {
             InitializeComponent();
         }
+
+        private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int index = ListViewMenu.SelectedIndex;
+
+            switch (index)
+            {
+                case 0:
+                    GridPriciple.Children.Clear();
+                    GridPriciple.Children.Add(new PatientListScreen());
+                    break;
+                case 1:
+                    GridPriciple.Children.Clear();
+                    GridPriciple.Children.Add(new DiagnosisScreen());
+                    break;
+                case 2:
+                    GridPriciple.Children.Clear();
+                    GridPriciple.Children.Add(new SearchScreen());
+                    break;
+                case 3:
+                    GridPriciple.Children.Clear();
+                    GridPriciple.Children.Add(new PayScreen());
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
