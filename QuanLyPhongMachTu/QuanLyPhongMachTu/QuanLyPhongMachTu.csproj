@@ -66,6 +66,7 @@
     <Compile Include="Component\BindablePassword.xaml.cs">
       <DependentUpon>BindablePassword.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converter\DateConveter.cs" />
     <Compile Include="DiagnosisScreen.xaml.cs">
       <DependentUpon>DiagnosisScreen.xaml</DependentUpon>
     </Compile>
@@ -85,6 +86,7 @@
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\NotificationViewModel.cs" />
+    <Compile Include="ViewModel\PatientListViewModel.cs" />
     <Page Include="Component\BindablePassword.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

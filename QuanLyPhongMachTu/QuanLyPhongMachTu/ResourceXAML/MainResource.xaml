@@ -4,4 +4,5 @@
                     xmlns:local="clr-namespace:QuanLyPhongMachTu.ResourceXAML">
     <viewmodel:LoginViewModel x:Key="LoginVM"></viewmodel:LoginViewModel>
     <viewmodel:NotificationViewModel x:Key="NotificationVM"></viewmodel:NotificationViewModel>
+    <viewmodel:PatientListViewModel x:Key="PatientListVM"></viewmodel:PatientListViewModel>
 </ResourceDictionary>
