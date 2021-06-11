@@ -25,7 +25,6 @@ namespace QuanLyPhongMachTu.dateConverter
             }
             string Date = "";
             Date = tmp[1] + "/" + tmp[0] + "/" + tmp[2];
-            Date = Date.TrimEnd('/');
             return Date;
         }
 
