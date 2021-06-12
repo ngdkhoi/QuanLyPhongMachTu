@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e6b988e96fc84f03be1de13a4a3d6b2b" Name="Diagram1" ZoomLevel="55">
+        <EntityTypeShape EntityType="DesignModel.BacSi" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignModel.BaoCaoDoanhThuThang" Width="1.5" PointX="10.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignModel.BaoCaoThuoc" Width="1.5" PointX="8.25" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignModel.BenhNhan" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignModel.ChiTietBaoCaoDoanhThu" Width="1.5" PointX="13" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignModel.ChiTietBaoCaoThuoc" Width="1.5" PointX="10.5" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignModel.ChiTietDanhSachKham" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignModel.ChiTietDonThuoc" Width="1.5" PointX="10.5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignModel.DoanhThuNgay" Width="1.5" PointX="10.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignModel.DonThuoc" Width="1.5" PointX="8.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignModel.HoaDon" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignModel.LoaiBenh" Width="1.5" PointX="3.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignModel.PhieuKham" Width="1.5" PointX="6" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignModel.Thuoc" Width="1.5" PointX="8.25" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignModel.TrieuChung" Width="1.5" PointX="8.25" PointY="7.625" IsExpanded="true" />
+        <AssociationConnector Association="DesignModel.FK_PhieuKham_BacSi" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignModel.FK_ChiTietBaoCaoDoanhThu_BaoCaoDoanhThuThang" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignModel.FK_ChiTietBaoCaoThuoc_BaoCaoThuoc" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignModel.FK_ChiTietDanhSachKham_BenhNhan" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignModel.FK_HoaDon_BenhNhan" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignModel.FK_PhieuKham_BenhNhan" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignModel.FK_ChiTietBaoCaoDoanhThu_DoanhThuNgay" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignModel.FK_ChiTietBaoCaoThuoc_Thuoc" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignModel.FK_ChiTietDonThuoc_DonThuoc" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignModel.FK_ChiTietDonThuoc_Thuoc" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignModel.FK_DonThuoc_PhieuKham" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignModel.ChuanDoanBenh" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignModel.TrieuChungGhiNhan" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
