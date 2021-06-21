@@ -70,8 +70,32 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
+                        <materialDesign:PackIcon Grid.Row="1" Kind="Pill" Width="20" Height="20" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Row="0" Text="Thuốc" FontSize="10" Margin="0 0 0 5" HorizontalAlignment="Center"/>
+                    </Grid>
+                </ListViewItem>
+                <ListViewItem Width="80" Height="55" Margin="10 0 0 0" 
+                              ToolTip="Lập Hóa đơn bệnh nhân" Background="LightGray"
+                              HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid Width="50">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
                         <materialDesign:PackIcon Grid.Row="1" Kind="Invoice" Width="20" Height="20" HorizontalAlignment="Center"/>
-                        <TextBlock Grid.Row="0" Text="Hóa đơn" FontSize="10" Margin="0 0 0 5" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Row="0" Text="Doanh thu" FontSize="10" Margin="0 0 0 5" HorizontalAlignment="Center"/>
+                    </Grid>
+                </ListViewItem>
+                <ListViewItem Width="80" Height="55" Margin="10 0 0 0" 
+                              ToolTip="Lập Hóa đơn bệnh nhân" Background="LightGray"
+                              HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid Width="50">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <materialDesign:PackIcon Grid.Row="1" Kind="Settings" Width="20" Height="20" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Row="0" Text="Cài đặt" FontSize="10" Margin="0 0 0 5" HorizontalAlignment="Center"/>
                     </Grid>
                 </ListViewItem>
             </ListView>

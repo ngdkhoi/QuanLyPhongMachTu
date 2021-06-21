@@ -46,7 +46,15 @@ namespace QuanLyPhongMachTu
                     break;
                 case 3:
                     GridPriciple.Children.Clear();
-                    GridPriciple.Children.Add(new PayScreen());
+                    GridPriciple.Children.Add(new MedicineScreen());
+                    break;
+                case 4:
+                    GridPriciple.Children.Clear();
+                    GridPriciple.Children.Add(new RevenueScreen());
+                    break;
+                case 5:
+                    GridPriciple.Children.Clear();
+                    GridPriciple.Children.Add(new SettingScreen());
                     break;
                 default:
                     break;

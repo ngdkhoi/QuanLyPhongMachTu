@@ -79,6 +79,9 @@
     <Compile Include="DiagnosisScreen.xaml.cs">
       <DependentUpon>DiagnosisScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MedicineScreen.xaml.cs">
+      <DependentUpon>MedicineScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\BacSi.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
@@ -145,11 +148,14 @@
     <Compile Include="PatientListScreen.xaml.cs">
       <DependentUpon>PatientListScreen.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PayScreen.xaml.cs">
-      <DependentUpon>PayScreen.xaml</DependentUpon>
+    <Compile Include="RevenueScreen.xaml.cs">
+      <DependentUpon>RevenueScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="SearchScreen.xaml.cs">
       <DependentUpon>SearchScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SettingScreen.xaml.cs">
+      <DependentUpon>SettingScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
@@ -183,6 +189,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MedicineScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Notification.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -191,15 +201,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PayScreen.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ResourceXAML\MainResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="RevenueScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SearchScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SettingScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

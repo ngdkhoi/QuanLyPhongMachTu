@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace QuanLyPhongMachTu
 {
     /// <summary>
-    /// Interaction logic for PayScreen.xaml
+    /// Interaction logic for SettingScreen.xaml
     /// </summary>
-    public partial class PayScreen : UserControl
+    public partial class SettingScreen : UserControl
     {
-        public PayScreen()
+        public SettingScreen()
         {
             InitializeComponent();
         }

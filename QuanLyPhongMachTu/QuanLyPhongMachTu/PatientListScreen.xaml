@@ -86,18 +86,25 @@
                 </Border>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="0.25*"/>
+                        <ColumnDefinition Width="0.4*"/>
+                        <ColumnDefinition Width="0.25*"/>
                     </Grid.ColumnDefinitions>
                     <Button Grid.Column="0"
                             Style="{StaticResource MaterialDesignRaisedButton}"
-                            Width="100"
+                            Width="70"
                             ToolTip="Resource name: MaterialDesignRaisedButton">
                         Thêm
                     </Button>
                     <Button Grid.Column="1"
                             Style="{StaticResource MaterialDesignRaisedButton}"
-                            Width="100"
+                            Width="110"
+                            ToolTip="Resource name: MaterialDesignRaisedButton">
+                        Thanh toán
+                    </Button>
+                    <Button Grid.Column="2"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Width="70"
                             ToolTip="Resource name: MaterialDesignRaisedButton">
                         Xóa
                     </Button>
