@@ -8,6 +8,7 @@
              xmlns:dateConverter="clr-namespace:QuanLyPhongMachTu.dateConverter"
              DataContext="{StaticResource PatientListVM}"
              mc:Ignorable="d" 
+             x:Name="PatientList"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <dateConverter:DateConveter x:Key="dateConverter"/>
@@ -85,29 +86,47 @@
                     </materialDesign:Card>
                 </Border>
                 <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.25*"/>
-                        <ColumnDefinition Width="0.4*"/>
-                        <ColumnDefinition Width="0.25*"/>
-                    </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0"
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.25*"/>
+                                <ColumnDefinition Width="0.4*"/>
+                                <ColumnDefinition Width="0.25*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0"
                             Style="{StaticResource MaterialDesignRaisedButton}"
                             Width="70"
                             ToolTip="Resource name: MaterialDesignRaisedButton">
-                        Thêm
-                    </Button>
-                    <Button Grid.Column="1"
+                                Thêm
+                            </Button>
+                            <Button Grid.Column="1"
                             Style="{StaticResource MaterialDesignRaisedButton}"
                             Width="110"
                             ToolTip="Resource name: MaterialDesignRaisedButton">
-                        Thanh toán
-                    </Button>
-                    <Button Grid.Column="2"
+                                Cập nhật
+                            </Button>
+                            <Button Grid.Column="2"
                             Style="{StaticResource MaterialDesignRaisedButton}"
                             Width="70"
                             ToolTip="Resource name: MaterialDesignRaisedButton">
-                        Xóa
-                    </Button>
+                                Xóa
+                            </Button>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Button
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Width="110"
+                            ToolTip="Resource name: MaterialDesignRaisedButton"
+                            Command="{Binding PayCommand}"
+                            CommandParameter="{Binding ElementName=PatientList}">
+                                Thanh toán
+                            </Button>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
         </Border>

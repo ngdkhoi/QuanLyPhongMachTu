@@ -1,0 +1,48 @@
+﻿<Window x:Class="QuanLyPhongMachTu.PayScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuanLyPhongMachTu"
+        mc:Ignorable="d"
+        Title="PayScreen" Height="600" Width="700">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition Height="0.2*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="HÓA ĐƠN THANH TOÁN"
+                   VerticalAlignment="Center" HorizontalAlignment="Center"
+                   FontSize="25"/>
+        <StackPanel Grid.Row="1" Margin="50 0 0 0">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Horizontal"
+                        VerticalAlignment="Center">
+                    <TextBlock Text="Họ Tên: " FontSize="20"/>
+                    <TextBlock Text="{Binding Name}" FontSize="20"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <TextBlock Text="Ngày khám: " FontSize="20"/>
+                    <TextBlock Text="{Binding Date}" FontSize="20"/>
+                </StackPanel>
+            </Grid>
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <TextBlock Text="Tiên khám: " FontSize="20"/>
+                <TextBlock Text="{Binding MedicalCost}" FontSize="20"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <TextBlock Text="Tiền thuốc: " FontSize="20"/>
+                <TextBlock Text="{Binding MedicineCost}" FontSize="20"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="30 0 0 0">
+            <TextBlock Text="Tổng chi phí: " FontSize="20"/>
+            <TextBlock Text="{Binding SumCost}"/>
+        </StackPanel>
+    </Grid>
+</Window>
