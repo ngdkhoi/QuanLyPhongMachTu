@@ -20,7 +20,7 @@ namespace QuanLyPhongMachTu.Model
             this.PhieuKhams = new HashSet<PhieuKham>();
         }
     
-        public string MaSo { get; set; }
+        public int MaBenh { get; set; }
         public string TenBenh { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

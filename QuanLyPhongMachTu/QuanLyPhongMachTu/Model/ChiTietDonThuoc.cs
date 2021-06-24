@@ -14,12 +14,15 @@ namespace QuanLyPhongMachTu.Model
     
     public partial class ChiTietDonThuoc
     {
-        public string MaDonThuoc { get; set; }
-        public string MaThuoc { get; set; }
-        public string SoLuong { get; set; }
-        public string CachDung { get; set; }
+        public int MaDT { get; set; }
+        public int MaThuoc { get; set; }
+        public int MaDonVi { get; set; }
+        public int SoLuong { get; set; }
+        public int MaCachDung { get; set; }
     
+        public virtual CachDung CachDung { get; set; }
         public virtual DonThuoc DonThuoc { get; set; }
-        public virtual Thuoc Thuoc { get; set; }
+        public virtual DonVi DonVi { get; set; }
+        public virtual LoaiThuoc LoaiThuoc { get; set; }
     }
 }

@@ -12,13 +12,13 @@ namespace QuanLyPhongMachTu.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class ChiTietBaoCaoDoanhThu
+    public partial class NhanVien
     {
-        public string MaBaoCao { get; set; }
-        public System.DateTime Ngay { get; set; }
-        public double TiLe { get; set; }
-    
-        public virtual BaoCaoDoanhThuThang BaoCaoDoanhThuThang { get; set; }
-        public virtual DoanhThuNgay DoanhThuNgay { get; set; }
+        public int MaSoNV { get; set; }
+        public string HoTen { get; set; }
+        public string SDT { get; set; }
+        public System.DateTime NamSinh { get; set; }
+        public string Account { get; set; }
+        public string Password { get; set; }
     }
 }

@@ -12,15 +12,9 @@ namespace QuanLyPhongMachTu.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class HoaDon
+    public partial class QuyDinh
     {
-        public string MaSo { get; set; }
-        public System.DateTime NgayLap { get; set; }
-        public int TienKham { get; set; }
-        public int TienThuoc { get; set; }
-        public int TongTien { get; set; }
-        public string KhachHang { get; set; }
-    
-        public virtual BenhNhan BenhNhan { get; set; }
+        public int SoBenhNhanMotNgay { get; set; }
+        public int SoTienKham { get; set; }
     }
 }

@@ -18,23 +18,19 @@ namespace QuanLyPhongMachTu.Model
         public PhieuKham()
         {
             this.DonThuocs = new HashSet<DonThuoc>();
-            this.LoaiBenhs = new HashSet<LoaiBenh>();
-            this.TrieuChungs = new HashSet<TrieuChung>();
         }
     
-        public string MaSo { get; set; }
-        public System.DateTime NgayKham { get; set; }
-        public string HoaDon { get; set; }
-        public string BacSi { get; set; }
-        public string BenhNhan { get; set; }
+        public int MaPK { get; set; }
+        public int MaBN { get; set; }
+        public string TrieuChung { get; set; }
+        public int MaLoaiBenh { get; set; }
+        public int TienKham { get; set; }
+        public int TienThuoc { get; set; }
+        public Nullable<bool> Xoa { get; set; }
     
-        public virtual BacSi BacSi1 { get; set; }
-        public virtual BenhNhan BenhNhan1 { get; set; }
+        public virtual BenhNhan BenhNhan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DonThuoc> DonThuocs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LoaiBenh> LoaiBenhs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TrieuChung> TrieuChungs { get; set; }
+        public virtual LoaiBenh LoaiBenh { get; set; }
     }
 }

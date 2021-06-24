@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9ddb6cd2ebf44438abbefe3826eaa197" Name="Diagram1" ZoomLevel="61">
+        <EntityTypeShape EntityType="QuanLyPhongMachModel.BenhNhan" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyPhongMachModel.CachDung" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyPhongMachModel.DonThuoc" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyPhongMachModel.DonVi" Width="1.5" PointX="5.25" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyPhongMachModel.LoaiBenh" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyPhongMachModel.LoaiThuoc" Width="1.5" PointX="5.25" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyPhongMachModel.NhanVien" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyPhongMachModel.PhieuKham" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyPhongMachModel.sysdiagram" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyPhongMachModel.ChiTietDonThuoc" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyPhongMachModel.QuyDinh" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <AssociationConnector Association="QuanLyPhongMachModel.FK_PhieuKham_BenhNhan" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyPhongMachModel.FK_ChiTietDonThuoc_CachDung" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyPhongMachModel.FK_ChiTietDonThuoc_DonThuoc" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyPhongMachModel.FK_DonThuoc_PhieuKham" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyPhongMachModel.FK_ChiTietDonThuoc_DonVi" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyPhongMachModel.FK_PhieuKham_LoaiBenh" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyPhongMachModel.FK_ChiTietDonThuoc_LoaiThuoc" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

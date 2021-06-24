@@ -17,22 +17,17 @@ namespace QuanLyPhongMachTu.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public BenhNhan()
         {
-            this.ChiTietDanhSachKhams = new HashSet<ChiTietDanhSachKham>();
-            this.HoaDons = new HashSet<HoaDon>();
             this.PhieuKhams = new HashSet<PhieuKham>();
         }
     
-        public string MaSo { get; set; }
-        public string Ten { get; set; }
-        public System.DateTime NgaySinh { get; set; }
+        public int MaSoBN { get; set; }
+        public string HoTen { get; set; }
+        public string GioiTinh { get; set; }
+        public int NamSinh { get; set; }
         public string DiaChi { get; set; }
-        public string SoDT { get; set; }
-        public bool GioiTinh { get; set; }
+        public System.DateTime NgayKham { get; set; }
+        public Nullable<bool> Xoa { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietDanhSachKham> ChiTietDanhSachKhams { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HoaDon> HoaDons { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhieuKham> PhieuKhams { get; set; }
     }

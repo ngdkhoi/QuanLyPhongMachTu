@@ -12,19 +12,18 @@ namespace QuanLyPhongMachTu.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class BaoCaoThuoc
+    public partial class DonVi
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public BaoCaoThuoc()
+        public DonVi()
         {
-            this.ChiTietBaoCaoThuocs = new HashSet<ChiTietBaoCaoThuoc>();
+            this.ChiTietDonThuocs = new HashSet<ChiTietDonThuoc>();
         }
     
-        public string MaSo { get; set; }
-        public int Thang { get; set; }
-        public int Nam { get; set; }
+        public int MaDonVi { get; set; }
+        public string TenDonVi { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietBaoCaoThuoc> ChiTietBaoCaoThuocs { get; set; }
+        public virtual ICollection<ChiTietDonThuoc> ChiTietDonThuocs { get; set; }
     }
 }

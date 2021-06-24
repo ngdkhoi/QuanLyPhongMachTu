@@ -13,10 +13,10 @@ namespace QuanLyPhongMachTu.Model
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DesignEntities : DbContext
+    public partial class QuanLyPhongMachEntities : DbContext
     {
-        public DesignEntities()
-            : base("name=DesignEntities")
+        public QuanLyPhongMachEntities()
+            : base("name=QuanLyPhongMachEntities")
         {
         }
     
@@ -25,20 +25,16 @@ namespace QuanLyPhongMachTu.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<BacSi> BacSis { get; set; }
-        public virtual DbSet<BaoCaoDoanhThuThang> BaoCaoDoanhThuThangs { get; set; }
-        public virtual DbSet<BaoCaoThuoc> BaoCaoThuocs { get; set; }
         public virtual DbSet<BenhNhan> BenhNhans { get; set; }
-        public virtual DbSet<ChiTietBaoCaoDoanhThu> ChiTietBaoCaoDoanhThus { get; set; }
-        public virtual DbSet<ChiTietBaoCaoThuoc> ChiTietBaoCaoThuocs { get; set; }
-        public virtual DbSet<ChiTietDanhSachKham> ChiTietDanhSachKhams { get; set; }
-        public virtual DbSet<ChiTietDonThuoc> ChiTietDonThuocs { get; set; }
-        public virtual DbSet<DoanhThuNgay> DoanhThuNgays { get; set; }
+        public virtual DbSet<CachDung> CachDungs { get; set; }
         public virtual DbSet<DonThuoc> DonThuocs { get; set; }
-        public virtual DbSet<HoaDon> HoaDons { get; set; }
+        public virtual DbSet<DonVi> DonVis { get; set; }
         public virtual DbSet<LoaiBenh> LoaiBenhs { get; set; }
+        public virtual DbSet<LoaiThuoc> LoaiThuocs { get; set; }
+        public virtual DbSet<NhanVien> NhanViens { get; set; }
         public virtual DbSet<PhieuKham> PhieuKhams { get; set; }
-        public virtual DbSet<Thuoc> Thuocs { get; set; }
-        public virtual DbSet<TrieuChung> TrieuChungs { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<ChiTietDonThuoc> ChiTietDonThuocs { get; set; }
+        public virtual DbSet<QuyDinh> QuyDinhs { get; set; }
     }
 }

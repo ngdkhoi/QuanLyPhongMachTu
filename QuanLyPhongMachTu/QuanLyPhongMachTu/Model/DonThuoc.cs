@@ -20,12 +20,11 @@ namespace QuanLyPhongMachTu.Model
             this.ChiTietDonThuocs = new HashSet<ChiTietDonThuoc>();
         }
     
-        public string MaSo { get; set; }
-        public string PhieuKham { get; set; }
-        public System.DateTime NgayLap { get; set; }
+        public int MaDT { get; set; }
+        public int MaPK { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietDonThuoc> ChiTietDonThuocs { get; set; }
-        public virtual PhieuKham PhieuKham1 { get; set; }
+        public virtual PhieuKham PhieuKham { get; set; }
     }
 }
