@@ -82,6 +82,7 @@
     <Compile Include="MedicineScreen.xaml.cs">
       <DependentUpon>MedicineScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\AccountCollector.cs" />
     <Compile Include="Model\BenhNhan.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -106,6 +107,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Database.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Model\DataProvider.cs" />
     <Compile Include="Model\DonThuoc.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -121,6 +123,7 @@
     <Compile Include="Model\NhanVien.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\PatientCollector.cs" />
     <Compile Include="Model\PhieuKham.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -248,6 +251,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Model\Database.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Database.edmx</DependentUpon>
@@ -258,9 +264,6 @@
       <DependentUpon>Database.edmx</DependentUpon>
       <LastGenOutput>Database.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets')" />

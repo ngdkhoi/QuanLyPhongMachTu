@@ -67,20 +67,24 @@
                                 </Grid.RowDefinitions>
                                 <TextBox Grid.Row="0"
                                          Margin="0" Width="180"
-                                         VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                         VerticalAlignment="Center" HorizontalAlignment="Left"
+                                         Text="{Binding HoTen, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <ComboBox Grid.Row="1"
-                                          Margin="0" Width="180" Foreground="Black"
-                                          VerticalAlignment="Center" HorizontalAlignment="Left">
+                                          Margin="0 0 0 -3" Width="180" Foreground="Black" Background="White"
+                                          VerticalAlignment="Center" HorizontalAlignment="Left"
+                                          Style="{StaticResource MaterialDesignFilledComboBox}"
+                                          SelectedItem="{Binding GioiTinh, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                     <ComboBoxItem Foreground="Black">Nam</ComboBoxItem>
                                     <ComboBoxItem Foreground="Black">Nữ</ComboBoxItem>
-                                    <ComboBoxItem Foreground="Black">Khác</ComboBoxItem>
                                 </ComboBox>
                                 <TextBox Grid.Row="2"
                                          Margin="0" Width="180"
-                                         VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                         VerticalAlignment="Center" HorizontalAlignment="Left"
+                                         Text="{Binding NamSinh, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <TextBox Grid.Row="3"
                                          Margin="0" Width="180"
-                                         VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                         VerticalAlignment="Center" HorizontalAlignment="Left"
+                                         Text="{Binding DiaChi, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                             </Grid>
                         </Grid>
                     </materialDesign:Card>
@@ -98,21 +102,24 @@
                                 <ColumnDefinition Width="0.25*"/>
                             </Grid.ColumnDefinitions>
                             <Button Grid.Column="0"
-                            Style="{StaticResource MaterialDesignRaisedButton}"
-                            Width="70"
-                            ToolTip="Resource name: MaterialDesignRaisedButton">
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Width="70"
+                                    ToolTip="Resource name: MaterialDesignRaisedButton"
+                                    Command="{Binding AddCommand}">
                                 Thêm
                             </Button>
                             <Button Grid.Column="1"
-                            Style="{StaticResource MaterialDesignRaisedButton}"
-                            Width="110"
-                            ToolTip="Resource name: MaterialDesignRaisedButton">
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Width="110"
+                                    ToolTip="Resource name: MaterialDesignRaisedButton"
+                                    Command="{Binding UpdateCommand}">
                                 Cập nhật
                             </Button>
                             <Button Grid.Column="2"
-                            Style="{StaticResource MaterialDesignRaisedButton}"
-                            Width="70"
-                            ToolTip="Resource name: MaterialDesignRaisedButton">
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Width="70"
+                                    ToolTip="Resource name: MaterialDesignRaisedButton"
+                                    Command="{Binding DeleteCommand}">
                                 Xóa
                             </Button>
                         </Grid>
@@ -177,7 +184,7 @@
                                 <TextBlock Text="Địa chỉ" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Border>
                         </Grid>
-                        <ListView Grid.Row="1" ItemsSource="{Binding Patients, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <ListView Grid.Row="1" ItemsSource="{Binding PatientList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
@@ -189,19 +196,19 @@
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
                                         <Border Grid.Column="0" BorderBrush="Black" BorderThickness="0.5">
-                                            <TextBlock Text="{Binding Stt}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{Binding MaSoBN}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                         </Border>
                                         <Border Grid.Column="1" BorderBrush="Black" BorderThickness="0.5">
-                                            <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{Binding HoTen}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                         </Border>
                                         <Border Grid.Column="2" BorderBrush="Black" BorderThickness="0.5">
-                                            <TextBlock Text="{Binding Gender}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{Binding GioiTinh}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                         </Border>
                                         <Border Grid.Column="3" BorderBrush="Black" BorderThickness="0.5">
-                                            <TextBlock Text="{Binding YoB}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{Binding NamSinh}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                         </Border>
                                         <Border Grid.Column="4" BorderBrush="Black" BorderThickness="0.5">
-                                            <TextBlock Text="{Binding Address}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{Binding DiaChi}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                         </Border>
                                     </Grid>
                                 </DataTemplate>

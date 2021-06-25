@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Input;
+using QuanLyPhongMachTu.Model;
 
 namespace QuanLyPhongMachTu.ViewModel
 {
@@ -17,6 +18,7 @@ namespace QuanLyPhongMachTu.ViewModel
         public ICommand LoginCommand { get; set; }
         public string Account { get => _Account; set => _Account = value; }
         public string Password { private get => _Password; set => _Password = value; }
+        
         public LoginViewModel()
         {
             LoginCommand = new RelayCommand<LoginScreen>((p) =>
@@ -28,13 +30,19 @@ namespace QuanLyPhongMachTu.ViewModel
                 return false;
             }, (p) =>
             {
-                if (Account == "khoi" && Password =="1234")
+                bool isSuccess = false;
+                foreach(var i in DataProvider.Ins.DB.NhanViens)
                 {
-                    MainWindow mainWindow = new MainWindow();
-                    mainWindow.Show();
-                    p.Close();
+                    if(i.Account==Account && i.Password == Password)
+                    {
+                        isSuccess = true;
+                        MainWindow mainWindow = new MainWindow();
+                        mainWindow.Show();
+                        p.Close();
+                        
+                    }
                 }
-                else
+                if (!isSuccess)
                 {
                     Notification notification = new Notification("Tài khoản hoặc mật khẩu bị sai");
                     notification.Show();
