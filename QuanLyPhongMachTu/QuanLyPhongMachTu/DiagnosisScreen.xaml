@@ -4,167 +4,81 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QuanLyPhongMachTu"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="White" FontSize="13"> 
-    <UserControl.Resources>
-        <Style TargetType="TextBox">
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="BorderBrush" Value="Black"/>
-            <Setter Property="BorderThickness" Value="1.3"/>
-            <Setter Property="Background" Value="Transparent" />
-        </Style>
-        <Style TargetType="TextBlock">
-            <Setter Property="Margin" Value="10 0 5 0"/>
-            <Setter Property="VerticalAlignment" Value="Center" />
-        </Style>
-        <Style TargetType="Border" x:Key="Container">
-            <Setter Property="BorderBrush" Value="Gray" />
-            <Setter Property="BorderThickness" Value="1.5" />
-            <Setter Property="CornerRadius" Value="3" />
-        </Style>
-    </UserControl.Resources>
-    <DockPanel LastChildFill="True">
-        <DockPanel DockPanel.Dock="Left"
-                   LastChildFill="False"
-                   Width="130">
-            <Button DockPanel.Dock="Top" Margin="10">Lịch Sử KCB</Button>
+             d:DesignHeight="600" d:DesignWidth="800" Background="White" FontSize="13"
+             Name="Diagnosis"
+             DataContext="{StaticResource DiagnosisVM}">
+    <materialDesign:Card Margin="60 10">
+        <DockPanel LastChildFill="True">
+            <TextBlock DockPanel.Dock="Top" Margin="0 10 0 0"
+                       TextAlignment="Center"
+                       FontSize="15" FontWeight="Bold"
+                       Text="PHIẾU KHÁM BỆNH"
+            />
+            <Grid DockPanel.Dock="Top" Margin="0 10 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                </Grid.RowDefinitions>
+                <DockPanel VerticalAlignment="Center" Margin="5 0">
+                    <TextBlock Text="Tên bệnh nhân:" />
+                    <TextBox/>
+                </DockPanel>
+                <DockPanel Grid.Row="1"
+                           VerticalAlignment="Center" Margin="5 0">
+                    <TextBlock Text="Triệu chứng:" />
+                    <TextBox />
+                </DockPanel>
+                <DockPanel Grid.Column="1"
+                           VerticalAlignment="Center" Margin="5 0">
+                    <TextBlock Text="Ngày khám:" />
+                    <TextBox/>
+                </DockPanel>
+                <DockPanel Grid.Column="1" Grid.Row="1"
+                           VerticalAlignment="Center" Margin="5 0">
+                    <TextBlock Text="Dự đoán loại bệnh:" />
+                    <TextBox/>
+                </DockPanel>
+            </Grid>
+            <TextBlock DockPanel.Dock="Top" Margin="0 15 0 10"
+                       TextAlignment="Center"
+                       FontSize="15" FontWeight="Bold"
+                       Text="Đơn Thuốc"
+            />
+            <StackPanel DockPanel.Dock="Bottom">
+                <Button Content="{materialDesign:PackIcon Plus}" Command="{Binding AddMedicineCommand}" 
+                        CommandParameter="{Binding ElementName=Diagnosis}"/>
+            </StackPanel>
+            <DataGrid ItemsSource="{Binding DonThuoc}"
+                      AutoGenerateColumns="False" CanUserAddRows="False"
+                      ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="STT" Width="1.5*" Binding="{Binding STT}" IsReadOnly="True"/>
+                    <materialDesign:DataGridComboBoxColumn Header="Thuốc" Width="3.5*"
+                                                           IsEditable="True"
+                                                           SelectedItemBinding="{Binding Name}"
+                                                           ItemsSourceBinding="{Binding RelativeSource={RelativeSource AncestorType=DataGrid},
+                                                           Path=DataContext.DanhSachThuoc}">
+                    </materialDesign:DataGridComboBoxColumn>
+                    <DataGridTextColumn Header="Đơn vị" Width="2*" Binding="{Binding DonVi}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Số lượng" Width="2*" Binding="{Binding SoLuong}"/>
+                    <DataGridTextColumn Header="Cách dùng" Width="3*" Binding="{Binding CachDung}"/>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Style="{StaticResource MaterialDesignRaisedLightButton}"
+                                        ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
+                                        Content="Xoá" Click="Button_Click"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
         </DockPanel>
-        <DockPanel Name="PatientInformationStackPanel"
-                    Margin="0 10 0 0">
-            <Border Style="{StaticResource Container}" Background="Silver" DockPanel.Dock="Top">
-                <Grid Height="85" x:Name="PatientInfoGrid">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="25"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="3*"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="1.4*"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="10"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.ColumnSpan="8"
-                           FontWeight="Bold"
-                           Foreground="IndianRed"
-                           Text="THÔNG TIN BỆNH NHÂN"
-                />
-                    <TextBlock Grid.Row="1"
-                           Text="MÃ BỆNH NHÂN"
-                />
-                    <TextBox Grid.Row="1" Grid.Column="1"/>
-                    <TextBlock Grid.Row="1" Grid.Column="2" 
-                           Text="GIỚI TÍNH"
-                />
-                    <TextBox Grid.Row="1" Grid.Column="3" />
-                    <TextBlock Grid.Row="2" 
-                           Text="TÊN BỆNH NHÂN"
-                />
-                    <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" />
-
-                    <TextBlock Grid.Row="1" Grid.Column="4"
-                           Text="NGÀY SINH"
-                />
-                    <TextBox Grid.Row="1" Grid.Column="5" />
-                    <TextBlock Grid.Row="1" Grid.Column="6"
-                           Text="ĐIỆN THOẠI"
-                />
-                    <TextBox Grid.Row="1" Grid.Column="7" />
-                    <TextBlock Grid.Row="2" Grid.Column="4"
-                           Text="ĐỊA CHỈ"
-                />
-                    <TextBox Grid.Row="2" Grid.Column="5"
-                         Grid.ColumnSpan="3"
-                />
-                </Grid>
-            </Border>
-            <Border Style="{StaticResource Container}" Margin="0 -2 0 0" DockPanel.Dock="Top">
-                <Grid Height="125">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="25"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="3*"/>
-                        <ColumnDefinition Width="74"/>
-                        <ColumnDefinition Width="1.4*"/>
-                        <ColumnDefinition Width="81 "/>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="85"/>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="10"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.ColumnSpan="8"
-                           FontWeight="Bold"
-                           Foreground="IndianRed"
-                           Text="THÔNG TIN KHÁM"
-                    />
-                    <TextBlock Grid.Row="1"
-                           Text="SỐ HỒ SƠ"
-                    />
-                    <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"/>
-                    <TextBlock Grid.Row="2"
-                               Text="TRIỆU CHỨNG     "
-                    />
-                    <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"
-                             Grid.RowSpan="3" Height="65"
-                             AcceptsReturn="True" TextWrapping="Wrap"
-                    />
-                    <TextBlock Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2"
-                               TextAlignment="Right"
-                               Text="CHUẨN ĐOÁN BỆNH"
-                    />
-                    <TextBox Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2"
-                    />
-                    <TextBlock Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2"
-                               TextAlignment="Right"
-                               Text="TIỀN KHÁM"
-                    />
-                    <TextBox  Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2"/>
-                    <TextBlock Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2"
-                               TextAlignment="Right"
-                               Text="BÁC SĨ KHÁM"
-                    />
-                    <TextBox Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2"/>
-                    <TextBlock Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="2"
-                               TextAlignment="Right"
-                               Text="NGÀY KHÁM"
-                    />
-                    <TextBox Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="2"/>
-                </Grid>
-            </Border>
-            <Border Style="{StaticResource Container}" Margin="0 -2 0 0" DockPanel.Dock="Top">
-                <TextBlock FontWeight="Bold" VerticalAlignment="Top"
-                           Foreground="IndianRed"
-                           Text="KÊ ĐƠN THUỐC"
-                />
-            </Border>
-            <ListView Name="PrescriptionListView">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="STT"/>
-                        <GridViewColumn Header="Tên Thuốc"/>
-                        <GridViewColumn Header="Liều Dùng" />
-                        <GridViewColumn Header="Số lượng" />
-                        <GridViewColumn Header="Thao Tác">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button Content="Xoá"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </DockPanel>
-    </DockPanel>
+    </materialDesign:Card>
 </UserControl>
