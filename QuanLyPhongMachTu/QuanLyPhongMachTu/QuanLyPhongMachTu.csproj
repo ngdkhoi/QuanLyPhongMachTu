@@ -152,6 +152,7 @@
       <DependentUpon>SettingScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\DiagnosisViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\NotificationViewModel.cs" />
