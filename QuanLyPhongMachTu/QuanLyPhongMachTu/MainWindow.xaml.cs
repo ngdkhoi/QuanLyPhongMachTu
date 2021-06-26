@@ -23,7 +23,7 @@ namespace QuanLyPhongMachTu
         public MainWindow()
         {
             InitializeComponent();
-            //ListViewMenu.SelectedIndex = 1;
+            ListViewMenu.SelectedIndex = 3;
         }
 
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -46,7 +46,7 @@ namespace QuanLyPhongMachTu
                     break;
                 case 3:
                     GridPriciple.Children.Clear();
-                    GridPriciple.Children.Add(new MedicineScreen());
+                    GridPriciple.Children.Add(new MedicineReportScreen());
                     break;
                 case 4:
                     GridPriciple.Children.Clear();

@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Input;
-using System.ComponentModel;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace QuanLyPhongMachTu.ViewModel
 {
@@ -102,6 +102,8 @@ namespace QuanLyPhongMachTu.ViewModel
         public ObservableCollection<string> DanhSachThuoc { get; set; }
 
         public ICommand AddMedicineCommand { get; set; }
+        public ICommand DeleteMedicineCommand { get; set; }
+
 
         public DiagnosisViewModel()
         {
@@ -119,6 +121,11 @@ namespace QuanLyPhongMachTu.ViewModel
                     CachDung = ""
                 });
             });
+
+            DeleteMedicineCommand = new RelayCommand<ChiTietThuoc>((p) =>
+            {
+                return true;
+            }, (HandleDeleteMedicine));
 
             DonThuoc = new ObservableCollection<ChiTietThuoc>()
             {
@@ -154,6 +161,11 @@ namespace QuanLyPhongMachTu.ViewModel
                 "Cafein",
                 "Heroin"
             };
+        }
+
+        private void HandleDeleteMedicine(ChiTietThuoc target)
+        {
+            DonThuoc.Remove(target);
         }
     }
 }

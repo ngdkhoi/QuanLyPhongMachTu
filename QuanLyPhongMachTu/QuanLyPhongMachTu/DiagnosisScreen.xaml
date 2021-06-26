@@ -27,22 +27,22 @@
                 </Grid.RowDefinitions>
                 <DockPanel VerticalAlignment="Center" Margin="5 0">
                     <TextBlock Text="Tên bệnh nhân:" />
-                    <TextBox/>
+                    <TextBox Padding="0" Margin="5 0 0 0"/>
                 </DockPanel>
                 <DockPanel Grid.Row="1"
                            VerticalAlignment="Center" Margin="5 0">
                     <TextBlock Text="Triệu chứng:" />
-                    <TextBox />
+                    <TextBox Padding="0" Margin="5 0 0 0" />
                 </DockPanel>
                 <DockPanel Grid.Column="1"
                            VerticalAlignment="Center" Margin="5 0">
                     <TextBlock Text="Ngày khám:" />
-                    <TextBox/>
+                    <TextBox Padding="0" Margin="5 0 0 0" />
                 </DockPanel>
                 <DockPanel Grid.Column="1" Grid.Row="1"
                            VerticalAlignment="Center" Margin="5 0">
                     <TextBlock Text="Dự đoán loại bệnh:" />
-                    <TextBox/>
+                    <TextBox Padding="0" Margin="5 0 0 0"/>
                 </DockPanel>
             </Grid>
             <TextBlock DockPanel.Dock="Top" Margin="0 15 0 10"
@@ -51,14 +51,16 @@
                        Text="Đơn Thuốc"
             />
             <StackPanel DockPanel.Dock="Bottom">
-                <Button Content="{materialDesign:PackIcon Plus}" Command="{Binding AddMedicineCommand}" 
-                        CommandParameter="{Binding ElementName=Diagnosis}"/>
+                <Button Content="Thêm thuốc" Command="{Binding AddMedicineCommand}"
+                        Style="{StaticResource MaterialDesignRaisedLightButton}"
+                        CommandParameter="{Binding ElementName=Diagnosis}"
+                        Width="200" />    
             </StackPanel>
             <DataGrid ItemsSource="{Binding DonThuoc}"
                       AutoGenerateColumns="False" CanUserAddRows="False"
-                      ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                      ScrollViewer.VerticalScrollBarVisibility="Disabled" AlternationCount="{Binding DonThuoc.Count}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="STT" Width="1.5*" Binding="{Binding STT}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="STT" Width="1.5*" IsReadOnly="True" Binding="{Binding AlternationIndex, RelativeSource={RelativeSource AncestorType=DataGridRow}}"/>
                     <materialDesign:DataGridComboBoxColumn Header="Thuốc" Width="3.5*"
                                                            IsEditable="True"
                                                            SelectedItemBinding="{Binding Name}"
@@ -68,12 +70,14 @@
                     <DataGridTextColumn Header="Đơn vị" Width="2*" Binding="{Binding DonVi}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Số lượng" Width="2*" Binding="{Binding SoLuong}"/>
                     <DataGridTextColumn Header="Cách dùng" Width="3*" Binding="{Binding CachDung}"/>
-                    <DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Thao tác">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Style="{StaticResource MaterialDesignRaisedLightButton}"
                                         ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
-                                        Content="Xoá" Click="Button_Click"/>
+                                        Content="Xoá" Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid},
+                                                                Path=DataContext.DeleteMedicineCommand}" 
+                                        CommandParameter="{Binding}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

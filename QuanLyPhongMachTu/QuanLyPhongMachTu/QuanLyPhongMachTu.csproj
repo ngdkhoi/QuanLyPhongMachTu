@@ -82,8 +82,8 @@
     <Compile Include="DiagnosisScreen.xaml.cs">
       <DependentUpon>DiagnosisScreen.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MedicineScreen.xaml.cs">
-      <DependentUpon>MedicineScreen.xaml</DependentUpon>
+    <Compile Include="MedicineReportScreen.xaml.cs">
+      <DependentUpon>MedicineReportScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\AccountCollector.cs" />
     <Compile Include="Model\BenhNhan.cs">
@@ -162,6 +162,7 @@
     <Compile Include="ViewModel\DiagnosisViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="ViewModel\MedicineReportViewModel.cs" />
     <Compile Include="ViewModel\NotificationViewModel.cs" />
     <Compile Include="ViewModel\PatientListViewModel.cs" />
     <Page Include="AddMedicineScreen.xaml">
@@ -195,7 +196,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MedicineScreen.xaml">
+    <Page Include="MedicineReportScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
