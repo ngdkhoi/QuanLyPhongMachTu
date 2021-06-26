@@ -18,9 +18,9 @@ namespace QuanLyPhongMachTu
     /// <summary>
     /// Interaction logic for MedicineScreen.xaml
     /// </summary>
-    public partial class MedicineScreen : UserControl
+    public partial class MedicineReportScreen : UserControl
     {
-        public MedicineScreen()
+        public MedicineReportScreen()
         {
             InitializeComponent();
         }
