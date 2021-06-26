@@ -18,11 +18,15 @@ namespace QuanLyPhongMachTu.ViewModel
         private string _GioiTinh;
         private int _NamSinh;
         private string _DiaChi;
+        private int _STT;
+        private string _SellectedEle;
         public DateTime Date { get => _Date;  set { _Date = value; OnPropertyChanged(); } }
         public ICommand PayCommand { get; set; }
         public ICommand AddCommand { get; set; }
         public ICommand UpdateCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
+        public ICommand Show { get; set; }
+        public ICommand CopyDataCommand { get; set; }
         public ObservableCollection<PatientCollector> PatientList
         {
             get => _PatientList;
@@ -36,26 +40,20 @@ namespace QuanLyPhongMachTu.ViewModel
         public string GioiTinh { get => _GioiTinh; set => _GioiTinh = value; }
         public int NamSinh { get => _NamSinh; set => _NamSinh = value; }
         public string DiaChi { get => _DiaChi; set => _DiaChi = value; }
+        public int STT { get => _STT; set => _STT = value; }
+        public string SellectedEle { get => _SellectedEle; set => _SellectedEle = value; }
 
         private ObservableCollection<PatientCollector> _PatientList = new ObservableCollection<PatientCollector>();
         private void LoadData()
         {
-            var query = from a in DataProvider.Ins.DB.BenhNhans.Where(x => x.NgayKham == Date)
-                        select new
-                        {
-                            maso = a.MaSoBN,
-                            hoten = a.HoTen,
-                            gioitinh = a.GioiTinh,
-                            namsinh = a.NamSinh,
-                            diachi=a.DiaChi,
-                            ngaykham=a.NgayKham
-                        };
+            var query = DataProvider.Ins.DB.BenhNhans.Where(x => x.Xoa == false);
+                        
             foreach(var i in query)
             {
-                PatientList.Add(new PatientCollector(i.maso, i.hoten, i.gioitinh, i.namsinh, i.diachi, i.ngaykham));
+                PatientList.Add(new PatientCollector(i.MaSoBN, i.HoTen, i.GioiTinh, i.NamSinh, i.DiaChi));
             }
         }
-        
+        void DoSomething() { }
         public PatientListViewModel()
         {
             Date = DateTime.Now;
@@ -67,10 +65,10 @@ namespace QuanLyPhongMachTu.ViewModel
               }, (p) =>
               {
                   int id = DataProvider.Ins.DB.BenhNhans.Max(x => x.MaSoBN) + 1;
-                  PatientList.Add(new PatientCollector(id, HoTen, GioiTinh.Contains("Nam") ? "Nam" : "Nữ", NamSinh, DiaChi, Date));
-                  //DataProvider.Ins.DB.BenhNhans.Add(new BenhNhan() { MaSoBN = id, HoTen = HoTen, GioiTinh = GioiTinh.Contains("Nam")?"Nam":"Nữ", NamSinh = NamSinh, DiaChi = DiaChi, NgayKham = Date, Xoa = false });
+                  PatientList.Add(new PatientCollector(id, HoTen, GioiTinh.Contains("Nam") ? "Nam" : "Nữ", NamSinh, DiaChi));
+                  //DataProvider.Ins.DB.BenhNhans.Add(new BenhNhan() { MaSoBN = id, HoTen = HoTen, GioiTinh = GioiTinh.Contains("Nam")?"Nam":"Nữ", NamSinh = NamSinh, DiaChi = DiaChi, Xoa = false });
                   //DataProvider.Ins.DB.SaveChanges();
-                  HoTen = "";
+                  //HoTen = "";
 
               });
             UpdateCommand = new RelayCommand<object>((p) =>
@@ -95,6 +93,13 @@ namespace QuanLyPhongMachTu.ViewModel
                 PayScreen ps = new PayScreen();
                 ps.Show();
             });
+            CopyDataCommand = new RelayCommand<object>((p) =>
+              {
+                  return true;
+              }, (p) =>
+              {
+                  DoSomething();
+              });
         }
     }
 }

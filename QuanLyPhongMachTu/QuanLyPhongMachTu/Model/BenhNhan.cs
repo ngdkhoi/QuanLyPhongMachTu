@@ -25,7 +25,6 @@ namespace QuanLyPhongMachTu.Model
         public string GioiTinh { get; set; }
         public int NamSinh { get; set; }
         public string DiaChi { get; set; }
-        public System.DateTime NgayKham { get; set; }
         public Nullable<bool> Xoa { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

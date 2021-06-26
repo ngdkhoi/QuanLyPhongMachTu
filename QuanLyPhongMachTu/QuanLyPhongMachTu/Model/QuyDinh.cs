@@ -14,7 +14,8 @@ namespace QuanLyPhongMachTu.Model
     
     public partial class QuyDinh
     {
-        public int SoBenhNhanMotNgay { get; set; }
-        public int SoTienKham { get; set; }
+        public int MaQD { get; set; }
+        public string TenQuyDinh { get; set; }
+        public int SoLuongQD { get; set; }
     }
 }

@@ -11,10 +11,9 @@
           </Key>
           <Property Name="MaSoBN" Type="int" Nullable="false" />
           <Property Name="HoTen" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="GioiTinh" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="GioiTinh" Type="nvarchar" MaxLength="3" Nullable="false" />
           <Property Name="NamSinh" Type="int" Nullable="false" />
           <Property Name="DiaChi" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="NgayKham" Type="datetime" Nullable="false" />
           <Property Name="Xoa" Type="bit" />
         </EntityType>
         <EntityType Name="CachDung">
@@ -78,7 +77,7 @@ warning 6002: The table/view 'QuanLyPhongMach.dbo.ChiTietDonThuoc' does not have
           </Key>
           <Property Name="MaSoNV" Type="int" Nullable="false" />
           <Property Name="HoTen" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="SDT" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SDT" Type="nvarchar" MaxLength="20" />
           <Property Name="NamSinh" Type="datetime" Nullable="false" />
           <Property Name="Account" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
@@ -93,17 +92,16 @@ warning 6002: The table/view 'QuanLyPhongMach.dbo.ChiTietDonThuoc' does not have
           <Property Name="MaLoaiBenh" Type="int" Nullable="false" />
           <Property Name="TienKham" Type="int" Nullable="false" />
           <Property Name="TienThuoc" Type="int" Nullable="false" />
-          <Property Name="Xoa" Type="bit" />
+          <Property Name="NgayKham" Type="datetime" Nullable="false" />
+          <Property Name="Xoa" Type="bit" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'QuanLyPhongMach.dbo.QuyDinh' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="QuyDinh">
           <Key>
-            <PropertyRef Name="SoBenhNhanMotNgay" />
-            <PropertyRef Name="SoTienKham" />
+            <PropertyRef Name="MaQD" />
           </Key>
-          <Property Name="SoBenhNhanMotNgay" Type="int" Nullable="false" />
-          <Property Name="SoTienKham" Type="int" Nullable="false" />
+          <Property Name="MaQD" Type="int" Nullable="false" />
+          <Property Name="TenQuyDinh" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SoLuongQD" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -208,6 +206,7 @@ warning 6002: The table/view 'QuanLyPhongMach.dbo.QuyDinh' does not have a prima
           <EntitySet Name="LoaiThuoc" EntityType="Self.LoaiThuoc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NhanVien" EntityType="Self.NhanVien" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhieuKham" EntityType="Self.PhieuKham" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuyDinh" EntityType="Self.QuyDinh" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChiTietDonThuoc" EntityType="Self.ChiTietDonThuoc" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -217,12 +216,6 @@ warning 6002: The table/view 'QuanLyPhongMach.dbo.QuyDinh' does not have a prima
     [ChiTietDonThuoc].[SoLuong] AS [SoLuong], 
     [ChiTietDonThuoc].[MaCachDung] AS [MaCachDung]
     FROM [dbo].[ChiTietDonThuoc] AS [ChiTietDonThuoc]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="QuyDinh" EntityType="Self.QuyDinh" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [QuyDinh].[SoBenhNhanMotNgay] AS [SoBenhNhanMotNgay], 
-    [QuyDinh].[SoTienKham] AS [SoTienKham]
-    FROM [dbo].[QuyDinh] AS [QuyDinh]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_ChiTietDonThuoc_CachDung" Association="Self.FK_ChiTietDonThuoc_CachDung">
             <End Role="CachDung" EntitySet="CachDung" />
@@ -264,10 +257,9 @@ warning 6002: The table/view 'QuanLyPhongMach.dbo.QuyDinh' does not have a prima
           </Key>
           <Property Name="MaSoBN" Type="Int32" Nullable="false" />
           <Property Name="HoTen" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="GioiTinh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GioiTinh" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="NamSinh" Type="Int32" Nullable="false" />
           <Property Name="DiaChi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="NgayKham" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Xoa" Type="Boolean" />
           <NavigationProperty Name="PhieuKhams" Relationship="Self.FK_PhieuKham_BenhNhan" FromRole="BenhNhan" ToRole="PhieuKham" />
         </EntityType>
@@ -322,7 +314,7 @@ warning 6002: The table/view 'QuanLyPhongMach.dbo.QuyDinh' does not have a prima
           </Key>
           <Property Name="MaSoNV" Type="Int32" Nullable="false" />
           <Property Name="HoTen" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SDT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SDT" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="NamSinh" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Account" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
@@ -337,10 +329,19 @@ warning 6002: The table/view 'QuanLyPhongMach.dbo.QuyDinh' does not have a prima
           <Property Name="MaLoaiBenh" Type="Int32" Nullable="false" />
           <Property Name="TienKham" Type="Int32" Nullable="false" />
           <Property Name="TienThuoc" Type="Int32" Nullable="false" />
-          <Property Name="Xoa" Type="Boolean" />
+          <Property Name="NgayKham" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Xoa" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="BenhNhan" Relationship="Self.FK_PhieuKham_BenhNhan" FromRole="PhieuKham" ToRole="BenhNhan" />
           <NavigationProperty Name="DonThuocs" Relationship="Self.FK_DonThuoc_PhieuKham" FromRole="PhieuKham" ToRole="DonThuoc" />
           <NavigationProperty Name="LoaiBenh" Relationship="Self.FK_PhieuKham_LoaiBenh" FromRole="PhieuKham" ToRole="LoaiBenh" />
+        </EntityType>
+        <EntityType Name="QuyDinh">
+          <Key>
+            <PropertyRef Name="MaQD" />
+          </Key>
+          <Property Name="MaQD" Type="Int32" Nullable="false" />
+          <Property Name="TenQuyDinh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SoLuongQD" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -369,14 +370,6 @@ warning 6002: The table/view 'QuanLyPhongMach.dbo.QuyDinh' does not have a prima
           <NavigationProperty Name="DonThuoc" Relationship="Self.FK_ChiTietDonThuoc_DonThuoc" FromRole="ChiTietDonThuoc" ToRole="DonThuoc" />
           <NavigationProperty Name="DonVi" Relationship="Self.FK_ChiTietDonThuoc_DonVi" FromRole="ChiTietDonThuoc" ToRole="DonVi" />
           <NavigationProperty Name="LoaiThuoc" Relationship="Self.FK_ChiTietDonThuoc_LoaiThuoc" FromRole="ChiTietDonThuoc" ToRole="LoaiThuoc" />
-        </EntityType>
-        <EntityType Name="QuyDinh">
-          <Key>
-            <PropertyRef Name="SoBenhNhanMotNgay" />
-            <PropertyRef Name="SoTienKham" />
-          </Key>
-          <Property Name="SoBenhNhanMotNgay" Type="Int32" Nullable="false" />
-          <Property Name="SoTienKham" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_PhieuKham_BenhNhan">
           <End Role="BenhNhan" Type="Self.BenhNhan" Multiplicity="1" />
@@ -471,9 +464,9 @@ warning 6002: The table/view 'QuanLyPhongMach.dbo.QuyDinh' does not have a prima
           <EntitySet Name="LoaiThuocs" EntityType="Self.LoaiThuoc" />
           <EntitySet Name="NhanViens" EntityType="Self.NhanVien" />
           <EntitySet Name="PhieuKhams" EntityType="Self.PhieuKham" />
+          <EntitySet Name="QuyDinhs" EntityType="Self.QuyDinh" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="ChiTietDonThuocs" EntityType="Self.ChiTietDonThuoc" />
-          <EntitySet Name="QuyDinhs" EntityType="Self.QuyDinh" />
           <AssociationSet Name="FK_PhieuKham_BenhNhan" Association="Self.FK_PhieuKham_BenhNhan">
             <End Role="BenhNhan" EntitySet="BenhNhans" />
             <End Role="PhieuKham" EntitySet="PhieuKhams" />
@@ -517,7 +510,6 @@ warning 6002: The table/view 'QuanLyPhongMach.dbo.QuyDinh' does not have a prima
                 <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
                 <ScalarProperty Name="NamSinh" ColumnName="NamSinh" />
                 <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
-                <ScalarProperty Name="NgayKham" ColumnName="NgayKham" />
                 <ScalarProperty Name="Xoa" ColumnName="Xoa" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -587,7 +579,17 @@ warning 6002: The table/view 'QuanLyPhongMach.dbo.QuyDinh' does not have a prima
                 <ScalarProperty Name="MaLoaiBenh" ColumnName="MaLoaiBenh" />
                 <ScalarProperty Name="TienKham" ColumnName="TienKham" />
                 <ScalarProperty Name="TienThuoc" ColumnName="TienThuoc" />
+                <ScalarProperty Name="NgayKham" ColumnName="NgayKham" />
                 <ScalarProperty Name="Xoa" ColumnName="Xoa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuyDinhs">
+            <EntityTypeMapping TypeName="QuanLyPhongMachModel.QuyDinh">
+              <MappingFragment StoreEntitySet="QuyDinh">
+                <ScalarProperty Name="MaQD" ColumnName="MaQD" />
+                <ScalarProperty Name="TenQuyDinh" ColumnName="TenQuyDinh" />
+                <ScalarProperty Name="SoLuongQD" ColumnName="SoLuongQD" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -610,14 +612,6 @@ warning 6002: The table/view 'QuanLyPhongMach.dbo.QuyDinh' does not have a prima
                 <ScalarProperty Name="MaDonVi" ColumnName="MaDonVi" />
                 <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
                 <ScalarProperty Name="MaCachDung" ColumnName="MaCachDung" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="QuyDinhs">
-            <EntityTypeMapping TypeName="QuanLyPhongMachModel.QuyDinh">
-              <MappingFragment StoreEntitySet="QuyDinh">
-                <ScalarProperty Name="SoBenhNhanMotNgay" ColumnName="SoBenhNhanMotNgay" />
-                <ScalarProperty Name="SoTienKham" ColumnName="SoTienKham" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

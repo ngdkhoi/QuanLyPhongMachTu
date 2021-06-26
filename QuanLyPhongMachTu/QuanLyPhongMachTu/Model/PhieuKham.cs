@@ -26,7 +26,8 @@ namespace QuanLyPhongMachTu.Model
         public int MaLoaiBenh { get; set; }
         public int TienKham { get; set; }
         public int TienThuoc { get; set; }
-        public Nullable<bool> Xoa { get; set; }
+        public System.DateTime NgayKham { get; set; }
+        public bool Xoa { get; set; }
     
         public virtual BenhNhan BenhNhan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

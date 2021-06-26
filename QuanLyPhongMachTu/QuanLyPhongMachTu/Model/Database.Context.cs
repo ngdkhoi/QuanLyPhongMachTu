@@ -33,8 +33,8 @@ namespace QuanLyPhongMachTu.Model
         public virtual DbSet<LoaiThuoc> LoaiThuocs { get; set; }
         public virtual DbSet<NhanVien> NhanViens { get; set; }
         public virtual DbSet<PhieuKham> PhieuKhams { get; set; }
+        public virtual DbSet<QuyDinh> QuyDinhs { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<ChiTietDonThuoc> ChiTietDonThuocs { get; set; }
-        public virtual DbSet<QuyDinh> QuyDinhs { get; set; }
     }
 }

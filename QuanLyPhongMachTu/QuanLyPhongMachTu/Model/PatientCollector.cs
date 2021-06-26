@@ -13,16 +13,14 @@ namespace QuanLyPhongMachTu.Model
         private string _GioiTinh;
         private int _NamSinh;
         private string _Diachi;
-        DateTime _NgayKham;
         bool _Xoa;
-        public PatientCollector(int maso, string hoten, string gioitinh, int namsinh, string diachi, DateTime ngaykham)
+        public PatientCollector(int maso, string hoten, string gioitinh, int namsinh, string diachi)
         {
             this.MaSoBN = maso;
             this.HoTen = hoten;
             this.GioiTinh = gioitinh;
             this.NamSinh = namsinh;
             this.Diachi = diachi;
-            this.NgayKham = ngaykham;
             this.Xoa = false;
         }
 
@@ -31,7 +29,6 @@ namespace QuanLyPhongMachTu.Model
         public string GioiTinh { get => _GioiTinh; set => _GioiTinh = value; }
         public int NamSinh { get => _NamSinh; set => _NamSinh = value; }
         public string Diachi { get => _Diachi; set => _Diachi = value; }
-        public DateTime NgayKham { get => _NgayKham; set => _NgayKham = value; }
         public bool Xoa { get => _Xoa; set => _Xoa = value; }
     }
 }

@@ -24,6 +24,7 @@
                     <RowDefinition Height="60"/>
                     <RowDefinition Height="160"/>
                     <RowDefinition Height="100"/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0"
                        Text="Bệnh nhân"
@@ -135,6 +136,11 @@
                         </Grid>
                     </Grid>
                 </Grid>
+                <Border Grid.Row="3">
+                    <materialDesign:Card>
+                        
+                    </materialDesign:Card>
+                </Border>
             </Grid>
         </Border>
         <Grid Grid.Column="1">
@@ -154,68 +160,66 @@
                 <TextBlock Text="{Binding Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource dateConverter}}" />
             </StackPanel>
             <Border Grid.Row="2" Margin="15 0 15 15">
-                <materialDesign:Card Grid.Row="1">
-                    <Grid  Margin="10">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30"/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Grid Grid.Row="0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.25*" MaxWidth="30"/>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="0.6*" MaxWidth="100"/>
-                                <ColumnDefinition Width="0.6*" MaxWidth="100"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Border Grid.Column="0" BorderBrush="Black" BorderThickness="0.5">
-                                <TextBlock Text="STT" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                            <Border Grid.Column="1" BorderBrush="Black" BorderThickness="0.5">
-                                <TextBlock Text="Họ tên bệnh nhân" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                            <Border Grid.Column="2" BorderBrush="Black" BorderThickness="0.5">
-                                <TextBlock Text="Giới tính" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                            <Border Grid.Column="3" BorderBrush="Black" BorderThickness="0.5">
-                                <TextBlock Text="Năm sinh" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                            <Border Grid.Column="4" BorderBrush="Black" BorderThickness="0.5">
-                                <TextBlock Text="Địa chỉ" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                        </Grid>
-                        <ListView Grid.Row="1" ItemsSource="{Binding PatientList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.25*" MaxWidth="30"/>
-                                            <ColumnDefinition Width="1*"/>
-                                            <ColumnDefinition Width="0.6*" MaxWidth="100"/>
-                                            <ColumnDefinition Width="0.6*" MaxWidth="100"/>
-                                            <ColumnDefinition/>
-                                        </Grid.ColumnDefinitions>
-                                        <Border Grid.Column="0" BorderBrush="Black" BorderThickness="0.5">
-                                            <TextBlock Text="{Binding MaSoBN}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                        <Border Grid.Column="1" BorderBrush="Black" BorderThickness="0.5">
-                                            <TextBlock Text="{Binding HoTen}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                        <Border Grid.Column="2" BorderBrush="Black" BorderThickness="0.5">
-                                            <TextBlock Text="{Binding GioiTinh}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                        <Border Grid.Column="3" BorderBrush="Black" BorderThickness="0.5">
-                                            <TextBlock Text="{Binding NamSinh}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                        <Border Grid.Column="4" BorderBrush="Black" BorderThickness="0.5">
-                                            <TextBlock Text="{Binding DiaChi}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                    </Grid>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </Grid>
-                </materialDesign:Card>
+                <Grid>
+                    <DataGrid ItemsSource="{Binding PatientList}"
+                              CanUserSortColumns="False" CanUserReorderColumns="False"
+                              CanUserResizeColumns="False" CanUserResizeRows="False"
+                              AutoGenerateColumns="False" CanUserAddRows="False"
+                              ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                              x:Name="List" SelectedItem="{Binding SelectedEle}">
+                        <DataGrid.InputBindings>
+                            <MouseBinding MouseAction="LeftDoubleClick"
+                                          Command="{Binding Path=List}"
+                                          CommandParameter="{Binding HoTen}"/>
+                        </DataGrid.InputBindings>
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="STT" Width="55">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding MaSoBN}"
+                                                   HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Họ tên" Width="0.4*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding HoTen}"
+                                                   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Giới tính" Width="90">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding GioiTinh}"
+                                                   HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Năm sinh" Width="90">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding NamSinh}"
+                                                   HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Địa chỉ" Width="0.5*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Diachi}"
+                                                   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            
+                            
+                        </DataGrid.Columns>
+                        
+                        
+                    </DataGrid>
+                </Grid>
             </Border>
         </Grid>
     </Grid>
