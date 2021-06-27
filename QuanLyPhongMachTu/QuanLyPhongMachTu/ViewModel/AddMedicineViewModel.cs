@@ -23,6 +23,7 @@ namespace QuanLyPhongMachTu.ViewModel
         private string _Unit;
         private int _Price;
         private int _Amount;
+        private int _ID = -1;
 
         private ObservableCollection<string> _UnitList;
         private ObservableCollection<MedicineCollector> _MedicineListDB;
@@ -61,15 +62,6 @@ namespace QuanLyPhongMachTu.ViewModel
         {
             get 
             {
-                if (_MedicineListDB == null)
-                {
-                    _MedicineListDB = new ObservableCollection<MedicineCollector>();
-                    var query = DataProvider.Ins.DB.LoaiThuocs;
-                    foreach (var i in query)
-                    {
-                        _MedicineListDB.Add(new MedicineCollector(i));
-                    }
-                }
                 return _MedicineListDB; 
             }
             set 
@@ -82,36 +74,71 @@ namespace QuanLyPhongMachTu.ViewModel
         {
             get
             {
-                if (_MedicineList == null)
-                {
-                    _MedicineList = new ObservableCollection<string>();
-
-                    foreach (var i in _MedicineListDB)
-                    {
-                        _MedicineList.Add(i.TenThuoc);
-                    }
-                }
                 return _MedicineList;
             }
-            set => _MedicineList = value; 
+            set
+            {
+                _MedicineList = value;
+                OnPropertyChanged();
+            }
         }
         public string NewMedicine { get => _NewMedicine; set { _NewMedicine = value; OnPropertyChanged(); } }
-        public string Unit { get => _Unit; set { _Unit = value; OnPropertyChanged(); } }
-        public int Price { get => _Price; set { _Price = value; OnPropertyChanged(); } }
-        public int Amount { get => _Amount; set { _Amount = value; OnPropertyChanged(); } }
-
-        public string UpdateMedicine { get => _UpdateMedicine; set { _UpdateMedicine = value; OnPropertyChanged(); } }
-
         public int NewAmount { get => _NewAmount; set { _NewAmount = value; OnPropertyChanged(); } }
 
         public string NewUnit2 { get => _NewUnit2; set { _NewUnit2 = value; OnPropertyChanged(); } }
 
         public int NewPrice { get => _NewPrice; set { _NewPrice = value; OnPropertyChanged(); } }
 
-        
+
+        public string Unit { get => _Unit; set { _Unit = value; OnPropertyChanged(); } }
+        public int Price { get => _Price; set { _Price = value; OnPropertyChanged(); } }
+        public int Amount { get => _Amount; set { _Amount = value; OnPropertyChanged(); } }
+
+        public int ID
+        {
+            get => _ID;
+            set 
+            { 
+                _ID = value;
+                if(ID != -1)
+                {
+                    Unit = MedicineListDB[ID].DonVi;
+                    Price = MedicineListDB[ID].Gia;
+                    Amount = MedicineListDB[ID].SoLuong;
+                    OnPropertyChanged("Unit");
+                    OnPropertyChanged("Price");
+                    OnPropertyChanged("Amount");
+                }
+            }
+        }
+
+        public string UpdateMedicine { get => _UpdateMedicine; set { _UpdateMedicine = value; OnPropertyChanged(); } }
+
+        void LoadList() 
+        {
+            if (_MedicineListDB == null)
+            {
+                _MedicineListDB = new ObservableCollection<MedicineCollector>();
+                var query = DataProvider.Ins.DB.LoaiThuocs;
+                foreach (var i in query)
+                {
+                    _MedicineListDB.Add(new MedicineCollector(i));
+                }
+            }
+            if (_MedicineList == null)
+            {
+                _MedicineList = new ObservableCollection<string>();
+
+                foreach (var i in _MedicineListDB)
+                {
+                    _MedicineList.Add(i.TenThuoc);
+                }
+            }
+        }
 
         public AddMedicineViewModel()
         {
+            LoadList();
             AddNewUsingCommand = new RelayCommand<object>((p) =>
               {
                   if (NewUsing == null)
@@ -168,16 +195,26 @@ namespace QuanLyPhongMachTu.ViewModel
 
             UpdateMedicineCommand = new RelayCommand<object>((p) =>
             {
-                if (NewUnit == null)
+                if (UpdateMedicine == null || Unit == null || Price == 0 || Amount == 0)
                 {
                     return false;
                 }
 
                 return true;
             }, (p) => {
-                
-                Notification notification = new Notification("Thêm thành công");
+                var item = DataProvider.Ins.DB.LoaiThuocs.Where(x => x.MaThuoc == ID + 1).FirstOrDefault();
+                item.TenThuoc = UpdateMedicine;
+                item.MaDonVi = UnitList.IndexOf(Unit) + 1;
+                item.Gia = Price;
+                item.SoLuong = Amount;
+                DataProvider.Ins.DB.SaveChanges();
+                Notification notification = new Notification("Cập nhật thành công");
                 notification.Show();
+                UpdateMedicine = null;
+                Unit = null;
+                Price = 0;
+                Amount = 0;
+                ID = -1;
             });
 
             CancelAddCommand = new RelayCommand<object>((p) =>
@@ -210,6 +247,7 @@ namespace QuanLyPhongMachTu.ViewModel
                 Unit = null;
                 Price = 0;
                 Amount = 0;
+                ID = -1;
                 Notification notification = new Notification("Hủy thành công");
                 notification.Show();
             });

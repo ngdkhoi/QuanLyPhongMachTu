@@ -116,7 +116,8 @@
                             <ComboBox Margin="30" Width="200" Foreground="Black" Background="White"
                                       Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                                       materialDesign:HintAssist.Hint="Tên thuốc"
-                                      ItemsSource="{Binding MedicineList}" SelectedItem="{Binding Unit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                      ItemsSource="{Binding MedicineList}" SelectedItem="{Binding UpdateMedicine, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      SelectedIndex="{Binding ID}">
                             </ComboBox>
                             <ComboBox Margin="0 0 0 -3" Width="200" Foreground="Black" Background="White"
                                       Style="{StaticResource MaterialDesignFloatingHintComboBox}"
