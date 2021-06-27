@@ -69,6 +69,10 @@ namespace QuanLyPhongMachTu.Model
             set
             {
                 _maCachDung = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("MaCachDung"));
+                }
             }
         }
 
