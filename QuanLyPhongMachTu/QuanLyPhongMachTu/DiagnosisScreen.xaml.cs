@@ -21,9 +21,21 @@ namespace QuanLyPhongMachTu
     /// </summary>
     public partial class DiagnosisScreen : UserControl
     {
-        public DiagnosisScreen()
+        private static DiagnosisScreen _instance;
+
+        protected DiagnosisScreen()
         {
             InitializeComponent();
+        }
+
+        public static DiagnosisScreen Instance()
+        {
+            if(_instance == null)
+            {
+                _instance = new DiagnosisScreen();
+            }
+
+            return _instance;
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

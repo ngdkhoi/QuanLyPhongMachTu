@@ -37,7 +37,7 @@ namespace QuanLyPhongMachTu
                     break;
                 case 1:
                     GridPriciple.Children.Clear();
-                    GridPriciple.Children.Add(new DiagnosisScreen());
+                    GridPriciple.Children.Add(DiagnosisScreen.Instance());
                     break;
                 case 2:
                     GridPriciple.Children.Clear();
