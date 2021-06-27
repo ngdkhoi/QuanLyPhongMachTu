@@ -72,6 +72,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddDiseaseScreen.xaml.cs">
+      <DependentUpon>AddDiseaseScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddMedicineScreen.xaml.cs">
       <DependentUpon>AddMedicineScreen.xaml</DependentUpon>
     </Compile>
@@ -157,6 +160,7 @@
     <Compile Include="SettingScreen.xaml.cs">
       <DependentUpon>SettingScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\AddDiseasesViewModel.cs" />
     <Compile Include="ViewModel\AddMedicineViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\DiagnosisViewModel.cs" />
@@ -165,6 +169,11 @@
     <Compile Include="ViewModel\MedicineReportViewModel.cs" />
     <Compile Include="ViewModel\NotificationViewModel.cs" />
     <Compile Include="ViewModel\PatientListViewModel.cs" />
+    <Compile Include="ViewModel\UpdateRegulationsViewModel.cs" />
+    <Page Include="AddDiseaseScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AddMedicineScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

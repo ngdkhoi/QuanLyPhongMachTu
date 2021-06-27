@@ -137,9 +137,37 @@
                     </Grid>
                 </Grid>
                 <Border Grid.Row="3">
-                    <materialDesign:Card>
-                        
-                    </materialDesign:Card>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBox Grid.Row="0"
+                                 materialDesign:HintAssist.Hint="Tên bệnh nhân"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <materialDesign:Card Grid.Row="1" Margin="0 0 0 10">
+                            <DataGrid>
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn Header="Họ tên" Width="0.5*">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Diachi}"
+                                                   />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="Địa chỉ" Width="0.5*">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Diachi}"
+                                                   />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </materialDesign:Card>
+                    </Grid>
                 </Border>
             </Grid>
         </Border>

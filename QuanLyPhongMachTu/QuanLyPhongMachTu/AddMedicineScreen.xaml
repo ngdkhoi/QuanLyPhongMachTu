@@ -4,9 +4,134 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QuanLyPhongMachTu"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             DataContext="{StaticResource AddMediciceVM}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <TextBlock>Pill</TextBlock>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" Margin="10"
+                    CornerRadius="5" BorderThickness="3"
+                    BorderBrush="Black">
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Width="200" Height="40"  Margin="40 0"
+                             materialDesign:HintAssist.Hint="Thêm cách dùng thuốc"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Text="{Binding NewUsing, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Button Command="{Binding AddNewUsingCommand}">
+                        <materialDesign:PackIcon Kind="Plus"/>
+                    </Button>
+                </StackPanel>
+            </Border>
+            <Border Grid.Column="1" Margin="10"
+                    CornerRadius="5" BorderThickness="3"
+                    BorderBrush="Black">
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Width="200" Height="40"  Margin="40 0"
+                             materialDesign:HintAssist.Hint="Thêm đơn vị thuốc"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Text="{Binding NewUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Button Command="{Binding AddNewUnitCommand}">
+                        <materialDesign:PackIcon Kind="Plus" />
+                    </Button>
+                </StackPanel>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel  Grid.Column="0">
+                <Border
+                    Margin="10"
+                    CornerRadius="5" BorderThickness="3"
+                    BorderBrush="Black">
+                    <Grid>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                        </Grid>
+                        <TextBlock Grid.Row="0" Text="Thêm thuốc mới"
+                           FontSize="25"
+                           HorizontalAlignment="Center"/>
+                        <StackPanel Grid.Row="1">
+                            <TextBox Width="200" Margin="30"
+                             materialDesign:HintAssist.Hint="Tên thuốc"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <ComboBox Margin="0 0 0 -3" Width="200" Foreground="Black" Background="White"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                              materialDesign:HintAssist.Hint="Đơn vị tính">
+                            </ComboBox>
+                            <TextBox Width="200" Margin="30"
+                             materialDesign:HintAssist.Hint="Giá tiền"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <TextBox Width="200"
+                             materialDesign:HintAssist.Hint="Số lượng"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="15"
+                                        HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Button ToolTip="Hủy" Content="Hủy"
+                                        Margin="0 0 20 0"/>
+                                <Button ToolTip="Thêm mới" Content="Thêm mới"
+                                        Margin="20 0 0 0"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </StackPanel>
+            <StackPanel  Grid.Column="1">
+                <Border
+                        Margin="10"
+                        CornerRadius="5" BorderThickness="3"
+                        BorderBrush="Black">
+                    <Grid>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                        </Grid>
+                        <TextBlock Grid.Row="0" Text="Cập nhật thuốc"
+                           FontSize="25"
+                           HorizontalAlignment="Center"/>
+                        <StackPanel Grid.Row="1">
+                            <TextBox Width="200" Margin="30"
+                             materialDesign:HintAssist.Hint="Tên thuốc"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <ComboBox Margin="0 0 0 -3" Width="200" Foreground="Black" Background="White"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                              materialDesign:HintAssist.Hint="Đơn vị tính">
+                            </ComboBox>
+                            <TextBox Width="200" Margin="30"
+                             materialDesign:HintAssist.Hint="Giá tiền"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <TextBox Width="200"
+                             materialDesign:HintAssist.Hint="Số lượng"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="15"
+                                        HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Button ToolTip="Hủy" Content="Hủy"
+                                        Margin="0 0 20 0"/>
+                                <Button ToolTip="Cập nhật" Content="Cập nhật"
+                                        Margin="20 0 0 0"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

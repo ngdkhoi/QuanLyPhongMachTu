@@ -20,7 +20,7 @@
 
         </Grid>
         <StackPanel Grid.Row="1" Background="LightGray" >
-            <ListView x:Name="ListViewMenu" SelectionChanged="ListViewMenu_SelectionChanged" SelectedIndex="0">
+            <ListView x:Name="ListViewMenu" SelectionChanged="ListViewMenu_SelectionChanged" SelectedIndex="5">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel Orientation="Horizontal" Background="DarkGray"/>

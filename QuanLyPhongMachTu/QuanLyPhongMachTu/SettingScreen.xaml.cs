@@ -33,9 +33,13 @@ namespace QuanLyPhongMachTu
             {
                 case 0:
                     GridChildren.Children.Clear();
-                    GridChildren.Children.Add(new MedicineScreen());
+                    GridChildren.Children.Add(new AddMedicineScreen());
                     break;
                 case 1:
+                    GridChildren.Children.Clear();
+                    GridChildren.Children.Add(new AddDiseaseScreen());
+                    break;
+                case 2:
                     GridChildren.Children.Clear();
                     GridChildren.Children.Add(new SettingRuleScreen());
                     break;

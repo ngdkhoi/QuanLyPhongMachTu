@@ -47,7 +47,7 @@ namespace QuanLyPhongMachTu.ViewModel
         private void LoadData()
         {
             var query = DataProvider.Ins.DB.BenhNhans.Where(x => x.Xoa == false);
-                        
+            DoSomething();
             foreach(var i in query)
             {
                 PatientList.Add(new PatientCollector(i.MaSoBN, i.HoTen, i.GioiTinh, i.NamSinh, i.DiaChi));
