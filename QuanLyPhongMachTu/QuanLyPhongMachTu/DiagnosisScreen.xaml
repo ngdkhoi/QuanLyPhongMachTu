@@ -49,7 +49,7 @@
                         <TextBlock Text="Dự đoán loại bệnh:" />
                         <ComboBox Margin="5 0 0 0" Padding="0" SelectedValue="{Binding MaLoaibenh}" SelectedValuePath="MaBenh"
                               ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},
-                                            Path=DataContext.DiseaseList}" SelectionChanged="ComboBox_SelectionChanged">
+                                            Path=DataContext.DiseaseList}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding TenBenh}"/>
@@ -64,11 +64,14 @@
                        FontSize="15" FontWeight="Bold"
                        Text="Đơn Thuốc"
             />
-            <StackPanel DockPanel.Dock="Bottom">
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Content="Thêm thuốc" Command="{Binding AddMedicineCommand}"
                         Style="{StaticResource MaterialDesignRaisedLightButton}"
                         CommandParameter="{Binding ElementName=Diagnosis}"
-                        Width="200" />    
+                        Width="200" />
+                <Button Content="Thanh Toán"
+                        Style="{StaticResource MaterialDesignRaisedLightButton}"
+                        Width="200" Margin="20 5"/>
             </StackPanel>
             <DataGrid ItemsSource="{Binding Prescription}"
                       AutoGenerateColumns="False" CanUserAddRows="False"
@@ -81,7 +84,7 @@
                             <DataTemplate>
                                 <ComboBox SelectedValue="{Binding MaThuoc}" SelectedValuePath="MaThuoc"
                                           ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=DataGrid},
-                                                        Path=DataContext.MedicineList}" >
+                                                        Path=DataContext.MedicineList}" SelectionChanged="ComboBox_SelectionChanged">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding TenThuoc}"/>
@@ -91,8 +94,20 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Đơn vị" Width="2*" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Số lượng" Width="2*" Binding="{Binding SoLuong}"/>
+                    <DataGridTemplateColumn Header="Đơn vị" Width="2*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox VerticalContentAlignment="Center" Text="{Binding DonVi}" IsReadOnly="True"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Số lượng" Width="2*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox VerticalContentAlignment="Center" Text="{Binding SoLuong}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="Cách dùng" Width="2*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

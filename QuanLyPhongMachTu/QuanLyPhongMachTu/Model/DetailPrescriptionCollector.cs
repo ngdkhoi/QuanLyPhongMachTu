@@ -26,6 +26,22 @@ namespace QuanLyPhongMachTu.Model
             }
         }
 
+        private string _donVi;
+        public string DonVi {
+            get
+            {
+                return _donVi;
+            }
+            set
+            {
+                _donVi = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("DonVi"));
+                }
+            } 
+        }
+
         private int _soLuong;
         public int SoLuong
         {

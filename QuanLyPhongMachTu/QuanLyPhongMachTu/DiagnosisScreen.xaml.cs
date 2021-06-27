@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using QuanLyPhongMachTu.Model;
 
 namespace QuanLyPhongMachTu
 {
@@ -27,7 +28,9 @@ namespace QuanLyPhongMachTu
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            var a = (sender as ComboBox).DataContext as DetailPrescriptionCollector;
+            a.DonVi = (e.AddedItems[0] as MedicineCollector).DonVi;
+            
         }
     }
 }
