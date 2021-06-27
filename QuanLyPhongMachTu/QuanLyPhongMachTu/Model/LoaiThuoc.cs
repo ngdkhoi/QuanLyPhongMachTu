@@ -29,5 +29,6 @@ namespace QuanLyPhongMachTu.Model
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietDonThuoc> ChiTietDonThuocs { get; set; }
+        public virtual DonVi DonVi { get; set; }
     }
 }

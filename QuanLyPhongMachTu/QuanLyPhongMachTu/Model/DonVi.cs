@@ -17,13 +17,13 @@ namespace QuanLyPhongMachTu.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DonVi()
         {
-            this.ChiTietDonThuocs = new HashSet<ChiTietDonThuoc>();
+            this.LoaiThuocs = new HashSet<LoaiThuoc>();
         }
     
         public int MaDonVi { get; set; }
         public string TenDonVi { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietDonThuoc> ChiTietDonThuocs { get; set; }
+        public virtual ICollection<LoaiThuoc> LoaiThuocs { get; set; }
     }
 }

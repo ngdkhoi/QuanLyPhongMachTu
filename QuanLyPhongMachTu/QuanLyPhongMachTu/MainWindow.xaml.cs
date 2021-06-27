@@ -23,7 +23,7 @@ namespace QuanLyPhongMachTu
         public MainWindow()
         {
             InitializeComponent();
-            ListViewMenu.SelectedIndex = 3;
+            ListViewMenu.SelectedIndex = 1;
         }
 
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)

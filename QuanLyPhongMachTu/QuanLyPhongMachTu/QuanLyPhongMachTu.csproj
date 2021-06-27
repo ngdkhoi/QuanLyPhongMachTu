@@ -111,6 +111,9 @@
       <DependentUpon>Database.edmx</DependentUpon>
     </Compile>
     <Compile Include="Model\DataProvider.cs" />
+    <Compile Include="Model\DetailPrescriptionCollector.cs" />
+    <Compile Include="Model\DiagnosisCollector.cs" />
+    <Compile Include="Model\DiseaseCollector.cs" />
     <Compile Include="Model\DonThuoc.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -123,6 +126,7 @@
     <Compile Include="Model\LoaiThuoc.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\MedicineCollector.cs" />
     <Compile Include="Model\NhanVien.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -136,6 +140,7 @@
     <Compile Include="Model\sysdiagram.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\UseCollector.cs" />
     <Compile Include="Notification.xaml.cs">
       <DependentUpon>Notification.xaml</DependentUpon>
     </Compile>

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QuanLyPhongMachModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="QuanLyPhongMachModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BenhNhan">
           <Key>
             <PropertyRef Name="MaSoBN" />
@@ -23,19 +23,13 @@
           <Property Name="MaCachDung" Type="int" Nullable="false" />
           <Property Name="CachSuDung" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'QuanLyPhongMach.dbo.ChiTietDonThuoc' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ChiTietDonThuoc">
           <Key>
             <PropertyRef Name="MaDT" />
             <PropertyRef Name="MaThuoc" />
-            <PropertyRef Name="MaDonVi" />
-            <PropertyRef Name="SoLuong" />
-            <PropertyRef Name="MaCachDung" />
           </Key>
           <Property Name="MaDT" Type="int" Nullable="false" />
           <Property Name="MaThuoc" Type="int" Nullable="false" />
-          <Property Name="MaDonVi" Type="int" Nullable="false" />
           <Property Name="SoLuong" Type="int" Nullable="false" />
           <Property Name="MaCachDung" Type="int" Nullable="false" />
         </EntityType>
@@ -137,18 +131,6 @@ warning 6002: The table/view 'QuanLyPhongMach.dbo.ChiTietDonThuoc' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ChiTietDonThuoc_DonVi">
-          <End Role="DonVi" Type="Self.DonVi" Multiplicity="1" />
-          <End Role="ChiTietDonThuoc" Type="Self.ChiTietDonThuoc" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DonVi">
-              <PropertyRef Name="MaDonVi" />
-            </Principal>
-            <Dependent Role="ChiTietDonThuoc">
-              <PropertyRef Name="MaDonVi" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ChiTietDonThuoc_LoaiThuoc">
           <End Role="LoaiThuoc" Type="Self.LoaiThuoc" Multiplicity="1" />
           <End Role="ChiTietDonThuoc" Type="Self.ChiTietDonThuoc" Multiplicity="*" />
@@ -170,6 +152,18 @@ warning 6002: The table/view 'QuanLyPhongMach.dbo.ChiTietDonThuoc' does not have
             </Principal>
             <Dependent Role="DonThuoc">
               <PropertyRef Name="MaPK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoaiThuoc_DonVi">
+          <End Role="DonVi" Type="Self.DonVi" Multiplicity="1" />
+          <End Role="LoaiThuoc" Type="Self.LoaiThuoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonVi">
+              <PropertyRef Name="MaDonVi" />
+            </Principal>
+            <Dependent Role="LoaiThuoc">
+              <PropertyRef Name="MaDonVi" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -200,6 +194,7 @@ warning 6002: The table/view 'QuanLyPhongMach.dbo.ChiTietDonThuoc' does not have
         <EntityContainer Name="QuanLyPhongMachModelStoreContainer">
           <EntitySet Name="BenhNhan" EntityType="Self.BenhNhan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CachDung" EntityType="Self.CachDung" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChiTietDonThuoc" EntityType="Self.ChiTietDonThuoc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DonThuoc" EntityType="Self.DonThuoc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DonVi" EntityType="Self.DonVi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoaiBenh" EntityType="Self.LoaiBenh" Schema="dbo" store:Type="Tables" />
@@ -208,25 +203,12 @@ warning 6002: The table/view 'QuanLyPhongMach.dbo.ChiTietDonThuoc' does not have
           <EntitySet Name="PhieuKham" EntityType="Self.PhieuKham" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QuyDinh" EntityType="Self.QuyDinh" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ChiTietDonThuoc" EntityType="Self.ChiTietDonThuoc" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [ChiTietDonThuoc].[MaDT] AS [MaDT], 
-    [ChiTietDonThuoc].[MaThuoc] AS [MaThuoc], 
-    [ChiTietDonThuoc].[MaDonVi] AS [MaDonVi], 
-    [ChiTietDonThuoc].[SoLuong] AS [SoLuong], 
-    [ChiTietDonThuoc].[MaCachDung] AS [MaCachDung]
-    FROM [dbo].[ChiTietDonThuoc] AS [ChiTietDonThuoc]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_ChiTietDonThuoc_CachDung" Association="Self.FK_ChiTietDonThuoc_CachDung">
             <End Role="CachDung" EntitySet="CachDung" />
             <End Role="ChiTietDonThuoc" EntitySet="ChiTietDonThuoc" />
           </AssociationSet>
           <AssociationSet Name="FK_ChiTietDonThuoc_DonThuoc" Association="Self.FK_ChiTietDonThuoc_DonThuoc">
             <End Role="DonThuoc" EntitySet="DonThuoc" />
-            <End Role="ChiTietDonThuoc" EntitySet="ChiTietDonThuoc" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ChiTietDonThuoc_DonVi" Association="Self.FK_ChiTietDonThuoc_DonVi">
-            <End Role="DonVi" EntitySet="DonVi" />
             <End Role="ChiTietDonThuoc" EntitySet="ChiTietDonThuoc" />
           </AssociationSet>
           <AssociationSet Name="FK_ChiTietDonThuoc_LoaiThuoc" Association="Self.FK_ChiTietDonThuoc_LoaiThuoc">
@@ -237,6 +219,10 @@ warning 6002: The table/view 'QuanLyPhongMach.dbo.ChiTietDonThuoc' does not have
             <End Role="PhieuKham" EntitySet="PhieuKham" />
             <End Role="DonThuoc" EntitySet="DonThuoc" />
           </AssociationSet>
+          <AssociationSet Name="FK_LoaiThuoc_DonVi" Association="Self.FK_LoaiThuoc_DonVi">
+            <End Role="DonVi" EntitySet="DonVi" />
+            <End Role="LoaiThuoc" EntitySet="LoaiThuoc" />
+          </AssociationSet>
           <AssociationSet Name="FK_PhieuKham_BenhNhan" Association="Self.FK_PhieuKham_BenhNhan">
             <End Role="BenhNhan" EntitySet="BenhNhan" />
             <End Role="PhieuKham" EntitySet="PhieuKham" />
@@ -246,8 +232,7 @@ warning 6002: The table/view 'QuanLyPhongMach.dbo.ChiTietDonThuoc' does not have
             <End Role="PhieuKham" EntitySet="PhieuKham" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QuanLyPhongMachModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -286,7 +271,7 @@ warning 6002: The table/view 'QuanLyPhongMach.dbo.ChiTietDonThuoc' does not have
           </Key>
           <Property Name="MaDonVi" Type="Int32" Nullable="false" />
           <Property Name="TenDonVi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="ChiTietDonThuocs" Relationship="Self.FK_ChiTietDonThuoc_DonVi" FromRole="DonVi" ToRole="ChiTietDonThuoc" />
+          <NavigationProperty Name="LoaiThuocs" Relationship="QuanLyPhongMachModel.FK_LoaiThuoc_DonVi" FromRole="DonVi" ToRole="LoaiThuoc" />
         </EntityType>
         <EntityType Name="LoaiBenh">
           <Key>
@@ -307,6 +292,7 @@ warning 6002: The table/view 'QuanLyPhongMach.dbo.ChiTietDonThuoc' does not have
           <Property Name="SoLuong" Type="Int32" Nullable="false" />
           <Property Name="SoLanSuDung" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ChiTietDonThuocs" Relationship="Self.FK_ChiTietDonThuoc_LoaiThuoc" FromRole="LoaiThuoc" ToRole="ChiTietDonThuoc" />
+          <NavigationProperty Name="DonVi" Relationship="QuanLyPhongMachModel.FK_LoaiThuoc_DonVi" FromRole="LoaiThuoc" ToRole="DonVi" />
         </EntityType>
         <EntityType Name="NhanVien">
           <Key>
@@ -357,18 +343,13 @@ warning 6002: The table/view 'QuanLyPhongMach.dbo.ChiTietDonThuoc' does not have
           <Key>
             <PropertyRef Name="MaDT" />
             <PropertyRef Name="MaThuoc" />
-            <PropertyRef Name="MaDonVi" />
-            <PropertyRef Name="SoLuong" />
-            <PropertyRef Name="MaCachDung" />
           </Key>
           <Property Name="MaDT" Type="Int32" Nullable="false" />
           <Property Name="MaThuoc" Type="Int32" Nullable="false" />
-          <Property Name="MaDonVi" Type="Int32" Nullable="false" />
           <Property Name="SoLuong" Type="Int32" Nullable="false" />
           <Property Name="MaCachDung" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CachDung" Relationship="Self.FK_ChiTietDonThuoc_CachDung" FromRole="ChiTietDonThuoc" ToRole="CachDung" />
           <NavigationProperty Name="DonThuoc" Relationship="Self.FK_ChiTietDonThuoc_DonThuoc" FromRole="ChiTietDonThuoc" ToRole="DonThuoc" />
-          <NavigationProperty Name="DonVi" Relationship="Self.FK_ChiTietDonThuoc_DonVi" FromRole="ChiTietDonThuoc" ToRole="DonVi" />
           <NavigationProperty Name="LoaiThuoc" Relationship="Self.FK_ChiTietDonThuoc_LoaiThuoc" FromRole="ChiTietDonThuoc" ToRole="LoaiThuoc" />
         </EntityType>
         <Association Name="FK_PhieuKham_BenhNhan">
@@ -416,18 +397,6 @@ warning 6002: The table/view 'QuanLyPhongMach.dbo.ChiTietDonThuoc' does not have
             </Principal>
             <Dependent Role="DonThuoc">
               <PropertyRef Name="MaPK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ChiTietDonThuoc_DonVi">
-          <End Role="DonVi" Type="Self.DonVi" Multiplicity="1" />
-          <End Role="ChiTietDonThuoc" Type="Self.ChiTietDonThuoc" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DonVi">
-              <PropertyRef Name="MaDonVi" />
-            </Principal>
-            <Dependent Role="ChiTietDonThuoc">
-              <PropertyRef Name="MaDonVi" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -483,10 +452,6 @@ warning 6002: The table/view 'QuanLyPhongMach.dbo.ChiTietDonThuoc' does not have
             <End Role="PhieuKham" EntitySet="PhieuKhams" />
             <End Role="DonThuoc" EntitySet="DonThuocs" />
           </AssociationSet>
-          <AssociationSet Name="FK_ChiTietDonThuoc_DonVi" Association="Self.FK_ChiTietDonThuoc_DonVi">
-            <End Role="DonVi" EntitySet="DonVis" />
-            <End Role="ChiTietDonThuoc" EntitySet="ChiTietDonThuocs" />
-          </AssociationSet>
           <AssociationSet Name="FK_PhieuKham_LoaiBenh" Association="Self.FK_PhieuKham_LoaiBenh">
             <End Role="LoaiBenh" EntitySet="LoaiBenhs" />
             <End Role="PhieuKham" EntitySet="PhieuKhams" />
@@ -495,7 +460,23 @@ warning 6002: The table/view 'QuanLyPhongMach.dbo.ChiTietDonThuoc' does not have
             <End Role="LoaiThuoc" EntitySet="LoaiThuocs" />
             <End Role="ChiTietDonThuoc" EntitySet="ChiTietDonThuocs" />
           </AssociationSet>
+          <AssociationSet Name="FK_LoaiThuoc_DonVi" Association="QuanLyPhongMachModel.FK_LoaiThuoc_DonVi">
+            <End Role="DonVi" EntitySet="DonVis" />
+            <End Role="LoaiThuoc" EntitySet="LoaiThuocs" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_LoaiThuoc_DonVi">
+          <End Type="QuanLyPhongMachModel.DonVi" Role="DonVi" Multiplicity="1" />
+          <End Type="QuanLyPhongMachModel.LoaiThuoc" Role="LoaiThuoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonVi">
+              <PropertyRef Name="MaDonVi" />
+            </Principal>
+            <Dependent Role="LoaiThuoc">
+              <PropertyRef Name="MaDonVi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -609,7 +590,6 @@ warning 6002: The table/view 'QuanLyPhongMach.dbo.ChiTietDonThuoc' does not have
               <MappingFragment StoreEntitySet="ChiTietDonThuoc">
                 <ScalarProperty Name="MaDT" ColumnName="MaDT" />
                 <ScalarProperty Name="MaThuoc" ColumnName="MaThuoc" />
-                <ScalarProperty Name="MaDonVi" ColumnName="MaDonVi" />
                 <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
                 <ScalarProperty Name="MaCachDung" ColumnName="MaCachDung" />
               </MappingFragment>
