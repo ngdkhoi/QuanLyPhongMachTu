@@ -15,6 +15,7 @@ namespace QuanLyPhongMachTu.ViewModel
     {
         public ICommand AddMedicineCommand { get; set; }
         public ICommand DeleteMedicineCommand { get; set; }
+        public ICommand CheckoutCommand { get; set; }
 
         public DiagnosisCollector Information { get; set; }             //Thông tin khám bệnh
 
@@ -58,6 +59,15 @@ namespace QuanLyPhongMachTu.ViewModel
             {
                 return true;
             }, HandleDeleteMedicine);
+
+            CheckoutCommand = new RelayCommand<DiagnosisScreen>((p) =>
+            {
+                return true;
+
+            }, (p) =>
+            {
+                HandleCheckout();
+            });
 
         }
 
@@ -125,6 +135,47 @@ namespace QuanLyPhongMachTu.ViewModel
                     CachSuDung = way.CachSuDung
                 });
             }
+        }
+
+        private void HandleCheckout()
+        {
+            var newID = DataProvider.Ins.DB.PhieuKhams.Max(pk => pk.MaPK) + 1;
+            var diagnosisCost = DataProvider.Ins.DB.QuyDinhs.Where(qd => qd.TenQuyDinh == "SoTienKham").First().SoLuongQD;
+            int medicineCost = 0;
+            foreach(var medicine in Prescription)
+            {
+                int cost = medicine.SoLuong * MedicineList.Where(medi => medi.MaThuoc == medicine.MaThuoc).First().Gia;
+                medicineCost += cost;
+            }
+            DataProvider.Ins.DB.PhieuKhams.Add(new PhieuKham()
+            {
+                MaPK = newID,
+                MaBN = Information.MaBN,
+                TrieuChung = Information.TrieuChung,
+                MaLoaiBenh = Information.MaLoaibenh,
+                TienKham = diagnosisCost,
+                TienThuoc = medicineCost,
+                NgayKham = Information.NgayKham,
+                Xoa = false
+            });
+            var newPrescriptionID = DataProvider.Ins.DB.DonThuocs.Max(dt => dt.MaDT) + 1;
+            DataProvider.Ins.DB.DonThuocs.Add(new DonThuoc()
+            {
+                MaDT = newPrescriptionID,
+                MaPK = newID
+            });
+
+            foreach(var medicine in Prescription)
+            {
+                DataProvider.Ins.DB.ChiTietDonThuocs.Add(new ChiTietDonThuoc()
+                {
+                    MaDT = newPrescriptionID,
+                    MaThuoc = medicine.MaThuoc,
+                    SoLuong = medicine.SoLuong,
+                    MaCachDung = medicine.MaCachDung
+                });
+            }
+            DataProvider.Ins.DB.SaveChanges();
         }
     }
 }

@@ -80,7 +80,6 @@ namespace QuanLyPhongMachTu.Model
             MaBN = patientID;
             TenBN = patientName;
             NgayKham = DateTime.Now;
-
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
