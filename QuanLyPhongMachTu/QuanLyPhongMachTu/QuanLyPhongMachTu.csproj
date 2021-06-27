@@ -143,6 +143,7 @@
     <Compile Include="Model\sysdiagram.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\UnitCollector.cs" />
     <Compile Include="Model\UseCollector.cs" />
     <Compile Include="Notification.xaml.cs">
       <DependentUpon>Notification.xaml</DependentUpon>

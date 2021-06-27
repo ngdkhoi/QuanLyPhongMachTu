@@ -15,6 +15,15 @@ namespace QuanLyPhongMachTu.Model
         public string DonVi { get; set; }
 
         public int Gia { get; set; }
-
+        public int SoLuong { get; set; }
+        public MedicineCollector(LoaiThuoc a)
+        {
+            MaThuoc = a.MaThuoc;
+            TenThuoc = a.TenThuoc;
+            DonVi = DataProvider.Ins.DB.DonVis.Where(x => x.MaDonVi == a.MaDonVi).FirstOrDefault().TenDonVi;
+            Gia = a.Gia;
+            SoLuong = a.SoLuong;
+        }
+        public MedicineCollector() { }
     }
 }

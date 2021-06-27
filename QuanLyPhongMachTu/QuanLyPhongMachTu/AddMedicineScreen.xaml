@@ -67,25 +67,31 @@
                            HorizontalAlignment="Center"/>
                         <StackPanel Grid.Row="1">
                             <TextBox Width="200" Margin="30"
-                             materialDesign:HintAssist.Hint="Tên thuốc"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                     materialDesign:HintAssist.Hint="Tên thuốc"
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                     Text="{Binding NewMedicine, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             <ComboBox Margin="0 0 0 -3" Width="200" Foreground="Black" Background="White"
-                              Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                              materialDesign:HintAssist.Hint="Đơn vị tính">
+                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                      materialDesign:HintAssist.Hint="Đơn vị tính"
+                                      ItemsSource="{Binding UnitList}" SelectedItem="{Binding NewUnit2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             </ComboBox>
                             <TextBox Width="200" Margin="30"
-                             materialDesign:HintAssist.Hint="Giá tiền"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                     materialDesign:HintAssist.Hint="Giá tiền"
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                                     Text="{Binding NewPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             <TextBox Width="200"
-                             materialDesign:HintAssist.Hint="Số lượng"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                     materialDesign:HintAssist.Hint="Số lượng"
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                     Text="{Binding NewAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             <StackPanel Orientation="Horizontal"
                                         Margin="15"
                                         HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Button ToolTip="Hủy" Content="Hủy"
-                                        Margin="0 0 20 0"/>
+                                        Margin="0 0 20 0"
+                                        Command="{Binding CancelAddCommand, UpdateSourceTrigger=PropertyChanged}"/>
                                 <Button ToolTip="Thêm mới" Content="Thêm mới"
-                                        Margin="20 0 0 0"/>
+                                        Margin="20 0 0 0"
+                                        Command="{Binding AddNewMedicineCommand, UpdateSourceTrigger=PropertyChanged}"/>
                             </StackPanel>
                         </StackPanel>
                     </Grid>
@@ -107,26 +113,33 @@
                            FontSize="25"
                            HorizontalAlignment="Center"/>
                         <StackPanel Grid.Row="1">
-                            <TextBox Width="200" Margin="30"
-                             materialDesign:HintAssist.Hint="Tên thuốc"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <ComboBox Margin="30" Width="200" Foreground="Black" Background="White"
+                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                      materialDesign:HintAssist.Hint="Tên thuốc"
+                                      ItemsSource="{Binding MedicineList}" SelectedItem="{Binding Unit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            </ComboBox>
                             <ComboBox Margin="0 0 0 -3" Width="200" Foreground="Black" Background="White"
-                              Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                              materialDesign:HintAssist.Hint="Đơn vị tính">
+                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                      materialDesign:HintAssist.Hint="Đơn vị tính"
+                                      ItemsSource="{Binding UnitList}" SelectedItem="{Binding Unit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             </ComboBox>
                             <TextBox Width="200" Margin="30"
-                             materialDesign:HintAssist.Hint="Giá tiền"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                     materialDesign:HintAssist.Hint="Giá tiền"
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                                     Text="{Binding Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             <TextBox Width="200"
-                             materialDesign:HintAssist.Hint="Số lượng"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                     materialDesign:HintAssist.Hint="Số lượng"
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                     Text="{Binding Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             <StackPanel Orientation="Horizontal"
                                         Margin="15"
                                         HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Button ToolTip="Hủy" Content="Hủy"
-                                        Margin="0 0 20 0"/>
+                                        Margin="0 0 20 0"
+                                        Command="{Binding CancelUpdateCommand}"/>
                                 <Button ToolTip="Cập nhật" Content="Cập nhật"
-                                        Margin="20 0 0 0"/>
+                                        Margin="20 0 0 0"
+                                        Command="{Binding UpdateMedicineCommand}"/>
                             </StackPanel>
                         </StackPanel>
                     </Grid>
