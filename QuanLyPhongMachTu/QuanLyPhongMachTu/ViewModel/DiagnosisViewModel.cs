@@ -7,165 +7,124 @@ using System.IO;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using System.Windows;
+using QuanLyPhongMachTu.Model;
 
 namespace QuanLyPhongMachTu.ViewModel
 {
     public class DiagnosisViewModel : BaseViewModel
     {
-        public class ChiTietThuoc : BaseViewModel
-        {
-
-            private int _stt;
-            public int STT
-            {
-                get
-                {
-                    return _stt;
-                }
-                set
-                {
-                    _stt = value;
-                    OnPropertyChanged();
-                }
-            }
-
-            private string _name;
-            public string Name
-            {
-                get
-                {
-                    return _name;
-                }
-                set
-                {
-                    _name = value;
-                    OnPropertyChanged();
-                }
-            }
-
-            private string _donVi;
-            public string DonVi
-            {
-                get
-                {
-                    return _donVi;
-                }
-                set
-                {
-                    _donVi = value;
-                    OnPropertyChanged();
-                }
-            }
-
-            private int _soLuong;
-            public int SoLuong
-            {
-                get
-                {
-                    return _soLuong;
-                }
-                set
-                {
-                    _soLuong = value;
-                    OnPropertyChanged();
-                }
-            }
-
-            private string _cachDung;  
-            public string CachDung
-            {
-                get
-                {
-                    return _cachDung;
-                }
-                set
-                {
-                    _cachDung = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private ObservableCollection<ChiTietThuoc> _donThuoc;
-        public ObservableCollection<ChiTietThuoc> DonThuoc
-        {
-            get
-            {
-                return _donThuoc;
-            }
-            set
-            {
-                _donThuoc = value;
-                OnPropertyChanged();
-            }
-        }
-        public ObservableCollection<string> DanhSachThuoc { get; set; }
-
         public ICommand AddMedicineCommand { get; set; }
         public ICommand DeleteMedicineCommand { get; set; }
 
+        public DiagnosisCollector Information { get; set; }             //Thông tin khám bệnh
+
+        public ObservableCollection<DiseaseCollector> DiseaseList { get; set; }    //Danh sách bệnh
+
+        public ObservableCollection<MedicineCollector> MedicineList { get; set; }       //Danh sách thuốc để chọn
+
+        public ObservableCollection<UseCollector> UsingList { get; set; }               //Danh sách cách dùng thuốc
+
+        private ObservableCollection<DetailPrescriptionCollector> _prescription;        // Đơn thuốc của bệnh nhân
+        public ObservableCollection<DetailPrescriptionCollector> Prescription
+        {
+            get
+            {
+                return _prescription;
+            }
+            set
+            {
+                _prescription = value;
+                OnPropertyChanged();
+            }
+        }
 
         public DiagnosisViewModel()
         {
+            InitialDiagnosis(1);
+            LoadDiseaseList();
+            LoadMedicineList();
+            LoadUsingList();
+            Prescription = new ObservableCollection<DetailPrescriptionCollector>();
+            
             AddMedicineCommand = new RelayCommand<DiagnosisScreen>((p) =>
             {
                 return true;
             }, (p) =>
             {
-                int newOrder = DonThuoc[DonThuoc.Count - 1].STT + 1;
-                DonThuoc.Add(new ChiTietThuoc() { 
-                    STT = newOrder,
-                    Name = "",
-                    SoLuong = 0,
-                    DonVi = "viên",
-                    CachDung = ""
-                });
+                Prescription.Add(new DetailPrescriptionCollector());
             });
 
-            DeleteMedicineCommand = new RelayCommand<ChiTietThuoc>((p) =>
+            DeleteMedicineCommand = new RelayCommand<DetailPrescriptionCollector>((p) =>
             {
                 return true;
-            }, (HandleDeleteMedicine));
+            }, HandleDeleteMedicine);
 
-            DonThuoc = new ObservableCollection<ChiTietThuoc>()
-            {
-                new ChiTietThuoc()
-                {
-                    STT = 1,
-                    Name = "Paracetamol",
-                    CachDung = "3 lần/ngày",
-                    SoLuong = 21,
-                    DonVi = "viên"
-                },
-                new ChiTietThuoc()
-                {
-                    STT = 2,
-                    Name = "",
-                    CachDung = "3 lần/ngày",
-                    SoLuong = 21,
-                    DonVi = "viên"
-                },
-                new ChiTietThuoc()
-                {
-                    STT = 3,
-                    Name = "",
-                    CachDung = "1 lần/ngày",
-                    SoLuong = 7,
-                    DonVi = "gói"
-                }
-            };
-
-            DanhSachThuoc = new ObservableCollection<string>()
-            {
-                "Paracetamol",
-                "Cafein",
-                "Heroin"
-            };
         }
 
-        private void HandleDeleteMedicine(ChiTietThuoc target)
+        private void HandleDeleteMedicine(DetailPrescriptionCollector target)
         {
-            DonThuoc.Remove(target);
+            Prescription.Remove(target);
+        }
+
+        private void InitialDiagnosis(int patientID)
+        {
+            var result = from pk in DataProvider.Ins.DB.PhieuKhams
+                         join bn in DataProvider.Ins.DB.BenhNhans on pk.MaBN equals bn.MaSoBN
+                         where bn.MaSoBN == patientID
+                         select bn;
+
+            Information = new DiagnosisCollector(result.First().MaSoBN, result.First().HoTen);
+        }
+
+        private void LoadDiseaseList()
+        {
+            var diseases = DataProvider.Ins.DB.LoaiBenhs.ToList();
+            DiseaseList = new ObservableCollection<DiseaseCollector>();
+            foreach(var disease in diseases)
+            {
+                DiseaseList.Add(new DiseaseCollector()
+                {
+                    MaBenh = disease.MaBenh,
+                    TenBenh = disease.TenBenh
+                });
+            }
+        }
+
+        private void LoadMedicineList()
+        {
+            var medicines = (from lt in DataProvider.Ins.DB.LoaiThuocs
+                             join dv in DataProvider.Ins.DB.DonVis on lt.MaDonVi equals dv.MaDonVi
+                             select new {
+                                 MaThuoc = lt.MaThuoc,
+                                 TenThuoc = lt.TenThuoc,
+                                 DonVi = dv.TenDonVi,
+                                 Gia = lt.Gia
+                             }).ToList() ;
+            MedicineList = new ObservableCollection<MedicineCollector>();
+            foreach(var medicine in medicines)
+            {
+                MedicineList.Add(new MedicineCollector()
+                {
+                    MaThuoc = medicine.MaThuoc,
+                    TenThuoc = medicine.TenThuoc,
+                    DonVi = medicine.DonVi,
+                    Gia = medicine.Gia
+                });
+            }
+        }
+
+        private void LoadUsingList()
+        {
+            var ways = DataProvider.Ins.DB.CachDungs.ToList();
+            UsingList = new ObservableCollection<UseCollector>();
+            foreach(var way in ways)
+            {
+                UsingList.Add(new UseCollector()
+                {
+                    MaCachDung = way.MaCachDung,
+                    CachSuDung = way.CachSuDung
+                });
+            }
         }
     }
 }

@@ -16,13 +16,11 @@ namespace QuanLyPhongMachTu.Model
     {
         public int MaDT { get; set; }
         public int MaThuoc { get; set; }
-        public int MaDonVi { get; set; }
         public int SoLuong { get; set; }
         public int MaCachDung { get; set; }
     
         public virtual CachDung CachDung { get; set; }
         public virtual DonThuoc DonThuoc { get; set; }
-        public virtual DonVi DonVi { get; set; }
         public virtual LoaiThuoc LoaiThuoc { get; set; }
     }
 }

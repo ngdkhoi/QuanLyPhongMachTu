@@ -5,10 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QuanLyPhongMachTu"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:dateConverter="clr-namespace:QuanLyPhongMachTu.dateConverter"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800" Background="White" FontSize="13"
              Name="Diagnosis"
              DataContext="{StaticResource DiagnosisVM}">
+    <UserControl.Resources>
+        <dateConverter:DateConveter x:Key="dateConverter"/>
+    </UserControl.Resources>
     <materialDesign:Card Margin="60 10">
         <DockPanel LastChildFill="True">
             <TextBlock DockPanel.Dock="Top" Margin="0 10 0 0"
@@ -16,35 +20,45 @@
                        FontSize="15" FontWeight="Bold"
                        Text="PHIẾU KHÁM BỆNH"
             />
-            <Grid DockPanel.Dock="Top" Margin="0 10 0 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="35"/>
-                    <RowDefinition Height="35"/>
-                </Grid.RowDefinitions>
-                <DockPanel VerticalAlignment="Center" Margin="5 0">
-                    <TextBlock Text="Tên bệnh nhân:" />
-                    <TextBox Padding="0" Margin="5 0 0 0"/>
-                </DockPanel>
-                <DockPanel Grid.Row="1"
+            <StackPanel DockPanel.Dock="Top">
+                <Grid Margin="0 10 0 0" DataContext="{Binding Information}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="35"/>
+                    </Grid.RowDefinitions>
+                    <DockPanel VerticalAlignment="Center" Margin="5 0">
+                        <TextBlock Text="Tên bệnh nhân:" />
+                        <TextBox Padding="0" Margin="5 0 0 0" Text="{Binding TenBN}"/>
+                    </DockPanel>
+                    <DockPanel Grid.Row="1"
                            VerticalAlignment="Center" Margin="5 0">
-                    <TextBlock Text="Triệu chứng:" />
-                    <TextBox Padding="0" Margin="5 0 0 0" />
-                </DockPanel>
-                <DockPanel Grid.Column="1"
+                        <TextBlock Text="Triệu chứng:" />
+                        <TextBox Padding="0" Margin="5 0 0 0" Text="{Binding TrieuChung}"/>
+                    </DockPanel>
+                    <DockPanel Grid.Column="1"
                            VerticalAlignment="Center" Margin="5 0">
-                    <TextBlock Text="Ngày khám:" />
-                    <TextBox Padding="0" Margin="5 0 0 0" />
-                </DockPanel>
-                <DockPanel Grid.Column="1" Grid.Row="1"
+                        <TextBlock Text="Ngày khám:" />
+                        <TextBox Padding="0" Margin="5 0 0 0" Text="{Binding NgayKham, Converter={StaticResource dateConverter}}"/>
+                    </DockPanel>
+                    <DockPanel Grid.Column="1" Grid.Row="1"
                            VerticalAlignment="Center" Margin="5 0">
-                    <TextBlock Text="Dự đoán loại bệnh:" />
-                    <TextBox Padding="0" Margin="5 0 0 0"/>
-                </DockPanel>
-            </Grid>
+                        <TextBlock Text="Dự đoán loại bệnh:" />
+                        <ComboBox Margin="5 0 0 0" Padding="0" SelectedValue="{Binding MaLoaibenh}" SelectedValuePath="MaBenh"
+                              ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=StackPanel},
+                                            Path=DataContext.DiseaseList}" SelectionChanged="ComboBox_SelectionChanged">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding TenBenh}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </DockPanel>
+                </Grid>
+            </StackPanel>
             <TextBlock DockPanel.Dock="Top" Margin="0 15 0 10"
                        TextAlignment="Center"
                        FontSize="15" FontWeight="Bold"
@@ -56,21 +70,45 @@
                         CommandParameter="{Binding ElementName=Diagnosis}"
                         Width="200" />    
             </StackPanel>
-            <DataGrid ItemsSource="{Binding DonThuoc}"
+            <DataGrid ItemsSource="{Binding Prescription}"
                       AutoGenerateColumns="False" CanUserAddRows="False"
-                      ScrollViewer.VerticalScrollBarVisibility="Disabled" AlternationCount="{Binding DonThuoc.Count}">
+                      ScrollViewer.VerticalScrollBarVisibility="Disabled" AlternationCount="{Binding Prescription.Count}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="STT" Width="1.5*" IsReadOnly="True" Binding="{Binding AlternationIndex, RelativeSource={RelativeSource AncestorType=DataGridRow}}"/>
-                    <materialDesign:DataGridComboBoxColumn Header="Thuốc" Width="3.5*"
-                                                           IsEditable="True"
-                                                           SelectedItemBinding="{Binding Name}"
-                                                           ItemsSourceBinding="{Binding RelativeSource={RelativeSource AncestorType=DataGrid},
-                                                           Path=DataContext.DanhSachThuoc}">
-                    </materialDesign:DataGridComboBoxColumn>
-                    <DataGridTextColumn Header="Đơn vị" Width="2*" Binding="{Binding DonVi}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="STT" Width="1.5*" IsReadOnly="True" Binding="{Binding AlternationIndex,
+                                                            RelativeSource={RelativeSource AncestorType=DataGridRow}}"/>
+                    <DataGridTemplateColumn Width="3*" Header="Thuốc">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox SelectedValue="{Binding MaThuoc}" SelectedValuePath="MaThuoc"
+                                          ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=DataGrid},
+                                                        Path=DataContext.MedicineList}" >
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding TenThuoc}"/>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Đơn vị" Width="2*" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Số lượng" Width="2*" Binding="{Binding SoLuong}"/>
-                    <DataGridTextColumn Header="Cách dùng" Width="3*" Binding="{Binding CachDung}"/>
-                    <DataGridTemplateColumn Header="Thao tác">
+                    <DataGridTemplateColumn Header="Cách dùng" Width="2*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox SelectedValue="{Binding MaCachDung}" SelectedValuePath="MaCachDung"
+                                          ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=DataGrid},
+                                                           Path=DataContext.UsingList}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding CachSuDung}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Thao tác" Width="2*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Style="{StaticResource MaterialDesignRaisedLightButton}"
