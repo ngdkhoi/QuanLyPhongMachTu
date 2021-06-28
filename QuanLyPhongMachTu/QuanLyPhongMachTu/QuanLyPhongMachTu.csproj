@@ -81,6 +81,7 @@
     <Compile Include="Component\BindablePassword.xaml.cs">
       <DependentUpon>BindablePassword.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converter\CurrencyConverter.cs" />
     <Compile Include="Converter\DateConveter.cs" />
     <Compile Include="DiagnosisScreen.xaml.cs">
       <DependentUpon>DiagnosisScreen.xaml</DependentUpon>
