@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using QuanLyPhongMachTu.Model;
+using QuanLyPhongMachTu.ViewModel;
 
 namespace QuanLyPhongMachTu
 {
@@ -23,19 +24,25 @@ namespace QuanLyPhongMachTu
     {
         private static DiagnosisScreen _instance;
 
-        protected DiagnosisScreen()
+        protected DiagnosisScreen(int patientID)
         {
+            this.DataContext = new DiagnosisViewModel(patientID);
             InitializeComponent();
         }
 
-        public static DiagnosisScreen Instance()
+        public static DiagnosisScreen Instance(int patientID)
         {
             if(_instance == null)
             {
-                _instance = new DiagnosisScreen();
+                _instance = new DiagnosisScreen(patientID);
             }
 
             return _instance;
+        }
+        public static DiagnosisScreen Instance()
+        {
+            MessageBox.Show("Vui lòng chọn bệnh nhân!!");
+            return null;
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

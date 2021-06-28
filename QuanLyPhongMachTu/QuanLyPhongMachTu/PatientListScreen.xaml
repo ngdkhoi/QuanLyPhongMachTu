@@ -6,16 +6,19 @@
              xmlns:local="clr-namespace:QuanLyPhongMachTu"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:dateConverter="clr-namespace:QuanLyPhongMachTu.dateConverter"
+             xmlns:orderConverter="clr-namespace:QuanLyPhongMachTu.orderConverter"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              DataContext="{StaticResource PatientListVM}"
              mc:Ignorable="d" 
              x:Name="PatientList"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <dateConverter:DateConveter x:Key="dateConverter"/>
+        <orderConverter:OrderConverter x:Key="orderConverter"/>
     </UserControl.Resources>
     <Grid Background="White">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.6*" MaxWidth="400"/>
+            <ColumnDefinition Width="0.7*" MaxWidth="400"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0" Margin="10 0 0 0">
@@ -23,7 +26,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60"/>
                     <RowDefinition Height="160"/>
-                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="60"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0"
@@ -74,7 +77,7 @@
                                           Margin="0 0 0 -3" Width="180" Foreground="Black" Background="White"
                                           VerticalAlignment="Center" HorizontalAlignment="Left"
                                           Style="{StaticResource MaterialDesignFilledComboBox}"
-                                          SelectedItem="{Binding GioiTinh, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                          SelectedValue="{Binding GioiTinh}" SelectedValuePath="Content">
                                     <ComboBoxItem Foreground="Black">Nam</ComboBoxItem>
                                     <ComboBoxItem Foreground="Black">Nữ</ComboBoxItem>
                                 </ComboBox>
@@ -92,11 +95,7 @@
                 </Border>
                 <Grid Grid.Row="2">
                     <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Grid Grid.Row="0">
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="0.25*"/>
                                 <ColumnDefinition Width="0.4*"/>
@@ -124,16 +123,6 @@
                                 Xóa
                             </Button>
                         </Grid>
-                        <Grid Grid.Row="1">
-                            <Button
-                            Style="{StaticResource MaterialDesignRaisedButton}"
-                            Width="110"
-                            ToolTip="Resource name: MaterialDesignRaisedButton"
-                            Command="{Binding PayCommand}"
-                            CommandParameter="{Binding ElementName=PatientList}">
-                                Thanh toán
-                            </Button>
-                        </Grid>
                     </Grid>
                 </Grid>
                 <Border Grid.Row="3">
@@ -142,25 +131,42 @@
                             <RowDefinition Height="40"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <TextBox Grid.Row="0"
+                        <TextBox Grid.Row="0" Name="SearchTextBox"
                                  materialDesign:HintAssist.Hint="Tên bệnh nhân"
-                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="TextChanged">
+                                    <i:InvokeCommandAction Command="{Binding SearchPatientCommand}"
+                                                           CommandParameter="{Binding ElementName=SearchTextBox}"/>
+                                </i:EventTrigger>   
+                            </i:Interaction.Triggers>
+                        </TextBox>
                         <materialDesign:Card Grid.Row="1" Margin="0 0 0 10">
-                            <DataGrid>
+                            <DataGrid ItemsSource="{Binding SearchResults}" AutoGenerateColumns="False"
+                                      CanUserReorderColumns="False" CanUserAddRows="False"
+                                      CanUserDeleteRows="False" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                                 <DataGrid.Columns>
-                                    <DataGridTemplateColumn Header="Họ tên" Width="0.5*">
+                                    <DataGridTemplateColumn Header="Họ tên" Width="0.4*">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding Diachi}"
-                                                   />
+                                                <TextBlock Text="{Binding HoTen}" TextWrapping="Wrap"/>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
-                                    <DataGridTemplateColumn Header="Địa chỉ" Width="0.5*">
+                                    <DataGridTemplateColumn Header="Địa chỉ" Width="0.6*">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding Diachi}"
-                                                   />
+                                                <TextBlock Text="{Binding DiaChi}" TextWrapping="Wrap"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="Thao tác" Width="0.4*">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Content="Thêm"
+                                                        Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid},
+                                                                  Path=DataContext.AddOldPatientCommand}"
+                                                        CommandParameter="{Binding}"/>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
@@ -194,7 +200,8 @@
                               CanUserResizeColumns="False" CanUserResizeRows="False"
                               AutoGenerateColumns="False" CanUserAddRows="False"
                               ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                              x:Name="List" SelectedItem="{Binding SelectedEle}">
+                              AlternationCount="{Binding PatientList.Count}"
+                              x:Name="List">
                         <DataGrid.InputBindings>
                             <MouseBinding MouseAction="LeftDoubleClick"
                                           Command="{Binding Path=List}"
@@ -204,16 +211,17 @@
                             <DataGridTemplateColumn Header="STT" Width="55">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding MaSoBN}"
-                                                   HorizontalAlignment="Center"/>
+                                        <TextBlock HorizontalAlignment="Center"
+                                                   Text="{Binding AlternationIndex,
+                                                         RelativeSource={RelativeSource AncestorType=DataGridRow},
+                                                         Converter={StaticResource orderConverter}}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Header="Họ tên" Width="0.4*">
+                            <DataGridTemplateColumn Header="Họ tên" Width="0.5*" MaxWidth="250">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding HoTen}"
-                                                   />
+                                        <TextBlock Text="{Binding HoTen}" TextWrapping="Wrap"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -233,19 +241,25 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Header="Địa chỉ" Width="0.5*">
+                            <DataGridTemplateColumn Header="Địa chỉ" Width="0.6*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Diachi}"
-                                                   />
+                                        <TextBlock Text="{Binding DiaChi}" TextWrapping="Wrap" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            
-                            
+                            <DataGridTemplateColumn Header="Thao tác" Width="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <Button Content="Khám" Width="70"
+                                                    Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.ExamCommand}"
+                                                    CommandParameter="{Binding}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
-                        
-                        
                     </DataGrid>
                 </Grid>
             </Border>
