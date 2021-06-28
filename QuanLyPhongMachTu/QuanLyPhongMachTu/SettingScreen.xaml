@@ -17,16 +17,16 @@
             
         </Grid>
 
-        <Grid Grid.Column="0" Background="Black">
+        <Grid Grid.Column="0" Background="LightGray">
             <ListView x:Name="ListViewMenu" VerticalAlignment="Center" SelectionChanged="ListMenu_SelectionChanged" SelectedIndex="0">
-                <ListViewItem Height="60" Foreground="White">
-                    <TextBlock Text="Medicines" Foreground="#FFFFF1E5" FontSize="22" VerticalAlignment="Center" Margin="10 0 0 0"></TextBlock>
+                <ListViewItem Height="60" BorderBrush="Black" BorderThickness="2">
+                    <TextBlock Text="Medicines" Foreground="Black" FontSize="22" VerticalAlignment="Center" Margin="10 0 0 0"></TextBlock>
                 </ListViewItem>
-                <ListViewItem Height="60" Foreground="White">
-                    <TextBlock Text="Diseases" Foreground="#FFFFF1E5" FontSize="22" VerticalAlignment="Center" Margin="10 0 0 0"></TextBlock>
+                <ListViewItem Height="60" BorderBrush="Black" BorderThickness="2">
+                    <TextBlock Text="Diseases" Foreground="Black" FontSize="22" VerticalAlignment="Center" Margin="10 0 0 0"></TextBlock>
                 </ListViewItem>
-                <ListViewItem Height="60" Foreground="White">
-                    <TextBlock Text="Regulations" Foreground="#FFFFF1E5" FontSize="22" VerticalAlignment="Center" Margin="10 0 0 0"></TextBlock>
+                <ListViewItem Height="60" BorderBrush="Black" BorderThickness="2">
+                    <TextBlock Text="Regulations" Foreground="Black" FontSize="22" VerticalAlignment="Center" Margin="10 0 0 0"></TextBlock>
                 </ListViewItem>
             </ListView>
         </Grid>

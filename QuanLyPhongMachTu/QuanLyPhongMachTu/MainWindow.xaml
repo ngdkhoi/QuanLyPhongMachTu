@@ -5,29 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:QuanLyPhongMachTu"
+        DataContext="{StaticResource MainWindowVM}"
         mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="1000">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="15"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="55"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0">
-
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
+            <materialDesign:Chip Background="LightBlue">
+                <Button Background="Transparent"
+                        Content="Nguyễn Đình Khôi"
+                        Command="{Binding Logout}"
+                        BorderBrush="Transparent"
+                        Foreground="Black">
+                    
+                </Button>
+            </materialDesign:Chip>
         </StackPanel>
         <Grid Grid.Row="2" x:Name="GridPriciple">
 
         </Grid>
-        <StackPanel Grid.Row="1" Background="LightGray" >
+        <StackPanel Grid.Row="1" Background="Indigo" >
             <ListView x:Name="ListViewMenu" SelectionChanged="ListViewMenu_SelectionChanged" SelectedIndex="5">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <VirtualizingStackPanel Orientation="Horizontal" Background="DarkGray"/>
+                        <VirtualizingStackPanel Orientation="Horizontal" Background="DodgerBlue"/>
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
                 <ListViewItem Width="80" Height="55" Margin="10 0 0 0"
-                              ToolTip="Lập danh sách bệnh nhân" Background="LightGray"
+                              ToolTip="Lập danh sách bệnh nhân" Background="DeepSkyBlue"
                               HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid Width="50">
                         <Grid.RowDefinitions>
@@ -39,7 +48,7 @@
                     </Grid>
                 </ListViewItem>
                 <ListViewItem Width="80" Height="55" Margin="10 0 0 0" 
-                              ToolTip="Lập phiếu khám" Background="LightGray"
+                              ToolTip="Lập phiếu khám" Background="DeepSkyBlue"
                               HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid Width="50">
                         <Grid.RowDefinitions>
@@ -51,7 +60,7 @@
                     </Grid>
                 </ListViewItem>
                 <ListViewItem Width="80" Height="55" Margin="10 0 0 0" 
-                              ToolTip="Tra cứu bệnh nhân" Background="LightGray"
+                              ToolTip="Tra cứu bệnh nhân" Background="DeepSkyBlue"
                               HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid Width="50">
                         <Grid.RowDefinitions>
@@ -63,7 +72,7 @@
                     </Grid>
                 </ListViewItem>
                 <ListViewItem Width="80" Height="55" Margin="10 0 0 0" 
-                              ToolTip="Lập Hóa đơn bệnh nhân" Background="LightGray"
+                              ToolTip="Lập Hóa đơn bệnh nhân" Background="DeepSkyBlue"
                               HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid Width="50">
                         <Grid.RowDefinitions>
@@ -75,7 +84,7 @@
                     </Grid>
                 </ListViewItem>
                 <ListViewItem Width="80" Height="55" Margin="10 0 0 0" 
-                              ToolTip="Lập Hóa đơn bệnh nhân" Background="LightGray"
+                              ToolTip="Lập Hóa đơn bệnh nhân" Background="DeepSkyBlue"
                               HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid Width="50">
                         <Grid.RowDefinitions>
@@ -87,7 +96,7 @@
                     </Grid>
                 </ListViewItem>
                 <ListViewItem Width="80" Height="55" Margin="10 0 0 0" 
-                              ToolTip="Lập Hóa đơn bệnh nhân" Background="LightGray"
+                              ToolTip="Lập Hóa đơn bệnh nhân" Background="DeepSkyBlue"
                               HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid Width="50">
                         <Grid.RowDefinitions>

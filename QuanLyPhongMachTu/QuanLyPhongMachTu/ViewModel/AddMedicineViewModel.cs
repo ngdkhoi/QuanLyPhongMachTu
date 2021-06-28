@@ -26,7 +26,7 @@ namespace QuanLyPhongMachTu.ViewModel
         private int _ID = -1;
 
         private ObservableCollection<string> _UnitList;
-        private ObservableCollection<MedicineCollector> _MedicineListDB;
+        private ObservableCollection<string> _UsingList;
         private ObservableCollection<string> _MedicineList;
         public ICommand AddNewUsingCommand { get; set; }
         public ICommand AddNewUnitCommand { get; set; }
@@ -58,22 +58,20 @@ namespace QuanLyPhongMachTu.ViewModel
                 OnPropertyChanged(); 
             } 
         }
-        public ObservableCollection<MedicineCollector> MedicineListDB
-        {
-            get 
-            {
-                return _MedicineListDB; 
-            }
-            set 
-            { 
-                _MedicineListDB = value;
-                OnPropertyChanged();
-            }
-        }
         public ObservableCollection<string> MedicineList 
         {
             get
             {
+                if (_MedicineList == null)
+                {
+                    _MedicineList = new ObservableCollection<string>();
+                    var query = DataProvider.Ins.DB.LoaiThuocs;
+                    foreach(var i in query)
+                    {
+                        MedicineList.Add(i.TenThuoc);
+                    }
+                }
+
                 return _MedicineList;
             }
             set
@@ -81,6 +79,11 @@ namespace QuanLyPhongMachTu.ViewModel
                 _MedicineList = value;
                 OnPropertyChanged();
             }
+        }
+        public ObservableCollection<string> UsingList 
+        { 
+            get => _UsingList; 
+            set => _UsingList = value; 
         }
         public string NewMedicine { get => _NewMedicine; set { _NewMedicine = value; OnPropertyChanged(); } }
         public int NewAmount { get => _NewAmount; set { _NewAmount = value; OnPropertyChanged(); } }
@@ -102,9 +105,10 @@ namespace QuanLyPhongMachTu.ViewModel
                 _ID = value;
                 if(ID != -1)
                 {
-                    Unit = MedicineListDB[ID].DonVi;
-                    Price = MedicineListDB[ID].Gia;
-                    Amount = MedicineListDB[ID].SoLuong;
+                    int UnitID = DataProvider.Ins.DB.LoaiThuocs.Where(x => x.MaThuoc == ID + 1).FirstOrDefault().MaDonVi;
+                    Unit = DataProvider.Ins.DB.DonVis.Where(x => x.MaDonVi == UnitID).FirstOrDefault().TenDonVi;
+                    Price = DataProvider.Ins.DB.LoaiThuocs.Where(x => x.MaThuoc == ID + 1).FirstOrDefault().Gia;
+                    Amount = DataProvider.Ins.DB.LoaiThuocs.Where(x => x.MaThuoc == ID + 1).FirstOrDefault().SoLuong;
                     OnPropertyChanged("Unit");
                     OnPropertyChanged("Price");
                     OnPropertyChanged("Amount");
@@ -114,31 +118,10 @@ namespace QuanLyPhongMachTu.ViewModel
 
         public string UpdateMedicine { get => _UpdateMedicine; set { _UpdateMedicine = value; OnPropertyChanged(); } }
 
-        void LoadList() 
-        {
-            if (_MedicineListDB == null)
-            {
-                _MedicineListDB = new ObservableCollection<MedicineCollector>();
-                var query = DataProvider.Ins.DB.LoaiThuocs;
-                foreach (var i in query)
-                {
-                    _MedicineListDB.Add(new MedicineCollector(i));
-                }
-            }
-            if (_MedicineList == null)
-            {
-                _MedicineList = new ObservableCollection<string>();
 
-                foreach (var i in _MedicineListDB)
-                {
-                    _MedicineList.Add(i.TenThuoc);
-                }
-            }
-        }
 
         public AddMedicineViewModel()
         {
-            LoadList();
             AddNewUsingCommand = new RelayCommand<object>((p) =>
               {
                   if (NewUsing == null)
@@ -148,10 +131,13 @@ namespace QuanLyPhongMachTu.ViewModel
 
                   return true;
               },(p)=> {
+                  
+
                   int id = DataProvider.Ins.DB.CachDungs.Max(x => x.MaCachDung) + 1;
                   DataProvider.Ins.DB.CachDungs.Add(new CachDung() { MaCachDung = id, CachSuDung = NewUsing });
                   DataProvider.Ins.DB.SaveChanges();
                   NewUsing = null;
+
                   Notification notification = new Notification("Thêm thành công");
                   notification.Show();
               });
@@ -165,10 +151,13 @@ namespace QuanLyPhongMachTu.ViewModel
 
                 return true;
             }, (p) => {
+                UnitList.Add(NewUnit);
+
                 int id = DataProvider.Ins.DB.DonVis.Max(x => x.MaDonVi) + 1;
                 DataProvider.Ins.DB.DonVis.Add(new DonVi() { MaDonVi = id, TenDonVi = NewUnit });
                 DataProvider.Ins.DB.SaveChanges();
                 NewUnit = null;
+
                 Notification notification = new Notification("Thêm thành công");
                 notification.Show();
             });
@@ -182,6 +171,8 @@ namespace QuanLyPhongMachTu.ViewModel
 
                 return true;
             }, (p) => {
+                MedicineList.Add(NewMedicine);
+
                 int id = DataProvider.Ins.DB.LoaiThuocs.Max(x => x.MaThuoc) + 1;
                 DataProvider.Ins.DB.LoaiThuocs.Add(new LoaiThuoc() { MaThuoc = id, TenThuoc = NewMedicine, MaDonVi = UnitList.IndexOf(NewUnit2) + 1, Gia = NewPrice, SoLuong = NewPrice, SoLanSuDung = 0 });
                 DataProvider.Ins.DB.SaveChanges();
