@@ -23,7 +23,10 @@ namespace QuanLyPhongMachTu
         public MainWindow()
         {
             InitializeComponent();
+            ListViewMenu.SelectedIndex = 0;
         }
+
+        private int _selectedIndex = 0;
 
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -36,8 +39,17 @@ namespace QuanLyPhongMachTu
                     GridPriciple.Children.Add(new PatientListScreen());
                     break;
                 case 1:
-                    GridPriciple.Children.Clear();
-                    GridPriciple.Children.Add(DiagnosisScreen.Instance());
+                    var diagnosisScreen = DiagnosisScreen.Instance();
+                    if (diagnosisScreen != null)
+                    {
+                        GridPriciple.Children.Clear();
+                        GridPriciple.Children.Add(diagnosisScreen);
+                    }
+                    else
+                    {
+                        ListViewMenu.SelectedIndex = _selectedIndex;
+                        return;
+                    }
                     break;
                 case 2:
                     GridPriciple.Children.Clear();
@@ -58,6 +70,7 @@ namespace QuanLyPhongMachTu
                 default:
                     break;
             }
+            _selectedIndex = index;
         }
     }
 }

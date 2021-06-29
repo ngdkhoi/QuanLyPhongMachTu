@@ -39,9 +39,9 @@ namespace QuanLyPhongMachTu.ViewModel
             }
         }
 
-        public DiagnosisViewModel()
+        public DiagnosisViewModel(int patientID)
         {
-            InitialDiagnosis(1);
+            InitialDiagnosis(patientID);
             LoadDiseaseList();
             LoadMedicineList();
             LoadUsingList();
