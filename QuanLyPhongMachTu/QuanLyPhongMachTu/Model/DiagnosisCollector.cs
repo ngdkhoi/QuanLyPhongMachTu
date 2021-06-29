@@ -75,12 +75,12 @@ namespace QuanLyPhongMachTu.Model
 
         public bool Xoa { get; set; }
 
-        public DiagnosisCollector(int patientID, string patientName)
-        {
-            MaBN = patientID;
-            TenBN = patientName;
-            NgayKham = DateTime.Now;
-        }
+        //public DiagnosisCollector(int patientID, string patientName)
+        //{
+        //    MaBN = patientID;
+        //    TenBN = patientName;
+        //    NgayKham = DateTime.Now;
+        //}
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

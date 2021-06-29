@@ -202,11 +202,6 @@
                               ScrollViewer.VerticalScrollBarVisibility="Disabled"
                               AlternationCount="{Binding PatientList.Count}"
                               x:Name="List">
-                        <DataGrid.InputBindings>
-                            <MouseBinding MouseAction="LeftDoubleClick"
-                                          Command="{Binding Path=List}"
-                                          CommandParameter="{Binding HoTen}"/>
-                        </DataGrid.InputBindings>
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="STT" Width="55">
                                 <DataGridTemplateColumn.CellTemplate>

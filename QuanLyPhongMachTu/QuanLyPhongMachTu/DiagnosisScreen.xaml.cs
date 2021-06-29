@@ -24,25 +24,30 @@ namespace QuanLyPhongMachTu
     {
         private static DiagnosisScreen _instance;
 
-        protected DiagnosisScreen(int patientID)
+        protected DiagnosisScreen(int diagID)
         {
-            this.DataContext = new DiagnosisViewModel(patientID);
+            this.DataContext = new DiagnosisViewModel(diagID);
             InitializeComponent();
+            
         }
 
-        public static DiagnosisScreen Instance(int patientID)
+        public static DiagnosisScreen Instance(int diagID)
         {
             if(_instance == null)
             {
-                _instance = new DiagnosisScreen(patientID);
+                _instance = new DiagnosisScreen(diagID);
             }
 
             return _instance;
         }
         public static DiagnosisScreen Instance()
         {
-            MessageBox.Show("Vui lòng chọn bệnh nhân!!");
-            return null;
+            if (_instance == null)
+            {
+                MessageBox.Show("Vui lòng chọn bệnh nhân!!");
+                return null;
+            }
+            return _instance;
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

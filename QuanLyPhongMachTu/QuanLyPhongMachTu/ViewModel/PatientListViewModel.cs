@@ -96,21 +96,57 @@ namespace QuanLyPhongMachTu.ViewModel
             }, (p) =>
             {
                 PatientList.Add(p);
+                int Id = DataProvider.Ins.DB.PhieuKhams.Max(pk => pk.MaPK) + 1;
+                PhieuKham newDiagnosis = new PhieuKham()
+                {
+                    MaPK = Id,
+                    MaBN = p.MaSoBN,
+                    NgayKham = Date,
+                    Xoa = false,
+                    MaLoaiBenh = 0,
+                    TienKham = 0,
+                    TienThuoc = 0,
+                    TrieuChung = ""
+                };
+
+                DataProvider.Ins.DB.PhieuKhams.Add(newDiagnosis);
+                DataProvider.Ins.DB.SaveChanges();
             });
         }
 
         public ICommand ExamCommand { get; set; }
+
         private void InitialExamCommand()
         {
-            ExamCommand = new RelayCommand<BenhNhan>((p) =>
+            ExamCommand = new RelayCommand<BenhNhan>((p) =>                     //Can review lai
             {
+                if(p!= null)
+                {
+                    var pk = p.PhieuKhams.ToList();
+                    int count = pk.Count;
+                    foreach(var x in pk)
+                    {
+                        if(x.NgayKham.Date == DateTime.Now.Date && x.TienKham !=0)
+                        {
+                            return false;
+                        }
+                    }
+                }
                 return true; // Nếu là nhân viên thì return false
 
             }, (p) =>
             {
-                PatientList.Add(p);
+                var x = p.PhieuKhams;
+                var result = x.Where(pk => pk.NgayKham.Date == DateTime.Now.Date).First();
+
+                var newScreen = DiagnosisScreen.Instance(result.MaPK);
+                var mainWindow = MainWindow.Instance();
+                mainWindow.GridPriciple.Children.Clear();
+                mainWindow.GridPriciple.Children.Add(newScreen);
+                mainWindow.ListViewMenu.SelectedIndex = 1;
             });
         }
+
         public ObservableCollection<BenhNhan> PatientList
         {
             get => _PatientList;
@@ -137,7 +173,7 @@ namespace QuanLyPhongMachTu.ViewModel
         public string DiaChi { get => _DiaChi; set => _DiaChi = value; }
         public string SellectedEle { get => _SellectedEle; set => _SellectedEle = value; }
 
-        private ObservableCollection<BenhNhan> _PatientList = new ObservableCollection<BenhNhan>();
+        private ObservableCollection<BenhNhan> _PatientList;
         private void LoadData(string text)
         {
             var patients = DataProvider.Ins.DB.BenhNhans.Where(p => p.HoTen.Contains(text) && p.Xoa != true).ToList();
@@ -146,7 +182,15 @@ namespace QuanLyPhongMachTu.ViewModel
 
         private void LoadData()
         {
-            var result = DataProvider.Ins.DB.PhieuKhams.Where(pk => DbFunctions.TruncateTime(pk.NgayKham) == DbFunctions.TruncateTime(DateTime.Now)).ToList();
+            var currDate = DateTime.Now.Date;
+            var result = DataProvider.Ins.DB.PhieuKhams.Where(pk => DbFunctions.TruncateTime(pk.NgayKham) == currDate
+                                                                    && pk.Xoa != true).ToList();
+            PatientList = new ObservableCollection<BenhNhan>();
+            foreach(var pattient in result)
+            {
+                PatientList.Add(pattient.BenhNhan);
+            }
+            //PatientList = new ObservableCollection<BenhNhan>(result);
         }
 
         public PatientListViewModel()
@@ -159,10 +203,10 @@ namespace QuanLyPhongMachTu.ViewModel
             NamSinh = DateTime.Now.Year;
             DiaChi = "";
 
+            InitialExamCommand();
             InitialAddCommand();
             InitialSearchPatientCommand();
             InitialAddOldPatientCommand();
-            
         }
 
         private BenhNhan AddNewPatientToDB()

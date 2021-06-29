@@ -39,9 +39,9 @@ namespace QuanLyPhongMachTu.ViewModel
             }
         }
 
-        public DiagnosisViewModel(int patientID)
+        public DiagnosisViewModel(int diagID)
         {
-            InitialDiagnosis(patientID);
+            LoadDiagnosis(diagID);
             LoadDiseaseList();
             LoadMedicineList();
             LoadUsingList();
@@ -76,14 +76,24 @@ namespace QuanLyPhongMachTu.ViewModel
             Prescription.Remove(target);
         }
 
-        private void InitialDiagnosis(int patientID)
+        private void LoadDiagnosis(int diagID)
         {
-            var result = from pk in DataProvider.Ins.DB.PhieuKhams
-                         join bn in DataProvider.Ins.DB.BenhNhans on pk.MaBN equals bn.MaSoBN
-                         where bn.MaSoBN == patientID
-                         select bn;
+            //var result = from pk in DataProvider.Ins.DB.PhieuKhams
+            //             join bn in DataProvider.Ins.DB.BenhNhans on pk.MaBN equals bn.MaSoBN
+            //             where bn.MaSoBN == patientID
+            //             select bn;
 
-            Information = new DiagnosisCollector(result.First().MaSoBN, result.First().HoTen);
+            //Information = new DiagnosisCollector(result.First().MaSoBN, result.First().HoTen);
+            var result = DataProvider.Ins.DB.PhieuKhams.Where(pk => pk.MaPK == diagID).First();
+            Information = new DiagnosisCollector()
+            {
+                MaBN = result.MaBN,
+                MaLoaibenh = result.MaLoaiBenh,
+                MaPK = result.MaPK,
+                NgayKham = result.NgayKham,
+                TenBN = result.BenhNhan.HoTen
+            };
+
         }
 
         private void LoadDiseaseList()

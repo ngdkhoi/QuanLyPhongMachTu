@@ -20,11 +20,29 @@ namespace QuanLyPhongMachTu
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static MainWindow _instance;
+
         public MainWindow()
         {
             InitializeComponent();
+            _instance = this;
             ListViewMenu.SelectedIndex = 0;
         }
+
+        public static MainWindow Instance()
+        {
+            if (_instance == null)
+            {
+                _instance = new MainWindow();
+            }
+
+            return _instance;
+        }
+        //public MainWindow()
+        //{
+        //    InitializeComponent();
+        //    ListViewMenu.SelectedIndex = 0;
+        //}
 
         private int _selectedIndex = 0;
 
