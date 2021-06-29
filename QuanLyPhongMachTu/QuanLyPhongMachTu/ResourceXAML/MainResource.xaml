@@ -11,4 +11,5 @@
     <viewmodel:AddMedicineViewModel x:Key="AddMediciceVM"></viewmodel:AddMedicineViewModel>
     <viewmodel:AddDiseasesViewModel x:Key="AddDiseaseVM"></viewmodel:AddDiseasesViewModel>
     <viewmodel:UpdateRegulationsViewModel x:Key="UpdateRegulationsVM"></viewmodel:UpdateRegulationsViewModel>
+    <viewmodel:SearchPatientViewModel x:Key="SearchPatientVM"></viewmodel:SearchPatientViewModel>
 </ResourceDictionary>

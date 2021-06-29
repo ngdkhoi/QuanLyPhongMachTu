@@ -176,6 +176,7 @@
     <Compile Include="ViewModel\MedicineReportViewModel.cs" />
     <Compile Include="ViewModel\NotificationViewModel.cs" />
     <Compile Include="ViewModel\PatientListViewModel.cs" />
+    <Compile Include="ViewModel\SearchPatientViewModel.cs" />
     <Compile Include="ViewModel\UpdateRegulationsViewModel.cs" />
     <Page Include="AddDiseaseScreen.xaml">
       <SubType>Designer</SubType>

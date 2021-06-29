@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:QuanLyPhongMachTu"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:dateConverter="clr-namespace:QuanLyPhongMachTu.dateConverter"
+             DataContext="{StaticResource SearchPatientVM}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -18,9 +19,12 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel>
-            <TextBlock Margin="10 0 0 0">
-                Nhập ngày muốn tìm
-            </TextBlock>
+            <DatePicker SelectedDate="{Binding Date}"
+                        Name="LocaleDatePicker"
+                        Width="120"
+                        materialDesign:HintAssist.Hint="Locale Date" >
+
+            </DatePicker>
         </StackPanel>
         <TextBlock Grid.Row="1"
                    HorizontalAlignment="Center"
