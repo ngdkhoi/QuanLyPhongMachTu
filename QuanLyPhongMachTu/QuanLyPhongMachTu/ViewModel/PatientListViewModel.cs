@@ -38,6 +38,7 @@ namespace QuanLyPhongMachTu.ViewModel
             {
                 BenhNhan newPatient = AddNewPatientToDB();
                 PatientList.Add(newPatient);
+                AddNewDiagnosisToDB(newPatient.MaSoBN);
             });
         }
         public ICommand UpdateCommand { get; set; }
@@ -97,20 +98,7 @@ namespace QuanLyPhongMachTu.ViewModel
             {
                 PatientList.Add(p);
                 int Id = DataProvider.Ins.DB.PhieuKhams.Max(pk => pk.MaPK) + 1;
-                PhieuKham newDiagnosis = new PhieuKham()
-                {
-                    MaPK = Id,
-                    MaBN = p.MaSoBN,
-                    NgayKham = Date,
-                    Xoa = false,
-                    MaLoaiBenh = 0,
-                    TienKham = 0,
-                    TienThuoc = 0,
-                    TrieuChung = ""
-                };
-
-                DataProvider.Ins.DB.PhieuKhams.Add(newDiagnosis);
-                DataProvider.Ins.DB.SaveChanges();
+                AddNewDiagnosisToDB(p.MaSoBN);
             });
         }
 
@@ -226,6 +214,25 @@ namespace QuanLyPhongMachTu.ViewModel
             DataProvider.Ins.DB.SaveChanges();
 
             return newPatient;
+        }
+
+        private void AddNewDiagnosisToDB(int patientID)
+        {
+            int Id = DataProvider.Ins.DB.PhieuKhams.Max(pk => pk.MaPK) + 1;
+            PhieuKham newDiagnosis = new PhieuKham()
+            {
+                MaPK = Id,
+                MaBN = patientID,
+                NgayKham = Date,
+                Xoa = false,
+                MaLoaiBenh = 0,
+                TienKham = 0,
+                TienThuoc = 0,
+                TrieuChung = ""
+            };
+
+            DataProvider.Ins.DB.PhieuKhams.Add(newDiagnosis);
+            DataProvider.Ins.DB.SaveChanges();
         }
     }
 }
