@@ -5,8 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QuanLyPhongMachTu"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:dateConverter="clr-namespace:QuanLyPhongMachTu.dateConverter"
+             xmlns:currencyConverter="clr-namespace:QuanLyPhongMachTu.Converter"
              mc:Ignorable="d" 
+             DataContext="{StaticResource ReportVM}"
              d:DesignHeight="450" d:DesignWidth="800" Background="White">
+    <UserControl.Resources>
+        <dateConverter:DateConveter x:Key="dateConverter"/>
+        <currencyConverter:VNDConvert x:Key="currencyConverter"/>
+    </UserControl.Resources>
     <materialDesign:Card Margin="60 10">
         <DockPanel LastChildFill="True">
             <TextBlock DockPanel.Dock="Top" Margin="0 10"
@@ -28,23 +35,54 @@
                           ItemsSource="{Binding Years}"
                           materialDesign:TextFieldAssist.HasClearButton="True"
                           Width="100" Padding="5" HorizontalContentAlignment="Center"
-                           Margin="10 0 0 0">
+                           Margin="10 0 0 0"
+                          SelectedValue="{Binding SelectedYear}">
                 </ComboBox>
+                <Button Content="Xuất báo cáo"
+                        Command="{Binding RevenueReportCommand}"
+                        Margin="10 0 0 0"/>
             </StackPanel>
-            <DataGrid ItemsSource="{Binding}"
+            <DataGrid ItemsSource="{Binding RevenueList}"
                       AutoGenerateColumns="False" CanUserAddRows="False"
                       ScrollViewer.VerticalScrollBarVisibility="Disabled">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="STT" Width="1.5*" Binding="{Binding STT}" IsReadOnly="True"/>
-                    <materialDesign:DataGridComboBoxColumn Header="Ngày" Width="2*"
-                                                           IsEditable="True"
-                                                           SelectedItemBinding="{Binding Name}"
-                                                           ItemsSourceBinding="{Binding RelativeSource={RelativeSource AncestorType=DataGrid},
-                                                           Path=DataContext.DanhSachThuoc}">
-                    </materialDesign:DataGridComboBoxColumn>
-                    <DataGridTextColumn Header="Số bệnh nhân" Width="2*" Binding="{Binding DonVi}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Doanh thu" Width="2*" Binding="{Binding SoLuong}"/>
-                    <DataGridTextColumn Header="Tỷ lệ" Width="2*" Binding="{Binding CachDung}"/>
+                    <DataGridTemplateColumn Header="STT" Width="55">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding STT}"
+                                           Width="100"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Ngày" Width="2*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Ngay, Converter={StaticResource dateConverter}}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Số bệnh nhân" Width="2*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding SoBenhNhan}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Doanh thu" Width="2*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DoanhThu, Converter={StaticResource currencyConverter}}"
+                                                  />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Tỉ lệ" Width="2*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding TiLe, StringFormat='#.##%'}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>

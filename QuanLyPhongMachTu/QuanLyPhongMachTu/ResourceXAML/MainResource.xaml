@@ -7,9 +7,9 @@
     <viewmodel:NotificationViewModel x:Key="NotificationVM"></viewmodel:NotificationViewModel>
     <viewmodel:PatientListViewModel x:Key="PatientListVM"></viewmodel:PatientListViewModel>
     <viewmodel:DiagnosisViewModel x:Key="DiagnosisVM"></viewmodel:DiagnosisViewModel>
-    <viewmodel:MedicineReportViewModel x:Key="MedicineRepVM"></viewmodel:MedicineReportViewModel>
     <viewmodel:AddMedicineViewModel x:Key="AddMediciceVM"></viewmodel:AddMedicineViewModel>
     <viewmodel:AddDiseasesViewModel x:Key="AddDiseaseVM"></viewmodel:AddDiseasesViewModel>
     <viewmodel:UpdateRegulationsViewModel x:Key="UpdateRegulationsVM"></viewmodel:UpdateRegulationsViewModel>
     <viewmodel:SearchPatientViewModel x:Key="SearchPatientVM"></viewmodel:SearchPatientViewModel>
+    <viewmodel:ReportViewModel x:Key="ReportVM"></viewmodel:ReportViewModel>
 </ResourceDictionary>

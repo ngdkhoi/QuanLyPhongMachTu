@@ -142,6 +142,7 @@
     <Compile Include="Model\QuyDinh.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\RevenueCollector.cs" />
     <Compile Include="Model\sysdiagram.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -174,9 +175,9 @@
     <Compile Include="ViewModel\DiagnosisViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
-    <Compile Include="ViewModel\MedicineReportViewModel.cs" />
     <Compile Include="ViewModel\NotificationViewModel.cs" />
     <Compile Include="ViewModel\PatientListViewModel.cs" />
+    <Compile Include="ViewModel\ReportViewModel.cs" />
     <Compile Include="ViewModel\SearchPatientViewModel.cs" />
     <Compile Include="ViewModel\UpdateRegulationsViewModel.cs" />
     <Page Include="AddDiseaseScreen.xaml">

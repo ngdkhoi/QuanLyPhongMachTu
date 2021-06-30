@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using QuanLyPhongMachTu.ViewModel;
 
 namespace QuanLyPhongMachTu
 {
@@ -20,9 +21,11 @@ namespace QuanLyPhongMachTu
     /// </summary>
     public partial class AddMedicineScreen : UserControl
     {
+        public AddMedicineViewModel VM { get; set; }
         public AddMedicineScreen()
         {
             InitializeComponent();
+            this.DataContext = VM = new AddMedicineViewModel();
         }
     }
 }

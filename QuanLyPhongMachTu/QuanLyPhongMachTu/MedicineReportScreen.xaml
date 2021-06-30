@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:QuanLyPhongMachTu"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
-             DataContext="{StaticResource MedicineRepVM}"
+             DataContext="{StaticResource ReportVM}"
              d:DesignHeight="450" d:DesignWidth="800" Background="White">
     <materialDesign:Card Margin="60 10">
         <DockPanel LastChildFill="True">
@@ -33,48 +33,47 @@
                           SelectedValue="{Binding SelectedYear}">
                 </ComboBox>
                 <Button Content="Xuất báo cáo"
-                        Command="{Binding ReportCommand}"
+                        Command="{Binding MedicineReportCommand}"
                         Margin="10 0 0 0"/>
             </StackPanel>
             <DataGrid ItemsSource="{Binding MedicineList}"
                       AutoGenerateColumns="False" CanUserAddRows="False"
                       ScrollViewer.VerticalScrollBarVisibility="Disabled">
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="STT" Width="55">
+                    <DataGridTemplateColumn Header="STT" Width="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding MaSoBN}"
+                                <TextBlock Text="{Binding MaThuoc}"
                                                    HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Thuốc" Width="200">
+                    <DataGridTemplateColumn Header="Thuốc" Width="2*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding MaSoBN}"/>
+                                <TextBlock Text="{Binding TenThuoc}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Đơn vị tính" Width="110">
+                    <DataGridTemplateColumn Header="Đơn vị tính" Width="2*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding MaSoBN}"/>
+                                <TextBlock Text="{Binding DonVi}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Số lượng" Width="100">
+                    <DataGridTemplateColumn Header="Số lượng" Width="2*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding MaSoBN}"
+                                <TextBlock Text="{Binding SoLuong}"
                                                   />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Số lần sử dụng" Width="120">
+                    <DataGridTemplateColumn Header="Số lần sử dụng" Width="2*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding MaSoBN}"
-                                                   />
+                                <TextBlock Text="{Binding SoLanDung}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

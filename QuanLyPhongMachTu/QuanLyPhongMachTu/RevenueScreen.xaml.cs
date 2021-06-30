@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using QuanLyPhongMachTu.ViewModel;
 
 namespace QuanLyPhongMachTu
 {
@@ -20,9 +21,11 @@ namespace QuanLyPhongMachTu
     /// </summary>
     public partial class RevenueScreen : UserControl
     {
+        public ReportViewModel VM { get; set; }
         public RevenueScreen()
         {
             InitializeComponent();
+            this.DataContext = VM = new ReportViewModel();
         }
     }
 }
