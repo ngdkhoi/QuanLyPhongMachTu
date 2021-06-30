@@ -164,18 +164,14 @@ namespace QuanLyPhongMachTu.ViewModel
             diag.TrieuChung = Information.TrieuChung;
 
 
-            var newPrescriptionID = DataProvider.Ins.DB.DonThuocs.Max(dt => dt.MaDT) + 1;
-            DataProvider.Ins.DB.DonThuocs.Add(new DonThuoc()
-            {
-                MaDT = newPrescriptionID,
-                MaPK = Information.MaPK
-            });
+            var newPrescriptionID = DataProvider.Ins.DB.PhieuKhams.Max(dt => dt.MaPK) + 1;
+            
 
             foreach(var medicine in Prescription)
             {
                 DataProvider.Ins.DB.ChiTietDonThuocs.Add(new ChiTietDonThuoc()
                 {
-                    MaDT = newPrescriptionID,
+                    MaPK = newPrescriptionID,
                     MaThuoc = medicine.MaThuoc,
                     SoLuong = medicine.SoLuong,
                     MaCachDung = medicine.MaCachDung

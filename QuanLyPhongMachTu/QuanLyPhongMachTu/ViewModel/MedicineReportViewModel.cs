@@ -57,7 +57,12 @@ namespace QuanLyPhongMachTu.ViewModel
         void doSomeThing() { }
         void LoadData(DateTime startDate, DateTime endDate)
         {
-                        
+            var query = DataProvider.Ins.DB.LoaiThuocs;
+            int stt = 1;
+            foreach(var i in query)
+            {
+                MedicineList.Add(new MedicineCollector(stt, i.TenThuoc, i.DonVi.TenDonVi, i.SoLuong, i.SoLanSuDung));
+            }
         }
         public MedicineReportViewModel()
         {
