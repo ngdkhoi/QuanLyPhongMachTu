@@ -6,16 +6,42 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
+using QuanLyPhongMachTu.Model;
 
 
 namespace QuanLyPhongMachTu.ViewModel
 {
     public class MedicineReportViewModel : BaseViewModel
     {
-        public ObservableCollection<int> Months { get; set; }
-        public ObservableCollection<int> Years { get; set; }
+        private ObservableCollection<int> _Months = new ObservableCollection<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+        private ObservableCollection<int> _Years;
+        private ObservableCollection<MedicineCollector> _MedicineList;
+        
+        public ObservableCollection<int> Months { get => _Months; set => _Months = value; }
+        public ObservableCollection<int> Years 
+        {
+            get
+            {
+                if (_Years == null)
+                {
+                    var currYear = DateTime.Now.Year;
+                    Years = new ObservableCollection<int>();
+                    for (int i = 0; i < 10; i++)
+                    {
+                        int year = currYear - i;
+                        Years.Add(year);
+                    }
+                }
+                return _Years;
+            }
+            set => _Years = value; 
+        }
+        public ObservableCollection<MedicineCollector> MedicineList { get => _MedicineList; set { _MedicineList = value; OnPropertyChanged(); } }
 
         private int _selectedMonth;
+        private int _selectedYear;
+        private DateTime startDate;
+        private DateTime endDate;
         public int SelectedMonth
         {
             get
@@ -28,20 +54,22 @@ namespace QuanLyPhongMachTu.ViewModel
                 OnPropertyChanged();
             }
         }
+        public int SelectedYear { get => _selectedYear; set { _selectedYear = value; OnPropertyChanged(); } }
+        public ICommand ReportCommand { get; set; }
+        void doSomeThing() { }
         public MedicineReportViewModel()
         {
-            Months = new ObservableCollection<int>()
+            ReportCommand = new RelayCommand<object>((p) =>
             {
-                1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
-            };
-
-            var currYear = DateTime.Now.Year;
-            Years = new ObservableCollection<int>();
-            for( int i = 0; i < 10; i++)
+                if (SelectedMonth == 0 || SelectedMonth == 0)
+                {
+                    return false;
+                }
+                return true;
+            }, (p) => 
             {
-                int year = currYear - i;
-                Years.Add(year);
-            }
+                doSomeThing();
+            });
         }
     }
 }

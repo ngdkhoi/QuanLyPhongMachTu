@@ -29,8 +29,12 @@
                           ItemsSource="{Binding Years}"
                           materialDesign:TextFieldAssist.HasClearButton="True"
                           Width="100" Padding="5" HorizontalContentAlignment="Center"
-                           Margin="10 0 0 0">
+                          Margin="10 0 0 0"
+                          SelectedValue="{Binding SelectedYear}">
                 </ComboBox>
+                <Button Content="Xuất báo cáo"
+                        Command="{Binding ReportCommand}"
+                        Margin="10 0 0 0"/>
             </StackPanel>
             <DataGrid ItemsSource="{Binding DonThuoc}"
                       AutoGenerateColumns="False" CanUserAddRows="False"

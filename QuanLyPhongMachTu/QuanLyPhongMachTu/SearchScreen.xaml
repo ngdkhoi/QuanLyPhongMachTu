@@ -19,11 +19,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel>
-            <DatePicker SelectedDate="{Binding Date}"
-                        Name="LocaleDatePicker"
-                        Width="120"
-                        materialDesign:HintAssist.Hint="Locale Date" >
-
+            <DatePicker Width="120" SelectedDate="{Binding Date, UpdateSourceTrigger=PropertyChanged}">
+                
             </DatePicker>
         </StackPanel>
         <TextBlock Grid.Row="1"
@@ -36,64 +33,53 @@
         <Border Grid.Row="2" Margin="50 0 50 15">
             <materialDesign:Card>
                 <Grid  Margin="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.25*" MaxWidth="30"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="0.6*" MaxWidth="100"/>
-                            <ColumnDefinition Width="0.6*" MaxWidth="100"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Border Grid.Column="0" BorderBrush="Black" BorderThickness="0.5">
-                            <TextBlock Text="STT" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <Border Grid.Column="1" BorderBrush="Black" BorderThickness="0.5">
-                            <TextBlock Text="Họ tên bệnh nhân" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <Border Grid.Column="2" BorderBrush="Black" BorderThickness="0.5">
-                            <TextBlock Text="Ngày khám" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <Border Grid.Column="3" BorderBrush="Black" BorderThickness="0.5">
-                            <TextBlock Text="Loại bệnh" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <Border Grid.Column="4" BorderBrush="Black" BorderThickness="0.5">
-                            <TextBlock Text="Triệu chứng" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </Grid>
-                    <ListView Grid.Row="1" ItemsSource="{Binding Patients, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="0.25*" MaxWidth="30"/>
-                                        <ColumnDefinition Width="1*"/>
-                                        <ColumnDefinition Width="0.6*" MaxWidth="100"/>
-                                        <ColumnDefinition Width="0.6*" MaxWidth="100"/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
-                                    <Border Grid.Column="0" BorderBrush="Black" BorderThickness="0.5">
-                                        <TextBlock Text="{Binding Stt}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                    <Border Grid.Column="1" BorderBrush="Black" BorderThickness="0.5">
-                                        <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                    <Border Grid.Column="2" BorderBrush="Black" BorderThickness="0.5">
-                                        <TextBlock Text="{Binding Gender}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                    <Border Grid.Column="3" BorderBrush="Black" BorderThickness="0.5">
-                                        <TextBlock Text="{Binding YoB}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                    <Border Grid.Column="4" BorderBrush="Black" BorderThickness="0.5">
-                                        <TextBlock Text="{Binding Address}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                </Grid>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                    <DataGrid ItemsSource="{Binding PatientList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              CanUserSortColumns="False" CanUserReorderColumns="False"
+                              CanUserResizeColumns="False" CanUserResizeRows="False"
+                              AutoGenerateColumns="False" CanUserAddRows="False"
+                              ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                              x:Name="List">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="STT" Width="55">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding MaSoBN}"
+                                                   HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Họ tên bệnh nhân" Width="0.5*" MaxWidth="250">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding HoTen}" TextWrapping="Wrap"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Ngày khám" Width="110">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding NgayKham, Converter={StaticResource dateConverter}}"
+                                                   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Loại bệnh" Width="120">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding LoaiBenh}"
+                                                   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Triệu chứng" Width="0.6*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding TrieuChung}" TextWrapping="Wrap" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </materialDesign:Card>
         </Border>

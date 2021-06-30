@@ -16,13 +16,14 @@ namespace QuanLyPhongMachTu.Model
 
         public int Gia { get; set; }
         public int SoLuong { get; set; }
-        public MedicineCollector(LoaiThuoc a)
+        public int SoLanDung { get; set; }
+        public MedicineCollector(int stt, string tenthuoc, string donvi, int soluong, int solandung)
         {
-            MaThuoc = a.MaThuoc;
-            TenThuoc = a.TenThuoc;
-            DonVi = DataProvider.Ins.DB.DonVis.Where(x => x.MaDonVi == a.MaDonVi).FirstOrDefault().TenDonVi;
-            Gia = a.Gia;
-            SoLuong = a.SoLuong;
+            MaThuoc = stt;
+            TenThuoc = tenthuoc;
+            DonVi = donvi;
+            SoLuong = soluong;
+            SoLanDung = solandung;
         }
         public MedicineCollector() { }
     }
