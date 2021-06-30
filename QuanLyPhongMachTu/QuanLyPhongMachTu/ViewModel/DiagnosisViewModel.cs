@@ -39,9 +39,9 @@ namespace QuanLyPhongMachTu.ViewModel
             }
         }
 
-        public DiagnosisViewModel(int patientID)
+        public DiagnosisViewModel(int diagID)
         {
-            InitialDiagnosis(patientID);
+            LoadDiagnosis(diagID);
             LoadDiseaseList();
             LoadMedicineList();
             LoadUsingList();
@@ -76,14 +76,24 @@ namespace QuanLyPhongMachTu.ViewModel
             Prescription.Remove(target);
         }
 
-        private void InitialDiagnosis(int patientID)
+        private void LoadDiagnosis(int diagID)
         {
-            var result = from pk in DataProvider.Ins.DB.PhieuKhams
-                         join bn in DataProvider.Ins.DB.BenhNhans on pk.MaBN equals bn.MaSoBN
-                         where bn.MaSoBN == patientID
-                         select bn;
+            //var result = from pk in DataProvider.Ins.DB.PhieuKhams
+            //             join bn in DataProvider.Ins.DB.BenhNhans on pk.MaBN equals bn.MaSoBN
+            //             where bn.MaSoBN == patientID
+            //             select bn;
 
-            Information = new DiagnosisCollector(result.First().MaSoBN, result.First().HoTen);
+            //Information = new DiagnosisCollector(result.First().MaSoBN, result.First().HoTen);
+            var result = DataProvider.Ins.DB.PhieuKhams.Where(pk => pk.MaPK == diagID).First();
+            Information = new DiagnosisCollector()
+            {
+                MaBN = result.MaBN,
+                MaLoaibenh = result.MaLoaiBenh,
+                MaPK = result.MaPK,
+                NgayKham = result.NgayKham,
+                TenBN = result.BenhNhan.HoTen
+            };
+
         }
 
         private void LoadDiseaseList()
@@ -139,7 +149,6 @@ namespace QuanLyPhongMachTu.ViewModel
 
         private void HandleCheckout()
         {
-            var newID = DataProvider.Ins.DB.PhieuKhams.Max(pk => pk.MaPK) + 1;
             var diagnosisCost = DataProvider.Ins.DB.QuyDinhs.Where(qd => qd.TenQuyDinh == "SoTienKham").First().SoLuongQD;
             int medicineCost = 0;
             foreach(var medicine in Prescription)
@@ -147,22 +156,19 @@ namespace QuanLyPhongMachTu.ViewModel
                 int cost = medicine.SoLuong * MedicineList.Where(medi => medi.MaThuoc == medicine.MaThuoc).First().Gia;
                 medicineCost += cost;
             }
-            DataProvider.Ins.DB.PhieuKhams.Add(new PhieuKham()
-            {
-                MaPK = newID,
-                MaBN = Information.MaBN,
-                TrieuChung = Information.TrieuChung,
-                MaLoaiBenh = Information.MaLoaibenh,
-                TienKham = diagnosisCost,
-                TienThuoc = medicineCost,
-                NgayKham = Information.NgayKham,
-                Xoa = false
-            });
+
+            var diag = DataProvider.Ins.DB.PhieuKhams.Where(pk => pk.MaPK == Information.MaPK).First();
+            diag.MaLoaiBenh = Information.MaLoaibenh;
+            diag.TienKham = diagnosisCost;
+            diag.TienThuoc = medicineCost;
+            diag.TrieuChung = Information.TrieuChung;
+
+
             var newPrescriptionID = DataProvider.Ins.DB.DonThuocs.Max(dt => dt.MaDT) + 1;
             DataProvider.Ins.DB.DonThuocs.Add(new DonThuoc()
             {
                 MaDT = newPrescriptionID,
-                MaPK = newID
+                MaPK = Information.MaPK
             });
 
             foreach(var medicine in Prescription)

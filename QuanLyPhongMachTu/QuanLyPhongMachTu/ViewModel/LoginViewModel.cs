@@ -36,7 +36,7 @@ namespace QuanLyPhongMachTu.ViewModel
                     if(i.Account==Account && i.Password == Password)
                     {
                         isSuccess = true;
-                        MainWindow mainWindow = new MainWindow();
+                        MainWindow mainWindow = MainWindow.Instance();
                         mainWindow.Show();
                         p.Close();
                         
