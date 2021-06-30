@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="QuanLyPhongMachModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="QuanLyPhongMachModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BenhNhan">
           <Key>
             <PropertyRef Name="MaSoBN" />
@@ -25,20 +25,13 @@
         </EntityType>
         <EntityType Name="ChiTietDonThuoc">
           <Key>
-            <PropertyRef Name="MaDT" />
+            <PropertyRef Name="MaPK" />
             <PropertyRef Name="MaThuoc" />
           </Key>
-          <Property Name="MaDT" Type="int" Nullable="false" />
+          <Property Name="MaPK" Type="int" Nullable="false" />
           <Property Name="MaThuoc" Type="int" Nullable="false" />
           <Property Name="SoLuong" Type="int" Nullable="false" />
           <Property Name="MaCachDung" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="DonThuoc">
-          <Key>
-            <PropertyRef Name="MaDT" />
-          </Key>
-          <Property Name="MaDT" Type="int" Nullable="false" />
-          <Property Name="MaPK" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="DonVi">
           <Key>
@@ -119,18 +112,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ChiTietDonThuoc_DonThuoc">
-          <End Role="DonThuoc" Type="Self.DonThuoc" Multiplicity="1" />
-          <End Role="ChiTietDonThuoc" Type="Self.ChiTietDonThuoc" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DonThuoc">
-              <PropertyRef Name="MaDT" />
-            </Principal>
-            <Dependent Role="ChiTietDonThuoc">
-              <PropertyRef Name="MaDT" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ChiTietDonThuoc_LoaiThuoc">
           <End Role="LoaiThuoc" Type="Self.LoaiThuoc" Multiplicity="1" />
           <End Role="ChiTietDonThuoc" Type="Self.ChiTietDonThuoc" Multiplicity="*" />
@@ -143,14 +124,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DonThuoc_PhieuKham">
+        <Association Name="FK_ChiTietDonThuoc_PhieuKham">
           <End Role="PhieuKham" Type="Self.PhieuKham" Multiplicity="1" />
-          <End Role="DonThuoc" Type="Self.DonThuoc" Multiplicity="*" />
+          <End Role="ChiTietDonThuoc" Type="Self.ChiTietDonThuoc" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PhieuKham">
               <PropertyRef Name="MaPK" />
             </Principal>
-            <Dependent Role="DonThuoc">
+            <Dependent Role="ChiTietDonThuoc">
               <PropertyRef Name="MaPK" />
             </Dependent>
           </ReferentialConstraint>
@@ -195,7 +176,6 @@
           <EntitySet Name="BenhNhan" EntityType="Self.BenhNhan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CachDung" EntityType="Self.CachDung" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChiTietDonThuoc" EntityType="Self.ChiTietDonThuoc" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="DonThuoc" EntityType="Self.DonThuoc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DonVi" EntityType="Self.DonVi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoaiBenh" EntityType="Self.LoaiBenh" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoaiThuoc" EntityType="Self.LoaiThuoc" Schema="dbo" store:Type="Tables" />
@@ -207,17 +187,13 @@
             <End Role="CachDung" EntitySet="CachDung" />
             <End Role="ChiTietDonThuoc" EntitySet="ChiTietDonThuoc" />
           </AssociationSet>
-          <AssociationSet Name="FK_ChiTietDonThuoc_DonThuoc" Association="Self.FK_ChiTietDonThuoc_DonThuoc">
-            <End Role="DonThuoc" EntitySet="DonThuoc" />
-            <End Role="ChiTietDonThuoc" EntitySet="ChiTietDonThuoc" />
-          </AssociationSet>
           <AssociationSet Name="FK_ChiTietDonThuoc_LoaiThuoc" Association="Self.FK_ChiTietDonThuoc_LoaiThuoc">
             <End Role="LoaiThuoc" EntitySet="LoaiThuoc" />
             <End Role="ChiTietDonThuoc" EntitySet="ChiTietDonThuoc" />
           </AssociationSet>
-          <AssociationSet Name="FK_DonThuoc_PhieuKham" Association="Self.FK_DonThuoc_PhieuKham">
+          <AssociationSet Name="FK_ChiTietDonThuoc_PhieuKham" Association="Self.FK_ChiTietDonThuoc_PhieuKham">
             <End Role="PhieuKham" EntitySet="PhieuKham" />
-            <End Role="DonThuoc" EntitySet="DonThuoc" />
+            <End Role="ChiTietDonThuoc" EntitySet="ChiTietDonThuoc" />
           </AssociationSet>
           <AssociationSet Name="FK_LoaiThuoc_DonVi" Association="Self.FK_LoaiThuoc_DonVi">
             <End Role="DonVi" EntitySet="DonVi" />
@@ -232,7 +208,8 @@
             <End Role="PhieuKham" EntitySet="PhieuKham" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QuanLyPhongMachModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -256,14 +233,18 @@
           <Property Name="CachSuDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="ChiTietDonThuocs" Relationship="Self.FK_ChiTietDonThuoc_CachDung" FromRole="CachDung" ToRole="ChiTietDonThuoc" />
         </EntityType>
-        <EntityType Name="DonThuoc">
+        <EntityType Name="ChiTietDonThuoc">
           <Key>
-            <PropertyRef Name="MaDT" />
+            <PropertyRef Name="MaPK" />
+            <PropertyRef Name="MaThuoc" />
           </Key>
-          <Property Name="MaDT" Type="Int32" Nullable="false" />
           <Property Name="MaPK" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ChiTietDonThuocs" Relationship="Self.FK_ChiTietDonThuoc_DonThuoc" FromRole="DonThuoc" ToRole="ChiTietDonThuoc" />
-          <NavigationProperty Name="PhieuKham" Relationship="Self.FK_DonThuoc_PhieuKham" FromRole="DonThuoc" ToRole="PhieuKham" />
+          <Property Name="MaThuoc" Type="Int32" Nullable="false" />
+          <Property Name="SoLuong" Type="Int32" Nullable="false" />
+          <Property Name="MaCachDung" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CachDung" Relationship="Self.FK_ChiTietDonThuoc_CachDung" FromRole="ChiTietDonThuoc" ToRole="CachDung" />
+          <NavigationProperty Name="LoaiThuoc" Relationship="Self.FK_ChiTietDonThuoc_LoaiThuoc" FromRole="ChiTietDonThuoc" ToRole="LoaiThuoc" />
+          <NavigationProperty Name="PhieuKham" Relationship="Self.FK_ChiTietDonThuoc_PhieuKham" FromRole="ChiTietDonThuoc" ToRole="PhieuKham" />
         </EntityType>
         <EntityType Name="DonVi">
           <Key>
@@ -271,7 +252,7 @@
           </Key>
           <Property Name="MaDonVi" Type="Int32" Nullable="false" />
           <Property Name="TenDonVi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="LoaiThuocs" Relationship="QuanLyPhongMachModel.FK_LoaiThuoc_DonVi" FromRole="DonVi" ToRole="LoaiThuoc" />
+          <NavigationProperty Name="LoaiThuocs" Relationship="Self.FK_LoaiThuoc_DonVi" FromRole="DonVi" ToRole="LoaiThuoc" />
         </EntityType>
         <EntityType Name="LoaiBenh">
           <Key>
@@ -292,7 +273,7 @@
           <Property Name="SoLuong" Type="Int32" Nullable="false" />
           <Property Name="SoLanSuDung" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ChiTietDonThuocs" Relationship="Self.FK_ChiTietDonThuoc_LoaiThuoc" FromRole="LoaiThuoc" ToRole="ChiTietDonThuoc" />
-          <NavigationProperty Name="DonVi" Relationship="QuanLyPhongMachModel.FK_LoaiThuoc_DonVi" FromRole="LoaiThuoc" ToRole="DonVi" />
+          <NavigationProperty Name="DonVi" Relationship="Self.FK_LoaiThuoc_DonVi" FromRole="LoaiThuoc" ToRole="DonVi" />
         </EntityType>
         <EntityType Name="NhanVien">
           <Key>
@@ -318,7 +299,7 @@
           <Property Name="NgayKham" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Xoa" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="BenhNhan" Relationship="Self.FK_PhieuKham_BenhNhan" FromRole="PhieuKham" ToRole="BenhNhan" />
-          <NavigationProperty Name="DonThuocs" Relationship="Self.FK_DonThuoc_PhieuKham" FromRole="PhieuKham" ToRole="DonThuoc" />
+          <NavigationProperty Name="ChiTietDonThuocs" Relationship="Self.FK_ChiTietDonThuoc_PhieuKham" FromRole="PhieuKham" ToRole="ChiTietDonThuoc" />
           <NavigationProperty Name="LoaiBenh" Relationship="Self.FK_PhieuKham_LoaiBenh" FromRole="PhieuKham" ToRole="LoaiBenh" />
         </EntityType>
         <EntityType Name="QuyDinh">
@@ -338,19 +319,6 @@
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="ChiTietDonThuoc">
-          <Key>
-            <PropertyRef Name="MaDT" />
-            <PropertyRef Name="MaThuoc" />
-          </Key>
-          <Property Name="MaDT" Type="Int32" Nullable="false" />
-          <Property Name="MaThuoc" Type="Int32" Nullable="false" />
-          <Property Name="SoLuong" Type="Int32" Nullable="false" />
-          <Property Name="MaCachDung" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="CachDung" Relationship="Self.FK_ChiTietDonThuoc_CachDung" FromRole="ChiTietDonThuoc" ToRole="CachDung" />
-          <NavigationProperty Name="DonThuoc" Relationship="Self.FK_ChiTietDonThuoc_DonThuoc" FromRole="ChiTietDonThuoc" ToRole="DonThuoc" />
-          <NavigationProperty Name="LoaiThuoc" Relationship="Self.FK_ChiTietDonThuoc_LoaiThuoc" FromRole="ChiTietDonThuoc" ToRole="LoaiThuoc" />
         </EntityType>
         <Association Name="FK_PhieuKham_BenhNhan">
           <End Role="BenhNhan" Type="Self.BenhNhan" Multiplicity="1" />
@@ -376,27 +344,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ChiTietDonThuoc_DonThuoc">
-          <End Role="DonThuoc" Type="Self.DonThuoc" Multiplicity="1" />
+        <Association Name="FK_ChiTietDonThuoc_LoaiThuoc">
+          <End Role="LoaiThuoc" Type="Self.LoaiThuoc" Multiplicity="1" />
           <End Role="ChiTietDonThuoc" Type="Self.ChiTietDonThuoc" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="DonThuoc">
-              <PropertyRef Name="MaDT" />
+            <Principal Role="LoaiThuoc">
+              <PropertyRef Name="MaThuoc" />
             </Principal>
             <Dependent Role="ChiTietDonThuoc">
-              <PropertyRef Name="MaDT" />
+              <PropertyRef Name="MaThuoc" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DonThuoc_PhieuKham">
+        <Association Name="FK_ChiTietDonThuoc_PhieuKham">
           <End Role="PhieuKham" Type="Self.PhieuKham" Multiplicity="1" />
-          <End Role="DonThuoc" Type="Self.DonThuoc" Multiplicity="*" />
+          <End Role="ChiTietDonThuoc" Type="Self.ChiTietDonThuoc" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PhieuKham">
               <PropertyRef Name="MaPK" />
             </Principal>
-            <Dependent Role="DonThuoc">
+            <Dependent Role="ChiTietDonThuoc">
               <PropertyRef Name="MaPK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoaiThuoc_DonVi">
+          <End Role="DonVi" Type="Self.DonVi" Multiplicity="1" />
+          <End Role="LoaiThuoc" Type="Self.LoaiThuoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonVi">
+              <PropertyRef Name="MaDonVi" />
+            </Principal>
+            <Dependent Role="LoaiThuoc">
+              <PropertyRef Name="MaDonVi" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -412,22 +392,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ChiTietDonThuoc_LoaiThuoc">
-          <End Role="LoaiThuoc" Type="Self.LoaiThuoc" Multiplicity="1" />
-          <End Role="ChiTietDonThuoc" Type="Self.ChiTietDonThuoc" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LoaiThuoc">
-              <PropertyRef Name="MaThuoc" />
-            </Principal>
-            <Dependent Role="ChiTietDonThuoc">
-              <PropertyRef Name="MaThuoc" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="QuanLyPhongMachEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BenhNhans" EntityType="Self.BenhNhan" />
           <EntitySet Name="CachDungs" EntityType="Self.CachDung" />
-          <EntitySet Name="DonThuocs" EntityType="Self.DonThuoc" />
+          <EntitySet Name="ChiTietDonThuocs" EntityType="Self.ChiTietDonThuoc" />
           <EntitySet Name="DonVis" EntityType="Self.DonVi" />
           <EntitySet Name="LoaiBenhs" EntityType="Self.LoaiBenh" />
           <EntitySet Name="LoaiThuocs" EntityType="Self.LoaiThuoc" />
@@ -435,7 +403,6 @@
           <EntitySet Name="PhieuKhams" EntityType="Self.PhieuKham" />
           <EntitySet Name="QuyDinhs" EntityType="Self.QuyDinh" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <EntitySet Name="ChiTietDonThuocs" EntityType="Self.ChiTietDonThuoc" />
           <AssociationSet Name="FK_PhieuKham_BenhNhan" Association="Self.FK_PhieuKham_BenhNhan">
             <End Role="BenhNhan" EntitySet="BenhNhans" />
             <End Role="PhieuKham" EntitySet="PhieuKhams" />
@@ -444,39 +411,23 @@
             <End Role="CachDung" EntitySet="CachDungs" />
             <End Role="ChiTietDonThuoc" EntitySet="ChiTietDonThuocs" />
           </AssociationSet>
-          <AssociationSet Name="FK_ChiTietDonThuoc_DonThuoc" Association="Self.FK_ChiTietDonThuoc_DonThuoc">
-            <End Role="DonThuoc" EntitySet="DonThuocs" />
+          <AssociationSet Name="FK_ChiTietDonThuoc_LoaiThuoc" Association="Self.FK_ChiTietDonThuoc_LoaiThuoc">
+            <End Role="LoaiThuoc" EntitySet="LoaiThuocs" />
             <End Role="ChiTietDonThuoc" EntitySet="ChiTietDonThuocs" />
           </AssociationSet>
-          <AssociationSet Name="FK_DonThuoc_PhieuKham" Association="Self.FK_DonThuoc_PhieuKham">
+          <AssociationSet Name="FK_ChiTietDonThuoc_PhieuKham" Association="Self.FK_ChiTietDonThuoc_PhieuKham">
             <End Role="PhieuKham" EntitySet="PhieuKhams" />
-            <End Role="DonThuoc" EntitySet="DonThuocs" />
+            <End Role="ChiTietDonThuoc" EntitySet="ChiTietDonThuocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoaiThuoc_DonVi" Association="Self.FK_LoaiThuoc_DonVi">
+            <End Role="DonVi" EntitySet="DonVis" />
+            <End Role="LoaiThuoc" EntitySet="LoaiThuocs" />
           </AssociationSet>
           <AssociationSet Name="FK_PhieuKham_LoaiBenh" Association="Self.FK_PhieuKham_LoaiBenh">
             <End Role="LoaiBenh" EntitySet="LoaiBenhs" />
             <End Role="PhieuKham" EntitySet="PhieuKhams" />
           </AssociationSet>
-          <AssociationSet Name="FK_ChiTietDonThuoc_LoaiThuoc" Association="Self.FK_ChiTietDonThuoc_LoaiThuoc">
-            <End Role="LoaiThuoc" EntitySet="LoaiThuocs" />
-            <End Role="ChiTietDonThuoc" EntitySet="ChiTietDonThuocs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LoaiThuoc_DonVi" Association="QuanLyPhongMachModel.FK_LoaiThuoc_DonVi">
-            <End Role="DonVi" EntitySet="DonVis" />
-            <End Role="LoaiThuoc" EntitySet="LoaiThuocs" />
-          </AssociationSet>
         </EntityContainer>
-        <Association Name="FK_LoaiThuoc_DonVi">
-          <End Type="QuanLyPhongMachModel.DonVi" Role="DonVi" Multiplicity="1" />
-          <End Type="QuanLyPhongMachModel.LoaiThuoc" Role="LoaiThuoc" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DonVi">
-              <PropertyRef Name="MaDonVi" />
-            </Principal>
-            <Dependent Role="LoaiThuoc">
-              <PropertyRef Name="MaDonVi" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -503,11 +454,13 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DonThuocs">
-            <EntityTypeMapping TypeName="QuanLyPhongMachModel.DonThuoc">
-              <MappingFragment StoreEntitySet="DonThuoc">
-                <ScalarProperty Name="MaDT" ColumnName="MaDT" />
+          <EntitySetMapping Name="ChiTietDonThuocs">
+            <EntityTypeMapping TypeName="QuanLyPhongMachModel.ChiTietDonThuoc">
+              <MappingFragment StoreEntitySet="ChiTietDonThuoc">
                 <ScalarProperty Name="MaPK" ColumnName="MaPK" />
+                <ScalarProperty Name="MaThuoc" ColumnName="MaThuoc" />
+                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+                <ScalarProperty Name="MaCachDung" ColumnName="MaCachDung" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -582,16 +535,6 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ChiTietDonThuocs">
-            <EntityTypeMapping TypeName="QuanLyPhongMachModel.ChiTietDonThuoc">
-              <MappingFragment StoreEntitySet="ChiTietDonThuoc">
-                <ScalarProperty Name="MaDT" ColumnName="MaDT" />
-                <ScalarProperty Name="MaThuoc" ColumnName="MaThuoc" />
-                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
-                <ScalarProperty Name="MaCachDung" ColumnName="MaCachDung" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

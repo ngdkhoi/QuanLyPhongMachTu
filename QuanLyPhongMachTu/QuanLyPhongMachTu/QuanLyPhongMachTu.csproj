@@ -122,9 +122,6 @@
     <Compile Include="Model\DetailPrescriptionCollector.cs" />
     <Compile Include="Model\DiagnosisCollector.cs" />
     <Compile Include="Model\DiseaseCollector.cs" />
-    <Compile Include="Model\DonThuoc.cs">
-      <DependentUpon>Database.tt</DependentUpon>
-    </Compile>
     <Compile Include="Model\DonVi.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>

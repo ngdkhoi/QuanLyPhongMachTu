@@ -40,8 +40,6 @@ namespace QuanLyPhongMachTu.ViewModel
 
         private int _selectedMonth;
         private int _selectedYear;
-        private DateTime startDate;
-        private DateTime endDate;
         public int SelectedMonth
         {
             get
@@ -57,6 +55,10 @@ namespace QuanLyPhongMachTu.ViewModel
         public int SelectedYear { get => _selectedYear; set { _selectedYear = value; OnPropertyChanged(); } }
         public ICommand ReportCommand { get; set; }
         void doSomeThing() { }
+        void LoadData(DateTime startDate, DateTime endDate)
+        {
+                        
+        }
         public MedicineReportViewModel()
         {
             ReportCommand = new RelayCommand<object>((p) =>
@@ -68,7 +70,10 @@ namespace QuanLyPhongMachTu.ViewModel
                 return true;
             }, (p) => 
             {
-                doSomeThing();
+                DateTime startDate = DateTime.Parse(SelectedMonth.ToString() + "/01/" + SelectedYear.ToString());
+                DateTime endDate = DateTime.Parse(SelectedMonth.ToString() + "/01/" + SelectedYear.ToString()).AddMonths(1);
+
+                LoadData(startDate, endDate);
             });
         }
     }

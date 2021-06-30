@@ -36,20 +36,48 @@
                         Command="{Binding ReportCommand}"
                         Margin="10 0 0 0"/>
             </StackPanel>
-            <DataGrid ItemsSource="{Binding DonThuoc}"
+            <DataGrid ItemsSource="{Binding MedicineList}"
                       AutoGenerateColumns="False" CanUserAddRows="False"
                       ScrollViewer.VerticalScrollBarVisibility="Disabled">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="STT" Width="1.5*" Binding="{Binding STT}" IsReadOnly="True"/>
-                    <materialDesign:DataGridComboBoxColumn Header="Thuốc" Width="3*"
-                                                           IsEditable="True"
-                                                           SelectedItemBinding="{Binding Name}"
-                                                           ItemsSourceBinding="{Binding RelativeSource={RelativeSource AncestorType=DataGrid},
-                                                           Path=DataContext.DanhSachThuoc}">
-                    </materialDesign:DataGridComboBoxColumn>
-                    <DataGridTextColumn Header="Đơn vị tính" Width="3*" Binding="{Binding DonVi}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Số lượng" Width="3*" Binding="{Binding SoLuong}"/>
-                    <DataGridTextColumn Header="Số lần dùng" Width="3*" Binding="{Binding CachDung}"/>
+                    <DataGridTemplateColumn Header="STT" Width="55">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding MaSoBN}"
+                                                   HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Thuốc" Width="200">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding MaSoBN}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Đơn vị tính" Width="110">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding MaSoBN}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Số lượng" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding MaSoBN}"
+                                                  />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Số lần sử dụng" Width="120">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding MaSoBN}"
+                                                   />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>

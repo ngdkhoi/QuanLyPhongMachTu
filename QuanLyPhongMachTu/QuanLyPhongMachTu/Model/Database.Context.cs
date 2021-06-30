@@ -27,7 +27,7 @@ namespace QuanLyPhongMachTu.Model
     
         public virtual DbSet<BenhNhan> BenhNhans { get; set; }
         public virtual DbSet<CachDung> CachDungs { get; set; }
-        public virtual DbSet<DonThuoc> DonThuocs { get; set; }
+        public virtual DbSet<ChiTietDonThuoc> ChiTietDonThuocs { get; set; }
         public virtual DbSet<DonVi> DonVis { get; set; }
         public virtual DbSet<LoaiBenh> LoaiBenhs { get; set; }
         public virtual DbSet<LoaiThuoc> LoaiThuocs { get; set; }
@@ -35,6 +35,5 @@ namespace QuanLyPhongMachTu.Model
         public virtual DbSet<PhieuKham> PhieuKhams { get; set; }
         public virtual DbSet<QuyDinh> QuyDinhs { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<ChiTietDonThuoc> ChiTietDonThuocs { get; set; }
     }
 }
