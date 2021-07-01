@@ -64,11 +64,16 @@ namespace QuanLyPhongMachTu.ViewModel
         public ICommand UpdateCommand { get; set; }
         private void InitialUpdateCommand()
         {
-            UpdateCommand = new RelayCommand<object>((p) =>
+            UpdateCommand = new RelayCommand<BenhNhan>((p) =>
             {
-                return true;
+                if (p != null)
+                {
+                    return true;
+                }
+                return false;
             }, (p) =>
             {
+
 
             });
         }
@@ -130,14 +135,10 @@ namespace QuanLyPhongMachTu.ViewModel
             {
                 if(p!= null)
                 {
-                    var pk = p.PhieuKhams.ToList();
-                    int count = pk.Count;
-                    foreach(var x in pk)
+                    var check = p.PhieuKhams.Where(pk => pk.NgayKham.Date == DateTime.Now.Date).First();
+                    if(check.TienKham != 0)
                     {
-                        if(x.NgayKham.Date == DateTime.Now.Date && x.TienKham !=0)
-                        {
-                            return false;
-                        }
+                        return false;
                     }
                 }
                 return true; // Nếu là nhân viên thì return false
@@ -154,6 +155,32 @@ namespace QuanLyPhongMachTu.ViewModel
                 mainWindow.ListViewMenu.SelectedIndex = 1;
             });
         }
+
+        public ICommand DeletePatientInListCommand { get; set; }
+
+        private void InitialDeletePatientInListCommand()
+        {
+            DeletePatientInListCommand = new RelayCommand<BenhNhan>((p) =>                     //Can review lai
+            {
+                if (p != null)
+                {
+                    var check = p.PhieuKhams.Where(pk => pk.NgayKham.Date == DateTime.Now.Date).First();
+                    if (check.TienKham != 0)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+
+            }, (p) =>
+            {
+                PatientList.Remove(p);
+                var pk = p.PhieuKhams.Where(x => x.NgayKham.Date == Date.Date).First();
+                DataProvider.Ins.DB.PhieuKhams.Remove(pk);
+                DataProvider.Ins.DB.SaveChanges();
+            });
+        }
+
 
         public ObservableCollection<BenhNhan> PatientList
         {
@@ -216,6 +243,8 @@ namespace QuanLyPhongMachTu.ViewModel
             InitialAddCommand();
             InitialSearchPatientCommand();
             InitialAddOldPatientCommand();
+            InitialDeletePatientInListCommand();
+            InitialUpdateCommand();
         }
 
         private BenhNhan AddNewPatientToDB()

@@ -162,16 +162,13 @@ namespace QuanLyPhongMachTu.ViewModel
             diag.TienKham = diagnosisCost;
             diag.TienThuoc = medicineCost;
             diag.TrieuChung = Information.TrieuChung;
-
-
-            var newPrescriptionID = DataProvider.Ins.DB.PhieuKhams.Max(dt => dt.MaPK) + 1;
             
 
             foreach(var medicine in Prescription)
             {
                 DataProvider.Ins.DB.ChiTietDonThuocs.Add(new ChiTietDonThuoc()
                 {
-                    MaPK = newPrescriptionID,
+                    MaPK = Information.MaPK,
                     MaThuoc = medicine.MaThuoc,
                     SoLuong = medicine.SoLuong,
                     MaCachDung = medicine.MaCachDung
