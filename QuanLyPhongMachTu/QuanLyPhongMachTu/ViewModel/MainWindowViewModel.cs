@@ -37,6 +37,7 @@ namespace QuanLyPhongMachTu.ViewModel
               {
                   LoginScreen newscreen = new LoginScreen();
                   newscreen.Show();
+                  MainWindow.Instance = null;
                   p.Close();
               });
 

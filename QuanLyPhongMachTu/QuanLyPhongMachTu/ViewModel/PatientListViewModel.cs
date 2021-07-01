@@ -128,7 +128,7 @@ namespace QuanLyPhongMachTu.ViewModel
                 var result = x.Where(pk => pk.NgayKham.Date == DateTime.Now.Date).First();
 
                 var newScreen = DiagnosisScreen.Instance(result.MaPK);
-                var mainWindow = MainWindow.Instance();
+                var mainWindow = MainWindow.Instance;
                 mainWindow.GridPriciple.Children.Clear();
                 mainWindow.GridPriciple.Children.Add(newScreen);
                 mainWindow.ListViewMenu.SelectedIndex = 1;
