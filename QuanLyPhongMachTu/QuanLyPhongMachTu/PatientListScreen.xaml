@@ -201,7 +201,13 @@
                               AutoGenerateColumns="False" CanUserAddRows="False"
                               ScrollViewer.VerticalScrollBarVisibility="Disabled"
                               AlternationCount="{Binding PatientList.Count}"
-                              x:Name="List">
+                              x:Name="List"
+                              SelectedIndex="{Binding ID}">
+                        <DataGrid.InputBindings>
+                            <MouseBinding MouseAction="LeftDoubleClick"
+                                          Command="{Binding ElementName=List, Path=DataContext.ChoosingPatient}"
+                                          />
+                        </DataGrid.InputBindings>
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="STT" Width="55">
                                 <DataGridTemplateColumn.CellTemplate>

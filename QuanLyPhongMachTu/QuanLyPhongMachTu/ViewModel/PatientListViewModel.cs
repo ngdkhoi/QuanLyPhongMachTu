@@ -22,9 +22,11 @@ namespace QuanLyPhongMachTu.ViewModel
         private int _NamSinh;
         private string _DiaChi;
         private string _SellectedEle;
+        private int _ID;
         public DateTime Date { get => _Date;  set { _Date = value; OnPropertyChanged(); } }
 
         public ICommand AddCommand { get; set; }
+        public ICommand ChoosingPatient { get; set; }
         private void InitialAddCommand()
         {
             AddCommand = new RelayCommand<object>((p) =>
@@ -39,6 +41,24 @@ namespace QuanLyPhongMachTu.ViewModel
                 BenhNhan newPatient = AddNewPatientToDB();
                 PatientList.Add(newPatient);
                 AddNewDiagnosisToDB(newPatient.MaSoBN);
+            });
+
+            //mouse double click event
+            ChoosingPatient = new RelayCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                var query = PatientList[ID];
+                //var query = DataProvider.Ins.DB.BenhNhans.Where(x => x.MaSoBN == ID).FirstOrDefault();
+                HoTen = query.HoTen;
+                GioiTinh = query.GioiTinh;
+                NamSinh = query.NamSinh;
+                DiaChi = query.DiaChi;
+                OnPropertyChanged("HoTen");
+                OnPropertyChanged("GioiTinh");
+                OnPropertyChanged("NamSinh");
+                OnPropertyChanged("DiaChi");
             });
         }
         public ICommand UpdateCommand { get; set; }
@@ -155,11 +175,12 @@ namespace QuanLyPhongMachTu.ViewModel
             }
         }
 
-        public string HoTen { get => _HoTen; set => _HoTen = value; }
+        public string HoTen { get => _HoTen; set { _HoTen = value; OnPropertyChanged(); } }
         public string GioiTinh { get => _GioiTinh; set { _GioiTinh = value; OnPropertyChanged(); } }
-        public int NamSinh { get => _NamSinh; set => _NamSinh = value; }
-        public string DiaChi { get => _DiaChi; set => _DiaChi = value; }
+        public int NamSinh { get => _NamSinh; set { _NamSinh = value; OnPropertyChanged(); } }
+        public string DiaChi { get => _DiaChi; set { _DiaChi = value; OnPropertyChanged(); } }
         public string SellectedEle { get => _SellectedEle; set => _SellectedEle = value; }
+        public int ID { get => _ID; set => _ID = value; }
 
         private ObservableCollection<BenhNhan> _PatientList;
         private void LoadData(string text)
