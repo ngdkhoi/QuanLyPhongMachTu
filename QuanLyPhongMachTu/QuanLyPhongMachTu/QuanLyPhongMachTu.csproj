@@ -125,6 +125,7 @@
     <Compile Include="Model\DonVi.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Global.cs" />
     <Compile Include="Model\LoaiBenh.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>

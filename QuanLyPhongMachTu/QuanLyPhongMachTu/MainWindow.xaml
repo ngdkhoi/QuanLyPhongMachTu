@@ -7,6 +7,7 @@
         xmlns:local="clr-namespace:QuanLyPhongMachTu"
         DataContext="{StaticResource MainWindowVM}"
         mc:Ignorable="d"
+        Name="Main"
         Title="MainWindow" Height="700" Width="1100">
     <Grid>
         <Grid.RowDefinitions>
@@ -17,8 +18,9 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
             <materialDesign:Chip Background="LightBlue">
                 <Button Background="Transparent"
-                        Content="Nguyễn Đình Khôi"
-                        Command="{Binding Logout}"
+                        Content="{Binding TenNhanVien, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        CommandParameter="{Binding ElementName=Main}"
+                        Command="{Binding LogoutCommand}"
                         BorderBrush="Transparent"
                         Foreground="Black">
                     

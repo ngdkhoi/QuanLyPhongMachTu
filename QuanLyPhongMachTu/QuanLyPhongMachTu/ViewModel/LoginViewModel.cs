@@ -35,11 +35,19 @@ namespace QuanLyPhongMachTu.ViewModel
                 {
                     if(i.Account==Account && i.Password == Password)
                     {
+                        if(Global.UserID == i.MaSoNV)
+                        {
+                            MainWindow mainWindow = MainWindow.Instance();
+                            mainWindow.Show();
+                        }
+                        else 
+                        {
+                            Global.UserID = i.MaSoNV;
+                            MainWindow mainWindow = new MainWindow();
+                            mainWindow.Show();
+                        }
                         isSuccess = true;
-                        MainWindow mainWindow = MainWindow.Instance();
-                        mainWindow.Show();
                         p.Close();
-                        
                     }
                 }
                 if (!isSuccess)
@@ -53,7 +61,7 @@ namespace QuanLyPhongMachTu.ViewModel
                   return true;
               }, (p) =>
               {
-                  p.Close();
+                  System.Environment.Exit(0);
               });
         }
     }
