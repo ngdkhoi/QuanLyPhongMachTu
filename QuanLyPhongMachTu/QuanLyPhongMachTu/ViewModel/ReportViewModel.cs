@@ -95,7 +95,7 @@ namespace QuanLyPhongMachTu.ViewModel
             var query = from pk in DataProvider.Ins.DB.PhieuKhams
                         join ctdt in DataProvider.Ins.DB.ChiTietDonThuocs
                         on pk.MaPK equals ctdt.MaPK
-                        where pk.NgayKham >= startDate && pk.NgayKham < endDate
+                        where pk.NgayKham >= startDate && pk.NgayKham < endDate && pk.Xoa == false                           
                         select new
                         {
                             thuoc = ctdt.LoaiThuoc.TenThuoc,
@@ -133,7 +133,7 @@ namespace QuanLyPhongMachTu.ViewModel
             //                          tienkham = pk.
             //                      };
             var query = from pk in DataProvider.Ins.DB.PhieuKhams
-                        where pk.NgayKham >= startDate && pk.NgayKham < endDate
+                        where pk.NgayKham >= startDate && pk.NgayKham < endDate && pk.Xoa == false
                         group pk by pk.NgayKham into RevenueMonth
                         select new
                         {
