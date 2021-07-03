@@ -22,70 +22,96 @@ namespace QuanLyPhongMachTu.ViewModel
         private int _NamSinh;
         private string _DiaChi;
         private string _SellectedEle;
-        private int _ID;
+        private int _ID =-1;
+
+        private bool isUpdateMode = false;
+        public string textSearch { get; set; }
         public DateTime Date { get => _Date;  set { _Date = value; OnPropertyChanged(); } }
 
         public ICommand AddCommand { get; set; }
-        public ICommand ChoosingPatient { get; set; }
         private void InitialAddCommand()
         {
             AddCommand = new RelayCommand<object>((p) =>
             {
-                if (HoTen.Length < 0 || GioiTinh.Length < 0 || NamSinh < 1000 || NamSinh > DateTime.Now.Year || DiaChi.Length < 5)
+                if (!isUpdateMode)
                 {
-                    return false;
+                    if (HoTen.Length < 0 || GioiTinh.Length < 0 || NamSinh < 1000 || NamSinh > DateTime.Now.Year || DiaChi.Length < 5)
+                    {
+                        return false;
+                    }
+                    return true;
                 }
-                return true;
+                return false;
             }, (p) =>
             {
                 BenhNhan newPatient = AddNewPatientToDB();
                 PatientList.Add(newPatient);
                 AddNewDiagnosisToDB(newPatient.MaSoBN);
             });
-
-            //mouse double click event
-            ChoosingPatient = new RelayCommand<object>((p) =>
-            {
-                return true;
-            }, (p) =>
-            {
-                var query = PatientList[ID];
-                //var query = DataProvider.Ins.DB.BenhNhans.Where(x => x.MaSoBN == ID).FirstOrDefault();
-                HoTen = query.HoTen;
-                GioiTinh = query.GioiTinh;
-                NamSinh = query.NamSinh;
-                DiaChi = query.DiaChi;
-                OnPropertyChanged("HoTen");
-                OnPropertyChanged("GioiTinh");
-                OnPropertyChanged("NamSinh");
-                OnPropertyChanged("DiaChi");
-            });
         }
         public ICommand UpdateCommand { get; set; }
         private void InitialUpdateCommand()
         {
-            UpdateCommand = new RelayCommand<BenhNhan>((p) =>
+            UpdateCommand = new RelayCommand<DataGrid>((p) =>
             {
-                if (p != null)
+                if (p!= null && p.SelectedItem != null)
                 {
+                    var bn = p.SelectedItem as BenhNhan;
+                    if (bn.MaSoBN != ID)
+                    {
+                        ID = bn.MaSoBN;
+                        HoTen = bn.HoTen;
+                        GioiTinh = bn.GioiTinh;
+                        NamSinh = bn.NamSinh;
+                        DiaChi = bn.DiaChi;
+                        isUpdateMode = true;
+                    }
                     return true;
                 }
                 return false;
             }, (p) =>
             {
-
-
+                var patient = DataProvider.Ins.DB.BenhNhans.Where(bn => bn.MaSoBN == ID).First();
+                patient.HoTen = HoTen;
+                patient.GioiTinh = GioiTinh;
+                patient.NamSinh = NamSinh;
+                patient.DiaChi = DiaChi;
+                DataProvider.Ins.DB.SaveChanges();
+                HoTen = "";
+                GioiTinh = "Nam";
+                NamSinh = DateTime.Now.Year;
+                DiaChi = "";
+                ID = -1;
+                isUpdateMode = false;
+                LoadData(textSearch);
+                LoadData();
+                p.SelectedIndex = -1;
             });
         }
         public ICommand DeleteCommand { get; set; }
         private void InitialDeleteCommand()
         {
-            DeleteCommand = new RelayCommand<object>((p) =>
+            DeleteCommand = new RelayCommand<BenhNhan>((p) =>
             {
-                return true;
+                if (isUpdateMode)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }, (p) =>
             {
-
+                SearchResults.Remove(p);
+                p.Xoa = true;
+                DataProvider.Ins.DB.SaveChanges();
+                HoTen = "";
+                GioiTinh = "Nam";
+                NamSinh = DateTime.Now.Year;
+                DiaChi = "";
+                ID = -1;
+                isUpdateMode = false;
             });
         }
         public ICommand SearchPatientCommand { get; set; }
@@ -245,6 +271,7 @@ namespace QuanLyPhongMachTu.ViewModel
             InitialAddOldPatientCommand();
             InitialDeletePatientInListCommand();
             InitialUpdateCommand();
+            InitialDeleteCommand();
         }
 
         private BenhNhan AddNewPatientToDB()
