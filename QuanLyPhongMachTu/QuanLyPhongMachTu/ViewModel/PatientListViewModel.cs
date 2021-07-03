@@ -106,8 +106,14 @@ namespace QuanLyPhongMachTu.ViewModel
                 SearchResults.Remove(p);
                 PatientList.Remove(p);
                 p.Xoa = true;
-                var pk = p.PhieuKhams.Where(x => x.MaBN == p.MaSoBN && x.NgayKham.Date == DateTime.Now.Date && x.TienKham == 0).First();
-                DataProvider.Ins.DB.PhieuKhams.Remove(pk);
+                if (p.PhieuKhams.Count != 0)
+                {
+                    var pk = p.PhieuKhams.Where(x => x.MaBN == p.MaSoBN && x.NgayKham.Date == DateTime.Now.Date && x.TienKham == 0).First();
+                    if (pk != null)
+                    {
+                        DataProvider.Ins.DB.PhieuKhams.Remove(pk);
+                    }
+                }
                 DataProvider.Ins.DB.SaveChanges();
                 LoadData();
                 HoTen = "";
