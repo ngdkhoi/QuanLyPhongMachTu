@@ -104,8 +104,12 @@ namespace QuanLyPhongMachTu.ViewModel
             }, (p) =>
             {
                 SearchResults.Remove(p);
+                PatientList.Remove(p);
                 p.Xoa = true;
+                var pk = p.PhieuKhams.Where(x => x.MaBN == p.MaSoBN && x.NgayKham.Date == DateTime.Now.Date && x.TienKham == 0).First();
+                DataProvider.Ins.DB.PhieuKhams.Remove(pk);
                 DataProvider.Ins.DB.SaveChanges();
+                LoadData();
                 HoTen = "";
                 GioiTinh = "Nam";
                 NamSinh = DateTime.Now.Year;
