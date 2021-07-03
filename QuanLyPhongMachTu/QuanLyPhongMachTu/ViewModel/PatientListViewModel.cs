@@ -106,7 +106,7 @@ namespace QuanLyPhongMachTu.ViewModel
                 SearchResults.Remove(p);
                 PatientList.Remove(p);
                 p.Xoa = true;
-                if (p.PhieuKhams.Count != 0)
+                if (DataProvider.Ins.DB.PhieuKhams.Count(x=>x.MaBN == p.MaSoBN && x.TienKham == 0) != 0)
                 {
                     var pk = p.PhieuKhams.Where(x => x.MaBN == p.MaSoBN && x.NgayKham.Date == DateTime.Now.Date && x.TienKham == 0).First();
                     if (pk != null)
