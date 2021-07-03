@@ -63,6 +63,10 @@
                             </Grid>
                             <!--.-->
                             <Grid Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="164*"/>
+                                    <ColumnDefinition Width="65*"/>
+                                </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="40"/>
                                     <RowDefinition Height="40"/>
@@ -70,25 +74,26 @@
                                     <RowDefinition Height="40"/>
                                 </Grid.RowDefinitions>
                                 <TextBox Grid.Row="0"
-                                         Margin="0" Width="180"
+                                         Margin="0,8,0,7" Width="180"
                                          VerticalAlignment="Center" HorizontalAlignment="Left"
-                                         Text="{Binding HoTen, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                         Text="{Binding HoTen}" Grid.ColumnSpan="2"/>
                                 <ComboBox Grid.Row="1"
-                                          Margin="0 0 0 -3" Width="180" Foreground="Black" Background="White"
+                                          Margin="0,0,0,37" Width="180" Foreground="Black" Background="White"
                                           VerticalAlignment="Center" HorizontalAlignment="Left"
                                           Style="{StaticResource MaterialDesignFilledComboBox}"
-                                          SelectedValue="{Binding GioiTinh}" SelectedValuePath="Content">
+                                          SelectedValue="{Binding GioiTinh}"
+                                          SelectedValuePath="Content" Grid.ColumnSpan="2" Grid.RowSpan="2">
                                     <ComboBoxItem Foreground="Black">Nam</ComboBoxItem>
                                     <ComboBoxItem Foreground="Black">Nữ</ComboBoxItem>
                                 </ComboBox>
                                 <TextBox Grid.Row="2"
-                                         Margin="0" Width="180"
+                                         Margin="0,8,0,7" Width="180"
                                          VerticalAlignment="Center" HorizontalAlignment="Left"
-                                         Text="{Binding NamSinh, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                         Text="{Binding NamSinh}" Grid.ColumnSpan="2"/>
                                 <TextBox Grid.Row="3"
-                                         Margin="0" Width="180"
+                                         Margin="0,8,0,7" Width="180"
                                          VerticalAlignment="Center" HorizontalAlignment="Left"
-                                         Text="{Binding DiaChi, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                         Text="{Binding DiaChi}" Grid.ColumnSpan="2"/>
                             </Grid>
                         </Grid>
                     </materialDesign:Card>
@@ -105,21 +110,25 @@
                                     Style="{StaticResource MaterialDesignRaisedButton}"
                                     Width="70"
                                     ToolTip="Thêm mới bệnh nhân vào danh sách khám"
-                                    Command="{Binding AddCommand}">
+                                    Command="{Binding AddCommand}"
+                                    CommandParameter="{Binding }">
                                 Thêm
                             </Button>
                             <Button Grid.Column="1"
                                     Style="{StaticResource MaterialDesignRaisedButton}"
                                     Width="110"
                                     ToolTip="Cập nhật thông tin bệnh nhân từ danh sách tìm kím"
-                                    Command="{Binding UpdateCommand}">
+                                    Command="{Binding UpdateCommand}"
+                                    CommandParameter="{Binding ElementName=SearchDataGrid}"
+                                    >
                                 Cập nhật
                             </Button>
                             <Button Grid.Column="2"
                                     Style="{StaticResource MaterialDesignRaisedButton}"
                                     Width="70"
                                     ToolTip="Xoá bệnh nhân từ danh sách tìm kiếm"
-                                    Command="{Binding DeleteCommand}">
+                                    Command="{Binding DeleteCommand}"
+                                    CommandParameter="{Binding ElementName=SearchDataGrid, Path=SelectedItem}">
                                 Xóa
                             </Button>
                         </Grid>
@@ -133,6 +142,7 @@
                         </Grid.RowDefinitions>
                         <TextBox Grid.Row="0" Name="SearchTextBox"
                                  materialDesign:HintAssist.Hint="Tên bệnh nhân"
+                                 Text="{Binding textSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="TextChanged">
@@ -207,11 +217,6 @@
                               AlternationCount="{Binding PatientList.Count}"
                               x:Name="List" Grid.ColumnSpan="2"
                               SelectedIndex="{Binding ID}">
-                        <DataGrid.InputBindings>
-                            <MouseBinding MouseAction="LeftDoubleClick"
-                                          Command="{Binding ElementName=List, Path=DataContext.ChoosingPatient}"
-                                          />
-                        </DataGrid.InputBindings>
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="STT" Width="55">
                                 <DataGridTemplateColumn.CellTemplate>
