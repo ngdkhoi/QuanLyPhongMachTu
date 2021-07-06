@@ -210,10 +210,9 @@
                         <ColumnDefinition Width="250*"/>
                     </Grid.ColumnDefinitions>
                     <DataGrid ItemsSource="{Binding PatientList}"
-                              CanUserSortColumns="False" CanUserReorderColumns="False"
+                              CanUserReorderColumns="False"
                               CanUserResizeColumns="False" CanUserResizeRows="False"
                               AutoGenerateColumns="False" CanUserAddRows="False"
-                              ScrollViewer.VerticalScrollBarVisibility="Disabled"
                               AlternationCount="{Binding PatientList.Count}"
                               x:Name="List" Grid.ColumnSpan="2"
                               SelectedIndex="{Binding ID}">

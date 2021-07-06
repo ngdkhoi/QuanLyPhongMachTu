@@ -4,8 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuanLyPhongMachTu"
+        xmlns:totalCostConverter="clr-namespace:QuanLyPhongMachTu.totalCostConverter"
+        xmlns:dateConverter="clr-namespace:QuanLyPhongMachTu.dateConverter"
+        xmlns:orderConverter="clr-namespace:QuanLyPhongMachTu.orderConverter"
+        xmlns:currencyConverter="clr-namespace:QuanLyPhongMachTu.Converter"
         mc:Ignorable="d"
-        Title="PayScreen" Height="600" Width="700">
+        Title="PayScreen" Height="600" Width="700" Name="payScreen" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <totalCostConverter:TotalCostConverter x:Key="totalCostConverter" />
+        <dateConverter:DateConveter x:Key="dateConverter"/>
+        <orderConverter:OrderConverter x:Key="orderConverter"/>
+        <currencyConverter:VNDConvert x:Key="currencyConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -15,34 +25,68 @@
         <TextBlock Text="HÓA ĐƠN THANH TOÁN"
                    VerticalAlignment="Center" HorizontalAlignment="Center"
                    FontSize="25"/>
-        <StackPanel Grid.Row="1" Margin="50 0 0 0">
+        <StackPanel Grid.Row="1" Margin="50 0">
             <Grid Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
                 <StackPanel Grid.Column="0" Orientation="Horizontal"
                         VerticalAlignment="Center">
                     <TextBlock Text="Họ Tên: " FontSize="20"/>
-                    <TextBlock Text="{Binding Name}" FontSize="20"/>
+                    <TextBlock Text="{Binding BenhNhan.HoTen}" FontSize="20"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
                     <TextBlock Text="Ngày khám: " FontSize="20"/>
-                    <TextBlock Text="{Binding Date}" FontSize="20"/>
+                    <TextBlock Text="{Binding NgayKham, Converter={StaticResource dateConverter}}" FontSize="20"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 10 0 0">
+                    <TextBlock Text="Tiên khám: " FontSize="20"/>
+                    <TextBlock Text="{Binding TienKham, Converter={StaticResource currencyConverter}}" FontSize="20"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Margin="0 10 0 0">
+                    <TextBlock Text="Loại bệnh: " FontSize="20"/>
+                    <TextBlock Text="{Binding LoaiBenh.TenBenh}" FontSize="20"/>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0 10 0 0">
+                    <TextBlock Text="Tiền thuốc: " FontSize="20"/>
+                    <TextBlock Text="{Binding TienThuoc, Converter={StaticResource currencyConverter}}" FontSize="20"/>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="0 10 0 0">
+                    <TextBlock Text="Triệu chứng: " FontSize="20"/>
+                    <TextBlock Text="{Binding TrieuChung}" FontSize="20"/>
+                </StackPanel>
+                <StackPanel Grid.Row="3" Grid.ColumnSpan="2">
+                    <TextBlock DockPanel.Dock="Top" Margin="0 15 0 10"
+                       TextAlignment="Center"
+                       FontSize="15" FontWeight="Bold"
+                       Text="Đơn Thuốc"
+                    />
+                    <DataGrid ItemsSource="{Binding ChiTietDonThuocs}"
+                      AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
+                      ScrollViewer.VerticalScrollBarVisibility="Disabled" AlternationCount="{Binding ChiTietDonThuocs.Count}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="STT" Width="1.5*" IsReadOnly="True" Binding="{Binding AlternationIndex,
+                                                            RelativeSource={RelativeSource AncestorType=DataGridRow}, Converter={StaticResource orderConverter}}"/>
+                            <DataGridTextColumn Width="2.6*" Header="Thuốc" IsReadOnly="True" Binding="{Binding LoaiThuoc.TenThuoc}" />
+                            <DataGridTextColumn Header="Đơn vị" Width="2*" IsReadOnly="True" Binding="{Binding LoaiThuoc.DonVi.TenDonVi}" />
+                            <DataGridTextColumn Header="Số lượng" Width="2*" IsReadOnly="True" Binding="{Binding SoLuong}" />
+                            <DataGridTextColumn Header="Cách dùng" Width="3*" IsReadOnly="True" Binding="{Binding CachDung.CachSuDung}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </StackPanel>
             </Grid>
-            <StackPanel Orientation="Horizontal" Margin="10">
-                <TextBlock Text="Tiên khám: " FontSize="20"/>
-                <TextBlock Text="{Binding MedicalCost}" FontSize="20"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="10">
-                <TextBlock Text="Tiền thuốc: " FontSize="20"/>
-                <TextBlock Text="{Binding MedicineCost}" FontSize="20"/>
-            </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="30 0 0 0">
             <TextBlock Text="Tổng chi phí: " FontSize="20"/>
-            <TextBlock Text="{Binding SumCost}"/>
+            <TextBlock Text="{Binding ElementName=payScreen, Path=DataContext,
+                       Converter={StaticResource totalCostConverter}}" FontSize="20"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -87,6 +87,7 @@
     <Compile Include="Converter\CurrencyConverter.cs" />
     <Compile Include="Converter\DateConveter.cs" />
     <Compile Include="Converter\OrderConverter.cs" />
+    <Compile Include="Converter\TotalCostConverter.cs" />
     <Compile Include="DiagnosisScreen.xaml.cs">
       <DependentUpon>DiagnosisScreen.xaml</DependentUpon>
     </Compile>

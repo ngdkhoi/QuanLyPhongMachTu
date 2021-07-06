@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QuanLyPhongMachTu"
+             xmlns:orderConverter="clr-namespace:QuanLyPhongMachTu.orderConverter"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:dateConverter="clr-namespace:QuanLyPhongMachTu.dateConverter"
              mc:Ignorable="d" 
@@ -11,6 +12,7 @@
              Name="Diagnosis">
     <UserControl.Resources>
         <dateConverter:DateConveter x:Key="dateConverter"/>
+        <orderConverter:OrderConverter x:Key="orderConverter"/>
     </UserControl.Resources>
     <materialDesign:Card Margin="60 10">
         <DockPanel LastChildFill="True">
@@ -64,10 +66,12 @@
                        Text="Đơn Thuốc"
             />
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
+                <CheckBox VerticalAlignment="Center" IsChecked="{Binding ElementName=Diagnosis,
+                          Path=DataContext.isIncludeMedicineCost}">Mua thuốc</CheckBox>
                 <Button Content="Thêm thuốc" Command="{Binding AddMedicineCommand}"
                         Style="{StaticResource MaterialDesignRaisedLightButton}"
                         CommandParameter="{Binding ElementName=Diagnosis}"
-                        Width="200" />
+                        Width="200" Margin="20 5 0 5" />
                 <Button Content="Thanh Toán"
                         Style="{StaticResource MaterialDesignRaisedLightButton}"
                         Width="200" Margin="20 5"
@@ -78,7 +82,8 @@
                       ScrollViewer.VerticalScrollBarVisibility="Disabled" AlternationCount="{Binding Prescription.Count}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="STT" Width="1.5*" IsReadOnly="True" Binding="{Binding AlternationIndex,
-                                                            RelativeSource={RelativeSource AncestorType=DataGridRow}}"/>
+                                                            RelativeSource={RelativeSource AncestorType=DataGridRow},
+                                                            Converter={StaticResource orderConverter}}"/>
                     <DataGridTemplateColumn Width="3*" Header="Thuốc">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

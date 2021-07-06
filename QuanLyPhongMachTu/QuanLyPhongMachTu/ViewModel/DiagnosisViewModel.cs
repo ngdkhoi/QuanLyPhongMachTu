@@ -25,6 +25,8 @@ namespace QuanLyPhongMachTu.ViewModel
 
         public ObservableCollection<UseCollector> UsingList { get; set; }               //Danh sách cách dùng thuốc
 
+        public bool isIncludeMedicineCost { get; set; }
+
         private ObservableCollection<DetailPrescriptionCollector> _prescription;        // Đơn thuốc của bệnh nhân
         public ObservableCollection<DetailPrescriptionCollector> Prescription
         {
@@ -151,10 +153,13 @@ namespace QuanLyPhongMachTu.ViewModel
         {
             var diagnosisCost = DataProvider.Ins.DB.QuyDinhs.Where(qd => qd.TenQuyDinh == "SoTienKham").First().SoLuongQD;
             int medicineCost = 0;
-            foreach(var medicine in Prescription)
+            if (isIncludeMedicineCost)
             {
-                int cost = medicine.SoLuong * MedicineList.Where(medi => medi.MaThuoc == medicine.MaThuoc).First().Gia;
-                medicineCost += cost;
+                foreach (var medicine in Prescription)
+                {
+                    int cost = medicine.SoLuong * MedicineList.Where(medi => medi.MaThuoc == medicine.MaThuoc).First().Gia;
+                    medicineCost += cost;
+                }
             }
 
             var diag = DataProvider.Ins.DB.PhieuKhams.Where(pk => pk.MaPK == Information.MaPK).First();
@@ -175,6 +180,15 @@ namespace QuanLyPhongMachTu.ViewModel
                 });
             }
             DataProvider.Ins.DB.SaveChanges();
+            var currDiag = DataProvider.Ins.DB.PhieuKhams.Where(pk => pk.MaPK == Information.MaPK).First();
+            var newPayScreen = new PayScreen();
+            newPayScreen.DataContext = currDiag;
+            var newWindow = new PatientListScreen();
+            var mainWindow = MainWindow.Instance;
+            mainWindow.GridPriciple.Children.Clear();
+            mainWindow.GridPriciple.Children.Add(newWindow);
+            mainWindow.ListViewMenu.SelectedIndex = 0;
+            newPayScreen.Show();
         }
     }
 }
