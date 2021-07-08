@@ -33,11 +33,8 @@ namespace QuanLyPhongMachTu
 
         public static DiagnosisScreen Instance(int diagID)
         {
-            if(_instance == null)
-            {
-                _instance = new DiagnosisScreen(diagID);
-            }
 
+            _instance = new DiagnosisScreen(diagID);
             return _instance;
         }
         public static DiagnosisScreen Instance()
