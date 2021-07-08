@@ -21,6 +21,8 @@ namespace QuanLyPhongMachTu.ViewModel
         
         public LoginViewModel()
         {
+            Account = null;
+            Password = null;
             LoginCommand = new RelayCommand<LoginScreen>((p) =>
             {
                 if (Account != null && Password != null)
