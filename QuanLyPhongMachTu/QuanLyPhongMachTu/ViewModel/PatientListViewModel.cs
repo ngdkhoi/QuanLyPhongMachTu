@@ -35,7 +35,7 @@ namespace QuanLyPhongMachTu.ViewModel
             {
                 if (!isUpdateMode)
                 {
-                    if (HoTen.Length < 0 || GioiTinh.Length < 0 || NamSinh < 1000 || NamSinh > DateTime.Now.Year || DiaChi == null)
+                    if (HoTen == null || GioiTinh == null || NamSinh == 0 || NamSinh > DateTime.Now.Year || DiaChi == null)
                     {
                         return false;
                     }
