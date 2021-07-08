@@ -33,7 +33,7 @@
                     </Grid.RowDefinitions>
                     <DockPanel VerticalAlignment="Center" Margin="5 0">
                         <TextBlock Text="Tên bệnh nhân:" />
-                        <TextBox Padding="0" Margin="5 0 0 0" Text="{Binding TenBN}"/>
+                        <TextBlock Padding="0" Margin="5 0 0 0" Text="{Binding TenBN}"/>
                     </DockPanel>
                     <DockPanel Grid.Row="1"
                            VerticalAlignment="Center" Margin="5 0">
@@ -43,7 +43,7 @@
                     <DockPanel Grid.Column="1"
                            VerticalAlignment="Center" Margin="5 0">
                         <TextBlock Text="Ngày khám:" />
-                        <TextBox Padding="0" Margin="5 0 0 0" Text="{Binding NgayKham, Converter={StaticResource dateConverter}}"/>
+                        <TextBlock Padding="0" Margin="5 0 0 0" Text="{Binding NgayKham, Converter={StaticResource dateConverter}}"/>
                     </DockPanel>
                     <DockPanel Grid.Column="1" Grid.Row="1"
                            VerticalAlignment="Center" Margin="5 0">
