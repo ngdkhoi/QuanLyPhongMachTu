@@ -35,7 +35,7 @@ namespace QuanLyPhongMachTu.ViewModel
             {
                 if (!isUpdateMode)
                 {
-                    if (HoTen.Length < 0 || GioiTinh.Length < 0 || NamSinh < 1000 || NamSinh > DateTime.Now.Year || DiaChi.Length < 5)
+                    if (HoTen.Length < 0 || GioiTinh.Length < 0 || NamSinh < 1000 || NamSinh > DateTime.Now.Year || DiaChi == null)
                     {
                         return false;
                     }
@@ -46,6 +46,12 @@ namespace QuanLyPhongMachTu.ViewModel
             {
                 BenhNhan newPatient = AddNewPatientToDB();
                 PatientList.Add(newPatient);
+
+                HoTen = null;
+                GioiTinh = null;
+                NamSinh = 0;
+                DiaChi = null;
+
                 AddNewDiagnosisToDB(newPatient.MaSoBN);
             });
         }
@@ -238,10 +244,10 @@ namespace QuanLyPhongMachTu.ViewModel
             }
         }
 
-        public string HoTen { get => _HoTen; set { _HoTen = value; OnPropertyChanged(); } }
+        public string HoTen { get => _HoTen; set { _HoTen = value; OnPropertyChanged("HoTen"); } }
         public string GioiTinh { get => _GioiTinh; set { _GioiTinh = value; OnPropertyChanged(); } }
         public int NamSinh { get => _NamSinh; set { _NamSinh = value; OnPropertyChanged(); } }
-        public string DiaChi { get => _DiaChi; set { _DiaChi = value; OnPropertyChanged(); } }
+        public string DiaChi { get => _DiaChi; set { _DiaChi = value; OnPropertyChanged("DiaChi"); } }
         public string SellectedEle { get => _SellectedEle; set => _SellectedEle = value; }
         public int ID { get => _ID; set => _ID = value; }
 
@@ -270,10 +276,6 @@ namespace QuanLyPhongMachTu.ViewModel
 
             LoadData();
             Date = DateTime.Now;
-            HoTen = "";
-            GioiTinh = "Nam";
-            NamSinh = DateTime.Now.Year;
-            DiaChi = "";
 
             InitialExamCommand();
             InitialAddCommand();

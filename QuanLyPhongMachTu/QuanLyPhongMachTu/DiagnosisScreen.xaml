@@ -22,7 +22,7 @@
                        Text="PHIẾU KHÁM BỆNH"
             />
             <StackPanel DockPanel.Dock="Top">
-                <Grid Margin="0 10 0 0" DataContext="{Binding Information}">
+                <Grid Margin="0 10 0 0" DataContext="{Binding Information, UpdateSourceTrigger=PropertyChanged}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
@@ -78,6 +78,8 @@
                         Command="{Binding CheckoutCommand}" CommandParameter="{Binding ElementName=Diagnosis}"/>
             </StackPanel>
             <DataGrid ItemsSource="{Binding Prescription}"
+                      CanUserReorderColumns="False"
+                      CanUserResizeColumns="False" CanUserResizeRows="False"
                       AutoGenerateColumns="False" CanUserAddRows="False"
                       ScrollViewer.VerticalScrollBarVisibility="Disabled" AlternationCount="{Binding Prescription.Count}">
                 <DataGrid.Columns>

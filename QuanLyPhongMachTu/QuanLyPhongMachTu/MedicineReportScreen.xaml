@@ -37,6 +37,8 @@
                         Margin="10 0 0 0"/>
             </StackPanel>
             <DataGrid ItemsSource="{Binding MedicineList}"
+                      CanUserReorderColumns="False"
+                      CanUserResizeColumns="False" CanUserResizeRows="False"
                       AutoGenerateColumns="False" CanUserAddRows="False"
                       ScrollViewer.VerticalScrollBarVisibility="Disabled">
                 <DataGrid.Columns>

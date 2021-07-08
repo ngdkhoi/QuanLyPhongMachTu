@@ -76,12 +76,12 @@
                                 <TextBox Grid.Row="0"
                                          Margin="0,8,0,7" Width="180"
                                          VerticalAlignment="Center" HorizontalAlignment="Left"
-                                         Text="{Binding HoTen}" Grid.ColumnSpan="2"/>
+                                         Text="{Binding HoTen, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.ColumnSpan="2"/>
                                 <ComboBox Grid.Row="1"
                                           Margin="0,0,0,37" Width="180" Foreground="Black" Background="White"
                                           VerticalAlignment="Center" HorizontalAlignment="Left"
                                           Style="{StaticResource MaterialDesignFilledComboBox}"
-                                          SelectedValue="{Binding GioiTinh}"
+                                          SelectedValue="{Binding GioiTinh, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                           SelectedValuePath="Content" Grid.ColumnSpan="2" Grid.RowSpan="2">
                                     <ComboBoxItem Foreground="Black">Nam</ComboBoxItem>
                                     <ComboBoxItem Foreground="Black">Nữ</ComboBoxItem>
@@ -89,11 +89,11 @@
                                 <TextBox Grid.Row="2"
                                          Margin="0,8,0,7" Width="180"
                                          VerticalAlignment="Center" HorizontalAlignment="Left"
-                                         Text="{Binding NamSinh}" Grid.ColumnSpan="2"/>
+                                         Text="{Binding NamSinh, UpdateSourceTrigger=PropertyChanged, StringFormat='####'}" Grid.ColumnSpan="2"/>
                                 <TextBox Grid.Row="3"
                                          Margin="0,8,0,7" Width="180"
                                          VerticalAlignment="Center" HorizontalAlignment="Left"
-                                         Text="{Binding DiaChi}" Grid.ColumnSpan="2"/>
+                                         Text="{Binding DiaChi, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.ColumnSpan="2"/>
                             </Grid>
                         </Grid>
                     </materialDesign:Card>

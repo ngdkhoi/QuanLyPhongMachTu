@@ -43,6 +43,8 @@
                         Margin="10 0 0 0"/>
             </StackPanel>
             <DataGrid ItemsSource="{Binding RevenueList}"
+                      CanUserReorderColumns="False"
+                      CanUserResizeColumns="False" CanUserResizeRows="False"
                       AutoGenerateColumns="False" CanUserAddRows="False"
                       ScrollViewer.VerticalScrollBarVisibility="Disabled">
                 <DataGrid.Columns>

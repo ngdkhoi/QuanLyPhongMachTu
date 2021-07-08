@@ -64,6 +64,10 @@ namespace QuanLyPhongMachTu.ViewModel
 
             CheckoutCommand = new RelayCommand<DiagnosisScreen>((p) =>
             {
+                if(Information.TrieuChung == null & Information.MaLoaibenh == 0)
+                {
+                    return false;
+                }
                 return true;
 
             }, (p) =>
@@ -95,7 +99,7 @@ namespace QuanLyPhongMachTu.ViewModel
                 NgayKham = result.NgayKham,
                 TenBN = result.BenhNhan.HoTen
             };
-
+            OnPropertyChanged("Information");
         }
 
         private void LoadDiseaseList()
