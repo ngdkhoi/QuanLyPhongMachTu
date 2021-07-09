@@ -81,7 +81,7 @@
                     <DataGridTemplateColumn Header="Tỉ lệ" Width="2*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding TiLe, StringFormat='#.##%'}"/>
+                                <TextBlock Text="{Binding TiLe, StringFormat='###%'}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

@@ -134,7 +134,7 @@ namespace QuanLyPhongMachTu.ViewModel
             //                      };
             var query = from pk in DataProvider.Ins.DB.PhieuKhams
                         where pk.NgayKham >= startDate && pk.NgayKham < endDate && pk.Xoa == false
-                        group pk by pk.NgayKham into RevenueMonth
+                        group pk by pk.NgayKham.Day into RevenueMonth
                         select new
                         {
                             ngaykham = RevenueMonth.Key,
@@ -150,7 +150,7 @@ namespace QuanLyPhongMachTu.ViewModel
 
             foreach (var i in query)
             {
-                RevenueList.Add(new RevenueCollector(stt, i.ngaykham, i.soluong, i.tien, ((double)i.tien / (double)total)));
+                RevenueList.Add(new RevenueCollector(stt, DateTime.Parse(SelectedMonth.ToString() + "/" + i.ngaykham + "/" + SelectedYear.ToString()), i.soluong, i.tien, ((double)i.tien / (double)total)));
                 stt++;
             }
         }
