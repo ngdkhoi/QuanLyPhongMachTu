@@ -67,6 +67,7 @@ namespace QuanLyPhongMachTu.ViewModel
         }
         public SearchPatientViewModel() 
         {
+            LoadData();
         }
 
         
